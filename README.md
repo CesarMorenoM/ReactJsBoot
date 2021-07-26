@@ -6,7 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+### docker-compose up
+abrir una terminal la ubicacion del proyecto y utilizar el siguiente comando para ejecutarlo ### docker-compose up 
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
