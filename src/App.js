@@ -1,10 +1,22 @@
 import React from 'react'
-import './Global.css';
+import './style/Global.scss';
+import Dashboard from './components/Dashboard/Dashboard'
+
+// These are provitional for the example
+//TODO create this components
+function Menu() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#E3E3E3' }}>
+      <h2>Here my awesome menu</h2>
+    </div>
+  )
+}
 
 function App() {
   return (
     <>
-      <h1>Hello world</h1>
+      <Menu />
+      <Dashboard />
     </>
   )
 }

@@ -1,0 +1,26 @@
+@import "../../style/variables";
+.dishList {
+    display: grid;
+    gap: 1em;
+    li {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        align-items: center;
+    }
+    &__img {
+        height: 5em;
+        width: 5em;
+        background-position: center;
+        background-size: cover;
+        border-radius: 1em;
+    }
+    &__name {
+        font-weight: 600;
+    }
+    &__price {
+        font-size: 1.8em;
+        span {
+            font-size: initial;
+        }
+    }
+}
