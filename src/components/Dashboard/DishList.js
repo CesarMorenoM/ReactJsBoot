@@ -5,7 +5,7 @@ const DishList = ({ dishes, quantity }) => {
   return (
     <ul className='dishList'>
       {dishes.slice(0, quantity).map(dish => {
-        let dishImg = dish.img ? dish.img : 'https://parade.com/wp-content/uploads/2014/05/epicurious-tidal.jpg'
+        let dishImg = dish.image ? dish.image : 'https://parade.com/wp-content/uploads/2014/05/epicurious-tidal.jpg'
         return (
           <li>
             <div className='dishList__img' style={{ backgroundImage: `url(${dishImg})` }}></div>

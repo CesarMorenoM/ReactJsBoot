@@ -1,0 +1,41 @@
+@import "../../style/variables";
+
+.nav-bar {
+    background-color: $color;
+    display: flex;
+    padding: 0.5em;
+    justify-content: space-between;
+    align-items: center;
+    &__title {
+        display: flex;
+        flex-direction: column;
+        color: $seconColor;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        span {
+            font-size: 0.5em;
+        }
+    }
+    &__user {
+        display: flex;
+        align-items: center;
+        &__icon {
+            font-size: 2em;
+            color: $seconColor;
+        }
+        &__name {
+            color: $seconColor;
+            font-size: 1.2em;
+            font-weight: lighter;
+            margin-inline: 1em;
+        }
+        &__img {
+            height: 3em;
+            width: 3em;
+            background-position: center;
+            background-size: cover;
+            border-radius: 1em;
+        }
+    }
+}
