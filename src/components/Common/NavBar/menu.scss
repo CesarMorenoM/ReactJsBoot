@@ -1,9 +1,11 @@
 @import "../../../style/variables";
 .menu {
-    position: absolute;
+    position: fixed;
+    //float: right;
+    bottom: 0;
     z-index: 2;
     background-color: $color;
-    height: 100%;
+    height: 100vh;
     right: -20em;
     transition: 0.3s;
     &__list {
@@ -20,7 +22,7 @@
                 padding-left: 1em;
             }
             &::before {
-                background-color: #fff;
+                background-color: $seconColor;
                 border-top-right-radius: 5em;
                 border-bottom-right-radius: 5em;
             }
@@ -31,7 +33,7 @@
                 cursor: pointer;
             }
             &.--active {
-                background-color: #fff;
+                background-color: $seconColor;
                 border-top-right-radius: 5em;
                 border-bottom-right-radius: 5em;
                 color: $color;

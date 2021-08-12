@@ -5,10 +5,7 @@ import './nav-bar.scss'
 
 const NavBar = () => {
   const [menuToggle, setMenuToggle] = useState(false)
-  const user = useContext(UserContext)
-
-  user.img = 'https://www.searchpng.com/wp-content/uploads/2019/02/Men-Profile-Image-PNG.png'
-  user.name = 'Company Name'
+  const user = useContext(UserContext).user
 
   return (
     <>
@@ -21,7 +18,7 @@ const NavBar = () => {
           <h2 className=' nav-bar__user__name'>{user.name}</h2>
           <div
             className='nav-bar__user__img'
-            style={{ backgroundImage: `url(${user.img})` }}
+            style={{ backgroundImage: `url(${user.avatar})` }}
             onClick={() => setMenuToggle(!menuToggle)}
           >
           </div>

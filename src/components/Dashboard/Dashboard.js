@@ -1,98 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './dashboard.scss'
 import { Line, Pie } from 'react-chartjs-2';
 import Card from '../Common/Cards/Card'
 import DishList from './DishList';
 import Branches from './Branches';
 import Loader from '../Common/Loader/Loader';
-
-//! Micelaneus functions
-const prevMonth = (max, date = new Date()) => {
-  max += 1
-  let temp = new Date(date)
-  const prevMonths = []
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-  for (let i = 0; i < max; i++) {
-    if (temp.getMonth) {
-      prevMonths.push(months[temp.getMonth()])
-      temp = new Date(temp.setMonth(temp.getMonth() - 1))
-
-    } else {
-      prevMonths.push(months[temp.getMonth()])
-      temp = temp.setYear(temp.getYear() - 1);
-      temp.setMonth(12);
-    }
-  }
-  return [...new Set(prevMonths)]
-}
+import UserContext from '../../context/UserContext/UserContext';
+import prevMonth from '../../helpers/prevMonth';
 
 //! Select how many data show
 const lastNMonths = 6
-const lastNDishes = 4
-
 
 const Dashboard = () => {
 
   //! States
-  const [user, setUser] = useState()
-  const [branches, setBranches] = useState()
+  const user = useContext(UserContext).user
+  const branches = useContext(UserContext).branches
   const [branch, setBranch] = useState()
 
-  //! Fetching user data
   useEffect(() => {
-    fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/1')
-      .then(res => res.json())
-      .then(user => {
-        let totalBranches = user.branches
-        // Create the General view of all branches
-        if (totalBranches.length > 1) {
-          let generalBranch = { name: 'General' }
-          generalBranch.lastsells =
-            user.branches
-              .map(a => a.lastsells)
-              .reduce((a, b) =>
-                a.map((num, idx) => b[idx] ? num + b[idx] : num))
-          generalBranch.dishes =
-            user.branches
-              .map(a => a.dishes)
-              .reduce((a, b) => a.concat(b))
-              .filter((elem, index, arr) => {
-                let names = arr.map(a => a.name)
-                if (!names.includes(elem.name, index + 1)) return elem
-                else {
-                  let indexPos = names.indexOf(elem.name, index + 1)
-                  arr[indexPos].sold = elem.sold + arr[indexPos].sold
-                  return null
-                }
-              })
-          generalBranch.id = 9999
-          totalBranches.unshift(generalBranch)
-        }
-
-        // Set initial values
-        setUser(user.name)
-        setBranches(totalBranches)
-        setBranch(totalBranches[0])
-      })
-  }, [])
-
-  //! Create specific data from sells
-  useEffect(() => {
-    if (!branches) return
-    branches.map(branch => {
-      const today = new Date()
-      today.setDate(1)
-
-      branch.bestDishes = branch.dishes.sort((a, b) => b.sold - a.sold).slice(0, lastNDishes)
-
-      branch.bestMonth = { 'sells': [...branch.lastsells.slice(0, today.getMonth() + 1)].sort((a, b) => b - a)[0] }
-      branch.bestMonth.index = branch.lastsells.indexOf(branch.bestMonth.sells)
-      branch.bestMonth.month = prevMonth(0, today.setMonth(today.getMonth() - branch.bestMonth.index)).toString()
-
-      branch.allSells = branch.lastsells.slice(0, new Date().getMonth() + 1).reduce((a, b) => a + b)
-      return branch
-    })
+    if (branches !== undefined) {
+      setBranch(branches[0])
+    }
   }, [branches])
 
   //! Is charging
@@ -101,7 +30,8 @@ const Dashboard = () => {
   //! Component
   return (
     <div className='dashboard'>
-      <h1 className='dashboard__user'>Bienvenído, <span>{user}</span></h1>
+      {console.log(user)}
+      <h1 className='dashboard__user'>Bienvenído, <span>{user.name}</span></h1>
 
       <Branches branches={branches} currentBranch={branch} setBranch={setBranch} />
 
