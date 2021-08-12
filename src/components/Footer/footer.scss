@@ -1,0 +1,9 @@
+@import "../../style/variables";
+.footer {
+    background-color: $color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 1.5em;
+    color: $seconColor;
+}

@@ -29,7 +29,7 @@ const prevMonth = (max, date = new Date()) => {
 
 //! Select how many data show
 const lastNMonths = 6
-const lastNDishes = 3
+const lastNDishes = 4
 
 
 const Dashboard = () => {
@@ -41,12 +41,12 @@ const Dashboard = () => {
 
   //! Fetching user data
   useEffect(() => {
-    fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/20')
+    fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/1')
       .then(res => res.json())
       .then(user => {
         let totalBranches = user.branches
+        // Create the General view of all branches
         if (totalBranches.length > 1) {
-          // Create the General view of all branches
           let generalBranch = { name: 'General' }
           generalBranch.lastsells =
             user.branches
@@ -66,6 +66,7 @@ const Dashboard = () => {
                   return null
                 }
               })
+          generalBranch.id = 9999
           totalBranches.unshift(generalBranch)
         }
 

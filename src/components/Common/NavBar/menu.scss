@@ -1,0 +1,45 @@
+@import "../../../style/variables";
+.menu {
+    position: absolute;
+    z-index: 2;
+    background-color: $color;
+    height: 100%;
+    right: -20em;
+    transition: 0.3s;
+    &__list {
+        padding-top: 15vh;
+        list-style: none;
+        &__item {
+            display: flex;
+            align-items: center;
+            color: $seconColor;
+            padding: 1em;
+            padding-inline: 4em;
+            &__title {
+                color: inherit;
+                padding-left: 1em;
+            }
+            &::before {
+                background-color: #fff;
+                border-top-right-radius: 5em;
+                border-bottom-right-radius: 5em;
+            }
+            &:hover,
+            &:focus,
+            &:active {
+                color: $color;
+                cursor: pointer;
+            }
+            &.--active {
+                background-color: #fff;
+                border-top-right-radius: 5em;
+                border-bottom-right-radius: 5em;
+                color: $color;
+                cursor: pointer;
+            }
+        }
+    }
+    &.--active {
+        right: 0;
+    }
+}

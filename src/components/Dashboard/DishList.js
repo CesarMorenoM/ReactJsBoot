@@ -7,7 +7,7 @@ const DishList = ({ dishes, quantity }) => {
       {dishes.slice(0, quantity).map(dish => {
         let dishImg = dish.image ? dish.image : 'https://parade.com/wp-content/uploads/2014/05/epicurious-tidal.jpg'
         return (
-          <li>
+          <li key={dish.id}>
             <div className='dishList__img' style={{ backgroundImage: `url(${dishImg})` }}></div>
             <div>
               <p className='dishList__name'>{dish.name}</p>
