@@ -1,5 +1,9 @@
-//! Micelaneus functions
-const prevMonth = (max, date = new Date()) => {
+//! Concat different functions
+export const compose = (...functions) => value => functions.reduce((acc, func) => func(acc), value)
+
+
+//! Get the last N months (in text)
+export const prevMonth = (max, date = new Date()) => {
   max += 1
   let temp = new Date(date)
   const prevMonths = []
@@ -18,4 +22,3 @@ const prevMonth = (max, date = new Date()) => {
   }
   return [...new Set(prevMonths)]
 }
-export default prevMonth

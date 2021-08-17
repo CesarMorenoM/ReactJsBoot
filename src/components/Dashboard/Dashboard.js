@@ -6,7 +6,7 @@ import DishList from './DishList';
 import Branches from './Branches';
 import Loader from '../Common/Loader/Loader';
 import UserContext from '../../context/UserContext/UserContext';
-import prevMonth from '../../helpers/prevMonth';
+import { prevMonth } from '../../helpers/helpers';
 
 //! Select how many data show
 const lastNMonths = 6
@@ -14,8 +14,7 @@ const lastNMonths = 6
 const Dashboard = () => {
 
   //! States
-  const user = useContext(UserContext).user
-  const branches = useContext(UserContext).branches
+  const { user, branches } = useContext(UserContext)
   const [branch, setBranch] = useState()
 
   useEffect(() => {
@@ -25,12 +24,11 @@ const Dashboard = () => {
   }, [branches])
 
   //! Is charging
-  if (!branch) return <Loader />
+  if (!branch || !user) return <Loader />
 
   //! Component
   return (
     <div className='dashboard'>
-      {console.log(user)}
       <h1 className='dashboard__user'>Bienvenído, <span>{user.name}</span></h1>
 
       <Branches branches={branches} currentBranch={branch} setBranch={setBranch} />

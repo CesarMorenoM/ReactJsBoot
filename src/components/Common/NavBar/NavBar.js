@@ -5,7 +5,7 @@ import './nav-bar.scss'
 
 const NavBar = () => {
   const [menuToggle, setMenuToggle] = useState(false)
-  const user = useContext(UserContext).user
+  const { user } = useContext(UserContext)
 
   return (
     <>
