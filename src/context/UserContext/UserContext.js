@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react'
+import toast from 'react-hot-toast'
 import TYPES from '../types'
 import { compose, prevMonth } from '../../helpers/helpers'
 import { UserReducer, initialState } from './UserReducer'
@@ -10,51 +11,51 @@ export const UserContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState)
 
   const getUser = id => {
-    return new Promise((res, rej) => {
+    return new Promise((result, rej) => {
       fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/' + id)
         .then(res => res.json())
         .then(user => {
+          //Here we save the token (random for the moment)
           localStorage.setItem('session', Date.now())
 
+          //Create the information of the user
           let userNew = {
             name: user.name,
             id: user.id,
             avatar: user.avatar,
           }
-
-          res({
+          //Create the response
+          result({
             user: userNew,
             branches: user.branches
           })
         })
     })
   }
-  async function logIn(id) {
+
+  const logIn = async id => {
     try {
       const { user, branches } = await getUser(id)
       dispatch({ type: TYPES.LOGIN, payload: user })
       dispatch({ type: TYPES.BRANCHES, payload: compose(createGeneralBranch, createBranchesInfo)(branches) })
 
     } catch (err) {
-      console.error('Im sorry: User not found')
+      toast.error("Sorry, user not found", { duration: 1500, iconTheme: { primary: '#ff3229' } })
       dispatch({ type: TYPES.LOGOUT })
 
     }
   }
 
-  function logOut() {
+  const logOut = () => {
+    toast('Good Bye!', { icon: '👏', duration: 1000 })
     localStorage.clear()
     dispatch({ type: TYPES.LOGOUT })
   }
 
-  const isAuth = () => {
-    return (
-      state.user &&
-      localStorage.getItem('session')
-    )
-  }
+  const isAuth = () => (state.user && localStorage.getItem('session'))
 
-  function createGeneralBranch(branches) {
+
+  const createGeneralBranch = branches => {
     if (branches.length > 1) {
       let generalBranch = { name: 'General' }
       generalBranch.lastsells =
@@ -78,11 +79,11 @@ export const UserContextProvider = ({ children }) => {
       generalBranch.id = 9999
       branches.unshift(generalBranch)
       return branches
-    } else { return branches }
+    } else return branches
   }
 
-  function createBranchesInfo(branches) {
-    if (!branches) return
+  const createBranchesInfo = branchesMap => {
+    let branches = [...branchesMap]
     branches.map(branch => {
       const today = new Date()
       today.setDate(1)
@@ -98,9 +99,6 @@ export const UserContextProvider = ({ children }) => {
     })
     return branches
   }
-
-
-  //! Authorization
 
   return <UserContext.Provider value={{
     user: { ...state.user },

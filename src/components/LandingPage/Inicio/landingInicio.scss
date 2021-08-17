@@ -1,0 +1,27 @@
+@import "../../../style/variables";
+.landing {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    &__title {
+        padding-top: 15%;
+        padding-left: 15%;
+        width: 30em;
+        font-size: 1.2em;
+        color: $seconColor;
+        &__button {
+            background-color: $color;
+            color: inherit;
+            border: none;
+            border-radius: 0.5em;
+            padding: 1em;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

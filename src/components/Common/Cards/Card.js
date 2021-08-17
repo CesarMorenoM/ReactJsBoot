@@ -4,7 +4,7 @@ import './card.scss'
 const Card = ({ children, icon, imp, type, title }) => {
   return (
     <>
-      <h2 className='infoCard__title'>{title}</h2>
+      {title && <h2 className='infoCard__title'>{title}</h2>}
       <div className={`infoCard ${imp ? '--imp' : ''}`}>
         {icon && <i className='material-icons'>{icon}</i>}
         {children}

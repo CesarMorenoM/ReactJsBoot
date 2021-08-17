@@ -12,6 +12,7 @@ import PrivateRoute from './router/PrivateRoute'
 import LogIn from './components/LogIn/LogIn';
 
 import { UserContextProvider } from './context/UserContext/UserContext';
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
       <UserContextProvider>
         <Router>
           <Switch>
-            <Route exact path='/login' component={LogIn} />
+            <Route path='/home' component={LandingPage} />
+            <Route path='/login' component={LogIn} />
             <PrivateRoute exact path='/' component={Dashboard} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/profile' component={() => <h1>Hey</h1>} />

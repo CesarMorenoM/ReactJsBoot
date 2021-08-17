@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import NavBar from '../components/Common/NavBar/NavBar'
-import Footer from '../components/Footer/Footer'
+import Footer from '../components/Common/Footer/Footer'
 import UserContext from '../context/UserContext/UserContext'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -12,12 +12,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         isAuth()
           ? (
             <>
-              <NavBar />
+              <NavBar logged={true} />
               <Component />
               <Footer />
             </>
           )
-          : <Redirect to='/login' />
+          : <Redirect to='/home' />
       }
     />
   )
