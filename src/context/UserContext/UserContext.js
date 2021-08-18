@@ -38,16 +38,17 @@ export const UserContextProvider = ({ children }) => {
       const { user, branches } = await getUser(id)
       dispatch({ type: TYPES.LOGIN, payload: user })
       dispatch({ type: TYPES.BRANCHES, payload: compose(createGeneralBranch, createBranchesInfo)(branches) })
-
+      toast('Welcome again!', { icon: '👋', duration: 1000 })
+      return true
     } catch (err) {
       toast.error("Sorry, user not found", { duration: 1500, iconTheme: { primary: '#ff3229' } })
       dispatch({ type: TYPES.LOGOUT })
-
+      return false
     }
   }
 
   const logOut = () => {
-    toast('Good Bye!', { icon: '👏', duration: 1000 })
+    toast('Good Bye!', { icon: '🙌', duration: 1000 })
     localStorage.clear()
     dispatch({ type: TYPES.LOGOUT })
   }

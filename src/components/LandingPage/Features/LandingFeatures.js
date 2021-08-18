@@ -1,4 +1,3 @@
-import React from 'react'
 import positionMarker from '../../../static/position-marker.svg'
 import like from '../../../static/like.svg'
 import valorations from '../../../static/valorations.svg'
@@ -6,9 +5,9 @@ import './landingFeatures.scss'
 
 const LandingFeatures = () => {
   const features = [
-    { id: 1, img: positionMarker, text: 'Encuentra el mejor restaurante cerca de tu ubicación' },
-    { id: 2, img: like, text: 'Calidad en servicio y atención al comensal' },
-    { id: 3, img: valorations, text: 'Reserva el mejor lugar con los mejores platos a tan solo un click' }
+    { id: 1, img: positionMarker, text: 'Find the best restaurant near your location' },
+    { id: 2, img: like, text: 'Quality service and customer care' },
+    { id: 3, img: valorations, text: 'Book the best place with the best dishes just a click away.' }
   ]
 
   return (

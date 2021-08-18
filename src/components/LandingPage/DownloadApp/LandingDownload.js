@@ -10,7 +10,7 @@ const LandingDownload = () => {
         <img src={previewApp} alt="" />
       </figure>
       <div className="download-app__desc">
-        <h2 className="download-app__desc__text" >Descarga nuestra aplicación y disfruta de los mejores restaurantes de la ciudad.</h2>
+        <h2 className="download-app__desc__text" >Download our app and enjoy the best restaurants in town</h2>
         <div className="download-app__desc__logos">
           <img src={androidApp} alt="android" />
           <img src={appleApp} alt="apple" />

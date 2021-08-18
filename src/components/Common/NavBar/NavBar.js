@@ -38,7 +38,7 @@ const NavBar = ({ logged }) => {
         {logged
           ? createLogged()
           : <button className="nav-bar__login hvr-br-to-right"
-            onClick={() => history.push('/login')}> Inicia sesion </button>}
+            onClick={() => history.push('/login')}> Log In </button>}
       </nav>
       <Menu menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
     </>

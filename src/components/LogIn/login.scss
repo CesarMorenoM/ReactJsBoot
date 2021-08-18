@@ -1,10 +1,74 @@
+@import "../../style/variables";
 .logIn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-block: 10vh;
-    h1 {
-        text-transform: uppercase;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    color: $seconColor;
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80%;
+    }
+    &__form {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 3em;
+        border-radius: 0.5em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        text-align: center;
+        border: 1px solid rgba($color: #303030, $alpha: 0.8);
+        & > * {
+            margin: 0.5em;
+        }
+    }
+    &__field {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0.8);
+        border: 1px solid rgba($color: #000000, $alpha: 0.5);
+        padding: 1em;
+        border-radius: 1em;
+        input {
+            border: none;
+            padding-left: 1em;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: inherit;
+            &:focus {
+                border: none;
+                outline: none;
+            }
+        }
+        &:focus,
+        &:active,
+        &:hover {
+            border: 1px solid $color;
+        }
+    }
+    &__submit {
+        background-color: $color;
+        color: inherit;
+        border: none;
+        border-radius: 1em;
+        padding: 1em;
+        width: 90%;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &__help {
+        display: flex;
+        flex-direction: column;
+        a {
+            color: inherit;
+            &:hover {
+                color: $color;
+            }
+        }
     }
 }

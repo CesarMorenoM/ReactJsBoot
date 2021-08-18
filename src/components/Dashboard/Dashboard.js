@@ -29,7 +29,7 @@ const Dashboard = () => {
   //! Component
   return (
     <div className='dashboard'>
-      <h1 className='dashboard__user'>Bienvenído, <span>{user.name}</span></h1>
+      <h1 className='dashboard__user'>Welcome, <span>{user.name}</span></h1>
 
       <Branches branches={branches} currentBranch={branch} setBranch={setBranch} />
 

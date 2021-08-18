@@ -22,12 +22,12 @@ const LandingRecommended = () => {
       <div className="slider">
         <div className="slide-track">
 
-          {[...recommendations, ...recommendations].map(restaurant =>
-            <div key={restaurant.id} className='slide'>
+          {[...recommendations, ...recommendations].map((restaurant, id) =>
+            <div key={id} className='slide'>
               <div className="item" style={{ backgroundImage: `url(${restaurant.img})` }}>
                 <div className="item__header">
-                  <h2 className="item__header__name"><i class="material-icons">location_on</i>{restaurant.name}</h2>
-                  <i class="item__header__fav material-icons">star_border</i>
+                  <h2 className="item__header__name"><i className="material-icons">location_on</i>{restaurant.name}</h2>
+                  <i className="item__header__fav material-icons">star_border</i>
                 </div>
                 <div className="item__footer">
                   <div className="item__footer__data">
