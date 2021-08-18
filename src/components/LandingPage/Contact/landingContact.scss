@@ -1,0 +1,56 @@
+@import "../../../style/variables";
+.contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: $sectionColor;
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 4em;
+        padding-inline: 10em;
+        &__title {
+            font-size: 2.5em;
+            color: $color;
+        }
+        &__field {
+            width: 100%;
+            border-radius: 0.5em;
+            border: none;
+            margin-top: 1em;
+            padding: 1em 0.5em;
+            &:focus {
+                border-radius: 0.5em;
+                outline: 1px solid $color;
+            }
+            &::placeholder {
+                color: #372c2c;
+            }
+        }
+        &__submit {
+            width: 100%;
+            background-color: $color;
+            color: $seconColor;
+            border: none;
+            margin-top: 1em;
+            border-radius: 0.5em;
+            padding: 1em;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    &__image {
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        & > span {
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+    }
+}

@@ -21,8 +21,8 @@ function App() {
       <UserContextProvider>
         <Router>
           <Switch>
-            <Route path='/home' component={LandingPage} />
-            <Route path='/login' component={LogIn} />
+            <Route exact path='/home' component={LandingPage} />
+            <Route exact path='/login' component={LogIn} />
             <PrivateRoute exact path='/' component={Dashboard} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/profile' component={() => <h1>Hey</h1>} />
