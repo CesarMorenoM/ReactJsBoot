@@ -31,7 +31,7 @@ const LandingRecommended = () => {
                 </div>
                 <div className="item__footer">
                   <div className="item__footer__data">
-                    <p className="--imp">From {restaurant.minValue}</p>
+                    <p className="--imp">From ${restaurant.minValue}</p>
                     <p>{restaurant.address}</p>
                     <p>Tel:351354</p>
                   </div>

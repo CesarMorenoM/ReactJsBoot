@@ -5,7 +5,7 @@ import logo from '../../../static/logo.svg'
 import './nav-bar.scss'
 import { useHistory } from 'react-router-dom'
 
-const NavBar = ({ logged }) => {
+const NavBar = ({ logged, minimal }) => {
   const history = useHistory()
   const [menuToggle, setMenuToggle] = useState(false)
   const { user } = useContext(UserContext)

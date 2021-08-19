@@ -1,12 +1,12 @@
-import React from 'react'
+import './branchesList.scss'
 
-const Branches = ({ branches, currentBranch, setBranch }) => {
+const BranchesList = ({ branches, currentBranch, setBranch }) => {
   return (
-    <ul className='dashboard__branches'>
+    <ul className='branchesList'>
       {branches.map(branch => (
         <button
           key={branch.id}
-          className={`dashboard__branches__branch hvr-bg-fade ${currentBranch === branch ? '--selected' : ''}`}
+          className={`branchesList__branch hvr-bg-fade ${currentBranch === branch ? '--selected' : ''}`}
           onClick={() => { setBranch(branch) }}
         >
           <i className="material-icons">home</i>
@@ -16,4 +16,4 @@ const Branches = ({ branches, currentBranch, setBranch }) => {
   )
 }
 
-export default Branches
+export default BranchesList

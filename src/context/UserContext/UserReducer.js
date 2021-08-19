@@ -3,7 +3,8 @@ import TYPES from '../types'
 
 export const initialState = {
   user: null,
-  branches: null
+  branches: null,
+  franchise: false
 }
 
 export const UserReducer = (state, action) => {
@@ -18,7 +19,11 @@ export const UserReducer = (state, action) => {
     }
     case (TYPES.BRANCHES): return {
       ...state,
-      branches: [...payload]
+      branches: [...payload],
+    }
+    case (TYPES.FRANCHISE): return {
+      ...state,
+      franchise: payload
     }
     default: return state
   }

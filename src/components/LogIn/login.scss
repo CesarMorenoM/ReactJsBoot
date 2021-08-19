@@ -37,7 +37,7 @@
         input {
             border: none;
             padding-left: 1em;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: transparent;
             color: inherit;
             &:focus {
                 border: none;
@@ -64,6 +64,7 @@
     &__help {
         display: flex;
         flex-direction: column;
+        text-decoration: underline;
         a {
             color: inherit;
             &:hover {

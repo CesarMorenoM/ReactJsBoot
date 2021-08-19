@@ -9,46 +9,14 @@
             color: $color;
         }
     }
-    &__branches {
-        display: flex;
-        list-style-type: none;
-        padding: 1em;
-        font-size: 1em;
-        &__branch {
-            border: 1px solid $color;
-            background-color: $bgColor;
-            color: $color;
-            border-radius: 5em;
-            padding: 0.7em;
-            margin-right: 1em;
-            transition: 0.3s;
-            &:hover {
-                cursor: pointer;
-                color: $seconColor;
-                background-color: $color;
-            }
-            i {
-                font-size: 1em;
-                padding-right: 0.5em;
-            }
-            &.--selected {
-                cursor: pointer;
-                color: $seconColor;
-                background-color: $color;
-                transform: scale(1.1);
-            }
-        }
-    }
     &__statistics {
         display: grid;
         grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr;
         &__overview {
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-            div {
-                width: 100%;
-            }
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            justify-content: space-between;
         }
     }
 }

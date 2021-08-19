@@ -11,7 +11,7 @@ const DishList = ({ dishes, quantity }) => {
             <div className='dishList__img' style={{ backgroundImage: `url(${dishImg})` }}></div>
             <div>
               <p className='dishList__name'>{dish.name}</p>
-              <p className='dishList__price'>{dish.sold}<span> / $ {dish.price}</span></p>
+              <p className='dishList__price'>{dish.sold}<span> / $ {dish.price} c/u</span></p>
             </div>
           </li>
         )

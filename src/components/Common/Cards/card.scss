@@ -8,9 +8,7 @@
     &.--imp {
         background-color: $color;
         color: $bgColor;
-        padding: 2em;
         display: grid;
-        margin-inline: 1em;
         grid-template-columns: 1fr 2fr;
         align-items: center;
         justify-content: space-evenly;

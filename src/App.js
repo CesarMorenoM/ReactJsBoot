@@ -13,6 +13,8 @@ import LogIn from './components/LogIn/LogIn';
 
 import { UserContextProvider } from './context/UserContext/UserContext';
 import LandingPage from './components/LandingPage/LandingPage';
+import Branches from './components/Branches/Branches';
+import Menu from './components/Menu/Menu';
 
 function App() {
   return (
@@ -25,9 +27,11 @@ function App() {
             <Route exact path='/login' component={LogIn} />
             <PrivateRoute exact path='/' component={Dashboard} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <PrivateRoute exact path='/profile' component={() => <h1>Hey</h1>} />
-            <PrivateRoute exact path='/reservations' component={() => <h1>Hey</h1>} />
-            <PrivateRoute exact path='/config' component={() => <h1>Hey</h1>} />
+            <PrivateRoute exact path='/menu' component={Menu} />
+            <PrivateRoute exact path='/profile' component={() => <h1>Profile</h1>} />
+            <PrivateRoute exact path='/branches' component={Branches} />
+            <PrivateRoute exact path='/reservations' component={() => <h1>Reservations</h1>} />
+            <PrivateRoute exact path='/config' component={() => <h1>Configuration</h1>} />
             <Route path='*' component={ErrorPage} />
           </Switch>
         </Router>

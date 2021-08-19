@@ -17,27 +17,38 @@ export const UserContextProvider = ({ children }) => {
         .then(user => {
           //Here we save the token (random for the moment)
           localStorage.setItem('session', Date.now())
+          result(user)
+        })
+    })
+  }
+  const getBranches = id => {
+    return new Promise((result, rej) => {
+      fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/' + id + '/branches')
+        .then(res => res.json())
+        .then(branches => {
+          //Delete the branches without dishes (Fail from mockApi)
+          let utilBranches = branches.branches[0].filter(branch => branch.dishes.length > 0)
 
-          //Create the information of the user
-          let userNew = {
-            name: user.name,
-            id: user.id,
-            avatar: user.avatar,
-          }
-          //Create the response
-          result({
-            user: userNew,
-            branches: user.branches
-          })
+          result(utilBranches)
         })
     })
   }
 
   const logIn = async id => {
     try {
-      const { user, branches } = await getUser(id)
+      const user = await getUser(id)
+      const branches = await getBranches(id)
+
       dispatch({ type: TYPES.LOGIN, payload: user })
+
+      //? TEST ONLY -> Make a no franchise restaurant
+      // const noFranchise = [[...branches].shift()]
+      // dispatch({ type: TYPES.BRANCHES, payload: compose(createGeneralBranch, createBranchesInfo)(noFranchise) })
+      // dispatch({ type: TYPES.FRANCHISE, payload: noFranchise.length > 1 })
+
       dispatch({ type: TYPES.BRANCHES, payload: compose(createGeneralBranch, createBranchesInfo)(branches) })
+      dispatch({ type: TYPES.FRANCHISE, payload: branches.length > 1 })
+
       toast('Welcome again!', { icon: '👋', duration: 1000 })
       return true
     } catch (err) {
@@ -48,13 +59,12 @@ export const UserContextProvider = ({ children }) => {
   }
 
   const logOut = () => {
-    toast('Good Bye!', { icon: '🙌', duration: 1000 })
+    toast('Good Bye!', { icon: '👏', duration: 1000 })
     localStorage.clear()
     dispatch({ type: TYPES.LOGOUT })
   }
 
   const isAuth = () => (state.user && localStorage.getItem('session'))
-
 
   const createGeneralBranch = branches => {
     if (branches.length > 1) {
@@ -107,7 +117,8 @@ export const UserContextProvider = ({ children }) => {
     auth: state.auth,
     logIn,
     logOut,
-    isAuth
+    isAuth,
+    isFranchise: state.franchise
   }}>
     {children}
   </UserContext.Provider>

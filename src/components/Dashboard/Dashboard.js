@@ -3,7 +3,7 @@ import './dashboard.scss'
 import { Line, Pie } from 'react-chartjs-2';
 import Card from '../Common/Cards/Card'
 import DishList from './DishList';
-import Branches from './Branches';
+import BranchesList from '../Common/BranchesList/BranchesList';
 import Loader from '../Common/Loader/Loader';
 import UserContext from '../../context/UserContext/UserContext';
 import { prevMonth } from '../../helpers/helpers';
@@ -31,8 +31,7 @@ const Dashboard = () => {
     <div className='dashboard'>
       <h1 className='dashboard__user'>Welcome, <span>{user.name}</span></h1>
 
-      <Branches branches={branches} currentBranch={branch} setBranch={setBranch} />
-
+      <BranchesList branches={branches} currentBranch={branch} setBranch={setBranch} />
       <div className='dashboard__statistics'>
 
         <div className='dashboard__statistics__main' >
@@ -45,18 +44,18 @@ const Dashboard = () => {
                 <p>- {branch.bestDishes[0].sold.toLocaleString()}</p>
               </div>
             </Card>
-            <Card icon='event_available' imp>
-              <div>
-                <h3>Best Month</h3>
-                <p>{branch.bestMonth.month}</p>
-                <p>- {branch.bestMonth.sells.toLocaleString()}</p>
-              </div>
-            </Card>
             <Card icon='dashboard' imp>
               <div>
                 <h3>Total Reservations</h3>
                 <p>All months</p>
                 <p>- {branch.allSells.toLocaleString()}</p>
+              </div>
+            </Card>
+            <Card icon='event_available' imp>
+              <div>
+                <h3>Best Month</h3>
+                <p>{branch.bestMonth.month}</p>
+                <p>- {branch.bestMonth.sells.toLocaleString()}</p>
               </div>
             </Card>
           </div>
@@ -87,7 +86,6 @@ const Dashboard = () => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at maximus turpis. Phasellus pellentesque dui et lacinia rutrum. Suspendisse consectetur lorem erat, et tincidunt enim pellentesque quis. Aenean laoreet lobortis ante. In et consectetur nibh. Duis sagittis ex ac dolor bibendum, a sollicitudin sem sodales. Nullam sodales euismod faucibus. Nullam sollicitudin malesuada metus ut pharetra. Cras sed pellentesque turpis, eu suscipit lectus. Curabitur vel nisl gravida, facilisis urna at, ornare urna. Suspendisse potenti. Nulla ornare tincidunt libero sit amet molestie. Morbi tellus leo, venenatis et pharetra congue, venenatis eget lacus.</p>
           </Card>
         </div>
-
         <div className='dashboard__statistics__aside' >
           <Card title='Best-Selling Dishes'>
             <Pie
@@ -106,7 +104,7 @@ const Dashboard = () => {
             />
           </Card>
           <Card title='Sells'>
-            <DishList dishes={branch.dishes} quantity={5} />
+            <DishList dishes={branch.bestDishes} quantity={5} />
           </Card>
         </div>
       </div>

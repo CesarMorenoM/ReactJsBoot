@@ -5,13 +5,19 @@ import './menu.scss'
 
 const Menu = ({ menuToggle, setMenuToggle }) => {
 
-  const { logOut } = useContext(UserContext)
+  const { logOut, isFranchise } = useContext(UserContext)
+
+  const type =
+    isFranchise
+      ? { name: 'Branches', path: '/branches', icon: 'domain' }
+      : { name: 'Menu', path: '/menu', icon: 'dns' }
 
   const links = [
-    { id: '1', name: 'Profile', path: '/profile', icon: 'person' },
-    { id: '2', name: 'Dashboard', path: '/dashboard', icon: 'view_quilt' },
-    { id: '3', name: 'Reservations', path: '/reservations', icon: 'chrome_reader_mode' },
-    { id: '4', name: 'Configuration', path: '/config', icon: 'settings' }
+    { name: 'Profile', path: '/profile', icon: 'person' },
+    { name: 'Dashboard', path: '/dashboard', icon: 'view_quilt' },
+    { ...type },
+    { name: 'Reservations', path: '/reservations', icon: 'chrome_reader_mode' },
+    { name: 'Configuration', path: '/config', icon: 'settings' },
   ]
 
   //! Close menu with scrolling or click
@@ -50,8 +56,8 @@ const Menu = ({ menuToggle, setMenuToggle }) => {
   return (
     <div id='Menu' className={`menu ${menuToggle ? '--active' : ''}`}>
       <ul className='menu__list'>
-        {links.map(link =>
-          <NavLink exact key={link.id}
+        {links.map((link, id) =>
+          <NavLink exact key={id}
             to={link.path}
             activeClassName='--active'
             className='menu__list__item hvr-bg-to-right'
