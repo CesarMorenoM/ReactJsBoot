@@ -31,7 +31,7 @@ const NavBar = ({ logged, minimal }) => {
 
   return (
     <>
-      <nav className='nav-bar' style={!logged ? initialStyle : {}}>
+      <nav className='nav-bar' style={!logged ? initialStyle : {}} id='inicio'>
         <a href='/'>
           <img className='nav-bar__title' src={logo} alt="logo" />
         </a>
