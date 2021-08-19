@@ -11,22 +11,20 @@
         display: grid;
         grid-template-columns: 1fr 4fr;
         &__info {
-            display: flex;
-            align-content: center;
-            justify-content: center;
-            height: 100%;
+            &__container {
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                justify-content: center;
+                & > * {
+                    margin-block: 1em;
+                }
+            }
             &__img {
                 width: 15vw;
                 height: 15vw;
                 object-fit: cover;
-                margin-block: 1em;
                 border-radius: 1em;
-            }
-            &__name {
-                margin-block: 1em;
-            }
-            &__info {
-                margin-block: 1em;
             }
             &__settings {
                 @include button;

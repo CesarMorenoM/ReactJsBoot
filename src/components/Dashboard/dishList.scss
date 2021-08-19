@@ -1,18 +1,28 @@
 @import "../../style/variables";
+
 .dishList {
     display: grid;
-    gap: 1em;
+    gap: 2em;
+    margin-bottom: 5em;
     li {
         display: grid;
         grid-template-columns: 1fr 3fr;
         align-items: center;
+        gap: 1em;
     }
-    &__img {
-        height: 5em;
-        width: 5em;
-        background-position: center;
-        background-size: cover;
-        border-radius: 1em;
+    &__cover {
+        display: flex;
+        align-items: center;
+        &__number {
+            margin-right: 1em;
+        }
+        &__img {
+            height: 5em;
+            width: 5em;
+            object-position: center;
+            object-fit: cover;
+            border-radius: 1em;
+        }
     }
     &__name {
         font-weight: 600;

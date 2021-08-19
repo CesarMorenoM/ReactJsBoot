@@ -24,14 +24,18 @@ const Branches = () => {
       <div className='branches__content'>
         <div className='branches__content__info'>
           <Card title='Branch'>
-            <img className='branches__content__info__img' src={currentBranch.image || contactImage} alt={currentBranch.name} />
-            <h2 className='branches__content__info__name'>{currentBranch.name}</h2>
-            <p className='branches__content__info__info'>{currentBranch.address}</p>
-            <p className='branches__content__info__info'>{currentBranch.phone}</p>
-            <button className='branches__content__info__settings'>Settings</button>
+            <div className='branches__content__info__container'>
+              <img className='branches__content__info__img' src={currentBranch.image || contactImage} alt={currentBranch.name} />
+              <h2 className='branches__content__info__name'>{currentBranch.name}</h2>
+              <p className='branches__content__info__info'>{currentBranch.address}</p>
+              <p className='branches__content__info__info'>{currentBranch.phone}</p>
+              <button className='branches__content__info__settings'>Settings</button>
+            </div>
           </Card>
         </div>
-        <Menu branch={currentBranch} franch={false} />
+        <div>
+          <Menu branch={currentBranch} franch={false} />
+        </div>
       </div>
     </>
   )

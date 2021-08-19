@@ -6,6 +6,7 @@ import UserContext from '../context/UserContext/UserContext'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isAuth } = useContext(UserContext)
+  console.log(isAuth())
   return (
     <Route {...rest}
       render={() =>

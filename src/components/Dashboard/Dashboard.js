@@ -10,6 +10,7 @@ import { prevMonth } from '../../helpers/helpers';
 
 //! Select how many data show
 const lastNMonths = 6
+const bestDishesQuantity = 3
 
 const Dashboard = () => {
 
@@ -82,18 +83,16 @@ const Dashboard = () => {
               }}
             />
           </Card>
-          <Card title='Some  more text' icon='restaurant_menu'>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at maximus turpis. Phasellus pellentesque dui et lacinia rutrum. Suspendisse consectetur lorem erat, et tincidunt enim pellentesque quis. Aenean laoreet lobortis ante. In et consectetur nibh. Duis sagittis ex ac dolor bibendum, a sollicitudin sem sodales. Nullam sodales euismod faucibus. Nullam sollicitudin malesuada metus ut pharetra. Cras sed pellentesque turpis, eu suscipit lectus. Curabitur vel nisl gravida, facilisis urna at, ornare urna. Suspendisse potenti. Nulla ornare tincidunt libero sit amet molestie. Morbi tellus leo, venenatis et pharetra congue, venenatis eget lacus.</p>
-          </Card>
         </div>
         <div className='dashboard__statistics__aside' >
           <Card title='Best-Selling Dishes'>
+            <DishList dishes={branch.bestDishes} quantity={bestDishesQuantity} />
             <Pie
               data={{
-                labels: branch.bestDishes.map(a => a.name),
+                labels: branch.bestDishes.slice(0, bestDishesQuantity + 2).map(a => a.name),
                 datasets: [{
                   label: 'Dishes',
-                  data: branch.bestDishes.map(a => a.sold),
+                  data: branch.bestDishes.slice(0, bestDishesQuantity + 2).map(a => a.sold),
                   backgroundColor: ['rgba(255, 50, 41,.8)', 'rgba(255, 50, 41,.6)', 'rgba(255, 50, 41,.4)', 'rgba(255, 50, 41,.2)'],
                   hoverOffset: 5
                 }]
@@ -102,9 +101,6 @@ const Dashboard = () => {
                 responsive: true
               }}
             />
-          </Card>
-          <Card title='Sells'>
-            <DishList dishes={branch.bestDishes} quantity={5} />
           </Card>
         </div>
       </div>

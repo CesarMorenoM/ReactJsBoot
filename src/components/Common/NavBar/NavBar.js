@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import UserContext from '../../../context/UserContext/UserContext'
-import Menu from './Menu'
+import MenuNavBar from './MenuNavBar'
 import logo from '../../../static/logo.svg'
 import './nav-bar.scss'
-import { useHistory } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 const NavBar = ({ logged, minimal }) => {
   const history = useHistory()
@@ -32,15 +32,15 @@ const NavBar = ({ logged, minimal }) => {
   return (
     <>
       <nav className='nav-bar' style={!logged ? initialStyle : {}} id='inicio'>
-        <a href='/'>
+        <NavLink to='/'>
           <img className='nav-bar__title' src={logo} alt="logo" />
-        </a>
+        </NavLink>
         {logged
           ? createLogged()
           : <button className="nav-bar__login hvr-br-to-right"
             onClick={() => history.push('/login')}> Log In </button>}
       </nav>
-      <Menu menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
+      <MenuNavBar menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
     </>
   )
 }

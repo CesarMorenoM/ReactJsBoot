@@ -58,8 +58,8 @@ const Menu = ({ franch = true }) => {
     //Notification to confirm
     toast(t => {
       return <div>
-        <span>Estas seguro?</span>
-        <i class="material-icons" onClick={() => toast.dismiss(t.id)}>cancel</i>
+        <p>Estas seguro? <i class="material-icons" onClick={() => toast.dismiss(t.id)}>cancel</i></p>
+        <button>Delete</button>
       </div>
     })
   }

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import UserContext from '../../../context/UserContext/UserContext'
-import './menu.scss'
+import './menuNavBar.scss'
 
 const Menu = ({ menuToggle, setMenuToggle }) => {
 
