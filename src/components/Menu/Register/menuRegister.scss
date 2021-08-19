@@ -1,4 +1,5 @@
 @import "../../../style/variables";
+@import "../../../style/mixins";
 
 .menuRegister {
     input[type="file"] {
@@ -29,30 +30,12 @@
     justify-content: flex-end;
 }
 .form-buttons-cancelar {
-    background-color: transparent;
-    border: 1px solid $color;
-    color: $color;
-    border-radius: 0.5em;
-    padding: 1em;
-    transition: background 0.3s;
+    @include button(1);
     margin-inline: 1em;
-    &:hover {
-        cursor: pointer;
-        background-color: $color;
-        color: $seconColor;
-    }
 }
 
 .form-buttons-agregar {
-    background-color: $color;
-    color: $seconColor;
-    border: none;
-    border-radius: 0.5em;
-    padding: 1em;
-    &:hover {
-        cursor: pointer;
-        background-color: rgba($color: $color, $alpha: 0.9);
-    }
+    @include button();
 }
 
 .plato-detalle-categoria {

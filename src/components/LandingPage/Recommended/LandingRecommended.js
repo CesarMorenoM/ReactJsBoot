@@ -36,8 +36,8 @@ const LandingRecommended = () => {
                     <p>Tel:351354</p>
                   </div>
                   <div className="item__footer__buttons">
-                    <button className='hvr-grow'>Go</button>
-                    <button className='hvr-grow'>Reserve</button>
+                    <button >Go</button>
+                    <button >Reserve</button>
                   </div>
                 </div>
               </div>

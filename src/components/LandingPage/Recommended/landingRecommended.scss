@@ -1,4 +1,5 @@
 @import "../../../style/variables";
+@import "../../../style/mixins";
 
 .recommended {
     background-color: $sectionColor;
@@ -44,15 +45,8 @@
         }
         &__buttons {
             button {
+                @include button;
                 margin-inline: 0.5em;
-                background-color: $color;
-                color: inherit;
-                border: none;
-                border-radius: 0.5em;
-                padding: 1em;
-                &:hover {
-                    cursor: pointer;
-                }
             }
         }
     }

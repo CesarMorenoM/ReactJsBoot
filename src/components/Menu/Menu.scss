@@ -1,4 +1,6 @@
 @import "../../style/variables";
+@import "../../style/mixins";
+
 .menuList {
     display: flex;
     flex-direction: column;
@@ -92,16 +94,8 @@
         align-items: center;
         padding: 1em;
         &__button {
+            @include button;
             height: 50%;
-            background-color: $color;
-            color: $seconColor;
-            border: none;
-            border-radius: 0.5em;
-            padding: 1em;
-            &:hover {
-                cursor: pointer;
-                background-color: rgba($color: $color, $alpha: 0.9);
-            }
         }
     }
 }

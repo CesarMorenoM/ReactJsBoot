@@ -6,7 +6,7 @@ const BranchesList = ({ branches, currentBranch, setBranch }) => {
       {branches.map(branch => (
         <button
           key={branch.id}
-          className={`branchesList__branch hvr-bg-fade ${currentBranch === branch ? '--selected' : ''}`}
+          className={`branchesList__branch ${currentBranch === branch ? '--selected' : ''}`}
           onClick={() => { setBranch(branch) }}
         >
           <i className="material-icons">home</i>

@@ -1,4 +1,6 @@
 @import "../../style/variables";
+@import "../../style/mixins";
+
 .logIn {
     background-size: cover;
     background-position: center;
@@ -51,15 +53,9 @@
         }
     }
     &__submit {
-        background-color: $color;
-        color: inherit;
-        border: none;
+        @include button;
         border-radius: 1em;
-        padding: 1em;
         width: 90%;
-        &:hover {
-            cursor: pointer;
-        }
     }
     &__help {
         display: flex;

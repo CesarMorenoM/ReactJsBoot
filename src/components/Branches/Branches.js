@@ -24,9 +24,7 @@ const Branches = () => {
       <div className='branches__content'>
         <div className='branches__content__info'>
           <Card title='Branch'>
-            <div className='branches__content__info__img'>
-              <img src={currentBranch.image || contactImage} alt={currentBranch.name} />
-            </div>
+            <img className='branches__content__info__img' src={currentBranch.image || contactImage} alt={currentBranch.name} />
             <h2 className='branches__content__info__name'>{currentBranch.name}</h2>
             <p className='branches__content__info__info'>{currentBranch.address}</p>
             <p className='branches__content__info__info'>{currentBranch.phone}</p>

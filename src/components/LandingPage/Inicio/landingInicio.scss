@@ -1,4 +1,6 @@
 @import "../../../style/variables";
+@import "../../../style/mixins";
+
 .landing {
     background-size: cover;
     background-position: center;
@@ -14,13 +16,11 @@
         font-size: 1.2em;
         color: $seconColor;
         &__button {
-            background-color: $color;
-            color: inherit;
-            border: none;
-            border-radius: 0.5em;
-            padding: 1em;
+            @include button;
+            transition: transform 0.3s;
             &:hover {
-                cursor: pointer;
+                background-color: $color;
+                transform: scale(1.1);
             }
         }
     }

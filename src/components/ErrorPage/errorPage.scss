@@ -1,4 +1,5 @@
 @import "../../style/variables";
+@import "../../style/mixins";
 
 .errorPage {
     background-size: cover;
@@ -19,13 +20,6 @@
         }
     }
     &__button {
-        background-color: $color;
-        color: $seconColor;
-        border: none;
-        border-radius: 0.5em;
-        padding: 1em;
-        &:hover {
-            cursor: pointer;
-        }
+        @include button;
     }
 }

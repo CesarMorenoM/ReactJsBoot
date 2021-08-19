@@ -1,22 +1,16 @@
 @import "../../../style/variables";
+@import "../../../style/mixins";
+
 .branchesList {
     display: flex;
     list-style-type: none;
     padding: 1em;
     font-size: 1em;
     &__branch {
-        border: 1px solid $color;
-        background-color: $bgColor;
-        color: $color;
+        @include button(-1);
         border-radius: 5em;
         padding: 0.7em;
         margin-right: 1em;
-        transition: 0.3s;
-        &:hover {
-            cursor: pointer;
-            color: $seconColor;
-            background-color: $color;
-        }
         i {
             font-size: 1em;
             padding-right: 0.5em;
@@ -25,7 +19,6 @@
             cursor: pointer;
             color: $seconColor;
             background-color: $color;
-            transform: scale(1.1);
         }
     }
 }

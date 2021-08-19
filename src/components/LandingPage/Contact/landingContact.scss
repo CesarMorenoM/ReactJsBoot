@@ -1,4 +1,6 @@
 @import "../../../style/variables";
+@import "../../../style/mixins";
+
 .contact {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -29,15 +31,8 @@
         }
         &__submit {
             width: 100%;
-            background-color: $color;
-            color: $seconColor;
-            border: none;
             margin-top: 1em;
-            border-radius: 0.5em;
-            padding: 1em;
-            &:hover {
-                cursor: pointer;
-            }
+            @include button;
         }
     }
     &__image {
