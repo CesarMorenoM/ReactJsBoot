@@ -1,25 +1,33 @@
 import { useContext, useState } from 'react'
+//personal
 import UserContext from '../../context/UserContext/UserContext'
-import './Branches.scss'
+//images
 import contactImage from '../../static/contact-restaurant.jpg'
+//components
+import BranchesList from '../Common/BranchesList/BranchesList'
 import Menu from '../Menu/Menu'
 import Card from '../Common/Cards/Card'
-import BranchesList from '../Common/BranchesList/BranchesList'
+import './Branches.scss'
+
 
 const Branches = () => {
+  //Get the branches
   const { branches: branchesInfo } = useContext(UserContext)
+
+  //Delete the "General" branch to not show it
   const branches = [...branchesInfo]
   branches.shift()
+
   const [currentBranch, setCurrentBranch] = useState(branches[0])
-  const changeBranch = branch => {
-    console.log(branch)
+
+  const handleChangeBranch = branch => {
     setCurrentBranch(branch)
   }
 
   return (
     <>
       <div className='branches__list'>
-        <BranchesList branches={branches} currentBranch={currentBranch} setBranch={changeBranch} />
+        <BranchesList branches={branches} currentBranch={currentBranch} setBranch={handleChangeBranch} />
       </div>
       <div className='branches__content'>
         <div className='branches__content__info'>
