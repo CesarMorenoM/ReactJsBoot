@@ -1,5 +1,5 @@
 //! Concat different functions
-export const compose = (...functions) => value => functions.reduce((acc, func) => func(acc), value)
+export const pipe = (...functions) => value => functions.reduce((acc, func) => func(acc), value)
 
 
 //! Get the last N months (in text)

@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react'
 import toast from 'react-hot-toast'
 import TYPES from '../types'
-import { compose, prevMonth } from '../../helpers/helpers'
+import { pipe, prevMonth } from '../../helpers/helpers'
 import { UserReducer, initialState } from './UserReducer'
 
 const UserContext = createContext()
@@ -10,62 +10,74 @@ export const UserContextProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(UserReducer, initialState)
 
+  // GET methods
   const getUser = id => {
     return new Promise((result, rej) => {
       fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/' + id)
-        .then(res => res.json())
-        .then(user => {
-          //Here we save the token (random for the moment)
-          localStorage.setItem('session', Date.now())
-          result(user)
+        .then(async res => {
+          if (res.ok) {
+            const user = await res.json()
+
+            //Save the token (Random for test porpuses)
+            localStorage.setItem('session', Date.now())
+
+            result(user)
+          } else rej('User not found')
         })
     })
   }
   const getBranches = id => {
     return new Promise((result, rej) => {
       fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/' + id + '/branches')
-        .then(res => res.json())
-        .then(branches => {
-          //Delete the branches without dishes (Fail from mockApi)
-          let utilBranches = branches.branches[0].filter(branch => branch.dishes.length > 0)
+        .then(async res => {
+          const branches = await res.json()
 
-          result(utilBranches)
+          if (branches.length !== 0) {
+            //Delete the branches without dishes (Bug from mockApi)
+            let utilBranches = branches.filter(branch => branch.dishes.length > 0)
+
+            result(utilBranches)
+          } else rej('Fail to load branches')
+
         })
     })
   }
 
+  // Account functions
   const logIn = async id => {
+
+    let user
+    let branches
+
     try {
-      const user = await getUser(id)
-      const branches = await getBranches(id)
-
-      dispatch({ type: TYPES.LOGIN, payload: user })
-
-      //? TEST ONLY -> Make a no franchise restaurant
-      // const noFranchise = [[...branches].shift()]
-      // dispatch({ type: TYPES.BRANCHES, payload: compose(createGeneralBranch, createBranchesInfo)(noFranchise) })
-      // dispatch({ type: TYPES.FRANCHISE, payload: noFranchise.length > 1 })
-
-      dispatch({ type: TYPES.BRANCHES, payload: compose(createGeneralBranch, createBranchesInfo)(branches) })
-      dispatch({ type: TYPES.FRANCHISE, payload: branches.length > 1 })
-
-      toast('Welcome again!', { icon: '👋', duration: 1000 })
-      return true
-    } catch (err) {
-      toast.error("Sorry, user not found", { duration: 1500, iconTheme: { primary: '#ff3229' } })
+      user = await getUser(id)
+      branches = await getBranches(id)
+    }
+    catch (err) {
+      toast.error(`Sorry, ${err}`,
+        { duration: 1500, iconTheme: { primary: '#ff3229' } }
+      )
       dispatch({ type: TYPES.LOGOUT })
       return false
     }
-  }
 
+    dispatch({ type: TYPES.LOGIN, payload: user })
+    dispatch({ type: TYPES.BRANCHES, payload: pipe(createGeneralBranch, createBranchesInfo)(branches) })
+    dispatch({ type: TYPES.FRANCHISE, payload: branches.length > 1 })
+
+    toast('Welcome again!', { icon: '👋', duration: 1000 })
+    return true
+  }
   const logOut = () => {
     toast('Good Bye!', { icon: '👏', duration: 1000 })
     localStorage.clear()
     dispatch({ type: TYPES.LOGOUT })
   }
+  const isAuth = () => {
+    return (state.user && localStorage.getItem('session'))
+  }
 
-  const isAuth = () => (state.user && localStorage.getItem('session'))
-
+  //Functions for the branches creation
   const createGeneralBranch = branches => {
     if (branches.length > 1) {
       let generalBranch = { name: 'General' }
@@ -92,7 +104,6 @@ export const UserContextProvider = ({ children }) => {
       return branches
     } else return branches
   }
-
   const createBranchesInfo = branchesMap => {
     let branches = [...branchesMap]
     branches.map(branch => {
@@ -114,7 +125,6 @@ export const UserContextProvider = ({ children }) => {
   return <UserContext.Provider value={{
     user: { ...state.user },
     branches: state.branches,
-    auth: state.auth,
     logIn,
     logOut,
     isAuth,
