@@ -4,14 +4,16 @@ import Loader from '../../Common/Loader/Loader'
 import './landingRecommended.scss'
 
 const LandingRecommended = () => {
+
+  const API_URL = process.env.REACT_APP_MOCKAPI
   const [recommendations, setRecommendations] = useState()
 
   useEffect(() => {
     //The recommendation carrousel only support 6 recommendations for the moment (no reactive)
-    fetch('https://610d6bcd48beae001747b83c.mockapi.io/recommendation')
+    fetch(`${API_URL}/recommendation`)
       .then(data => data.json())
       .then(recommends => setRecommendations(recommends))
-  }, [])
+  }, [API_URL])
 
   if (!recommendations) return <Loader />
   return (

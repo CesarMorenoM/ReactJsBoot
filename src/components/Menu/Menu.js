@@ -10,9 +10,31 @@ import Loader from '../Common/Loader/Loader'
 import Card from '../Common/Cards/Card'
 import './Menu.scss'
 
+//GET and PUT methods
+const API_URL = process.env.REACT_APP_MOCKAPI
+const changeDishStatus = (userId, branchId, dishId, currentStatus) => {
+  fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      status: currentStatus
+    })
+  })
+}
+const getDishes = async (userId, branchId) => {
+  let dishes
+  try {
+    await fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes`)
+      .then(res => res.json())
+      .then(data => dishes = data)
+      .catch(err => err)
+  } catch (err) { }
+  return dishes
+}
 
 const Menu = ({ franch = true, branch }) => {
-
   //Initial states
   const { user, branches } = useContext(UserContext)
   const [currentDishes, setCurrentDishes] = useState([])
@@ -38,28 +60,6 @@ const Menu = ({ franch = true, branch }) => {
   //Put the first branch for NO franchises
   if (branch === undefined) branch = branches[0]
 
-  //GET and PUT methods
-  const changeDishStatus = (userId, branchId, dishId, currentStatus) => {
-    fetch(`https://610d6bcd48beae001747b83c.mockapi.io/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        status: currentStatus
-      })
-    })
-  }
-  const getDishes = async (userId, branchId) => {
-    let dishes
-    try {
-      await fetch(`https://610d6bcd48beae001747b83c.mockapi.io/user/${userId}/branches/${branchId}/dishes`)
-        .then(res => res.json())
-        .then(data => dishes = data)
-        .catch(err => err)
-    } catch (err) { }
-    return dishes
-  }
 
   //Handlers for the different buttons
   const handleSwitchDishStatus = (dishId) => {

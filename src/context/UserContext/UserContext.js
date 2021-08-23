@@ -4,16 +4,18 @@ import TYPES from '../types'
 import { pipe, prevMonth } from '../../helpers/helpers'
 import { UserReducer, initialState } from './UserReducer'
 
+
 const UserContext = createContext()
 
 export const UserContextProvider = ({ children }) => {
 
+  const API_URL = process.env.REACT_APP_MOCKAPI
   const [state, dispatch] = useReducer(UserReducer, initialState)
 
   // GET methods
   const getUser = id => {
     return new Promise((result, rej) => {
-      fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/' + id)
+      fetch(`${API_URL}/user/${id}`)
         .then(async res => {
           if (res.ok) {
             const user = await res.json()
@@ -28,7 +30,7 @@ export const UserContextProvider = ({ children }) => {
   }
   const getBranches = id => {
     return new Promise((result, rej) => {
-      fetch('https://610d6bcd48beae001747b83c.mockapi.io/user/' + id + '/branches')
+      fetch(`${API_URL}/user/${id}/branches`)
         .then(async res => {
           const branches = await res.json()
 

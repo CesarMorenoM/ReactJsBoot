@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import UserContext from "../../../context/UserContext/UserContext";
 import './menuRegister.scss'
 
+const API_URL = process.env.REACT_APP_MOCKAPI
 async function putData(userId, branchId, dishId, data) {
-  fetch(`https://610d6bcd48beae001747b83c.mockapi.io/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
+  fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
