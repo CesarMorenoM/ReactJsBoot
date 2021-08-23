@@ -1,91 +1,36 @@
 //libraries
-import { useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Switch from "react-switch";
 import ModalView from './Modal/Modal'
-import toast from 'react-hot-toast'
-//personal
-import UserContext from '../../context/UserContext/UserContext'
 //components
 import Loader from '../Common/Loader/Loader'
 import Card from '../Common/Cards/Card'
 import './Menu.scss'
-
-//GET and PUT methods
-const API_URL = process.env.REACT_APP_MOCKAPI
-const changeDishStatus = (userId, branchId, dishId, currentStatus) => {
-  fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      status: currentStatus
-    })
-  })
-}
-const getDishes = async (userId, branchId) => {
-  let dishes
-  try {
-    await fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes`)
-      .then(res => res.json())
-      .then(data => dishes = data)
-      .catch(err => err)
-  } catch (err) { }
-  return dishes
-}
+//custom hooks
+import useDishes from './useDishes';
 
 const Menu = ({ franch = true, branch }) => {
-  //Initial states
-  const { user, branches } = useContext(UserContext)
-  const [currentDishes, setCurrentDishes] = useState([])
-  const [dishesStatus, setDishesStatus] = useState({})
 
-  //Get the dishes when change branch
+  const { getDishes, dishesStatus, switchDishStatus, deleteDish, noFranchise } = useDishes()
+  branch = branch ?? noFranchise()
+  const [currentDishes, setCurrentDishes] = useState(getDishes(branch.id))
+
+  //Change dishes when change branch
   useEffect(() => {
-    setCurrentDishes([])
-    setDishesStatus({})
-    getDishes(user.id, branch.id)
-      .then(res => setCurrentDishes(res))
-  }, [branch, user])
-
-  //Fill the init dishesStatus
-  useEffect(() => {
-    if (currentDishes.length !== 0 && Object.keys(dishesStatus).length === 0) {
-      const setInitalStatus = {}
-      currentDishes.forEach(dish => { setInitalStatus[dish.id] = dish.status })
-      setDishesStatus(setInitalStatus)
-    }
-  }, [dishesStatus, currentDishes])
-
-  //Put the first branch for NO franchises
-  if (branch === undefined) branch = branches[0]
-
-
-  //Handlers for the different buttons
-  const handleSwitchDishStatus = (dishId) => {
-    const currentStatus = dishesStatus[dishId]
-    setDishesStatus({ ...dishesStatus, [dishId]: !currentStatus })
-    changeDishStatus(user.id, branch.id, dishId, !currentStatus)
-  }
-  const handleDeleteDish = () => {
-    //Notification to confirm
-    toast(t => {
-      return <div>
-        <p>Estas seguro? <i class="material-icons" onClick={() => toast.dismiss(t.id)}>cancel</i></p>
-        <button>Delete</button>
-      </div>
-    })
-  }
+    setCurrentDishes(getDishes(branch.id))
+  }, [branch, getDishes])
 
   //Show the Loading
-  if (currentDishes.length === 0 || Object.keys(dishesStatus).length === 0) return <Loader />
+  if (dishesStatus[branch.id] === undefined) return <Loader />
 
+  //Menu
   return <>
     {!!franch &&
       <div className='menuList__header'>
         <h1 className='menuList__header__title'>{branch.name}</h1>
         <button className='menuList__header__button'>Settings</button>
       </div>}
+
     <Card title='Menu'>
       <div className="menuList">
         {currentDishes.map(dish =>
@@ -94,8 +39,8 @@ const Menu = ({ franch = true, branch }) => {
               <span className='menuList__dish__name'>{dish.name}</span>
               <div className="menuList__dish__options">
                 <Switch
-                  onChange={() => handleSwitchDishStatus(dish.id)}
-                  checked={dishesStatus[dish.id]}
+                  onChange={() => switchDishStatus(dish.id, branch.id)}
+                  checked={dishesStatus[branch.id][dish.id]}
                   onColor="#ff3229"
                   onHandleColor="#ff3229"
                   handleDiameter={20}
@@ -109,7 +54,7 @@ const Menu = ({ franch = true, branch }) => {
                   id={dish.id}
                 />
                 <ModalView action={'Edit'} dish={dish} branch={branch} />
-                <i className="menuList__dish__close material-icons" onClick={handleDeleteDish}>close</i>
+                <i className="menuList__dish__close material-icons" onClick={() => deleteDish(dish.id)}>close</i>
               </div>
 
             </summary>
@@ -119,8 +64,10 @@ const Menu = ({ franch = true, branch }) => {
                 <p className='menuList__dish__desc__text'><span>Price:</span> ${dish.price}</p>
                 <p className='menuList__dish__desc__text'><span> Category:</span> {dish.category}</p>
                 <p className='menuList__dish__desc__text'><span>Calories: </span>{dish.calories.min} - {dish.calories.max}</p>
-                <h4 className='menuList__dish__desc__subtitle'><span>Ingredients</span>s</h4>
-                <p className="menuList__dish__desc__ingredients">{dish.ingredients}</p>
+                <h4 className='menuList__dish__desc__subtitle'><span>Ingredients:</span></h4>
+                <p className="menuList__dish__desc__ingredients">
+                  {dish.ingredients.map((ingredient, id) => <span key={id} >{ingredient}</span>)}
+                </p>
               </div>
             </div>
           </details>)}
