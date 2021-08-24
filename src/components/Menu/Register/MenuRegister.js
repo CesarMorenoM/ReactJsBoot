@@ -5,21 +5,22 @@ import './menuRegister.scss'
 
 const MenuRegister = ({ dish, closeModal, branch, action }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
-  const { updateDishInfo } = useContext(MenuContext)
+  const { updateDishInfo, addDish } = useContext(MenuContext)
 
   if (!dish) dish = {}
 
-
-  const updateDish = data => {
+  const updateDishHandler = data => {
     updateDishInfo(dish.id, branch.id, data)
     closeModal()
   }
-  const addDish = data => {
-    console.log(data)
+
+  const addDishHandler = data => {
+    addDish(branch.id, data)
+    closeModal()
   }
 
   return (
-    <form className='menuRegister' onSubmit={action === 'Edit' ? handleSubmit(updateDish) : handleSubmit(addDish)}>
+    <form className='menuRegister' onSubmit={action === 'Edit' ? handleSubmit(updateDishHandler) : handleSubmit(addDishHandler)}>
 
       {/* Mainsection */}
       <div className="dish">

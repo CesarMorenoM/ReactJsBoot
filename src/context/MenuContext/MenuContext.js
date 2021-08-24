@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react"
 import toast from "react-hot-toast"
-import { toArray } from "../../helpers/helpers"
+import { notifyError, toArray } from "../../helpers/helpers"
 import TYPES from "../types"
 import UserContext from "../UserContext/UserContext"
 import { initialState, MenuReducer } from "./MenuReducer"
@@ -88,6 +88,50 @@ export const MenuContextProvider = ({ children }) => {
         })
     })
   }
+  const POSTDish = (userId, branchId, data) => {
+    return new Promise((res, rej) => {
+      fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: data.name,
+          image: data.image || '',
+          price: data.price,
+          category: data.category,
+          protein: data.protein || '',
+          fats: data.fats || '',
+          sugars: data.sugars || '',
+          calories: {
+            min: data.calories.min || '',
+            max: data.calories.max || ''
+          },
+          ingredients: data.ingredients || '',
+          status: true
+        })
+      })
+        .then(async response => {
+          if (response.ok) {
+            const dish = await response.json()
+            res(dish)
+          } else rej(`Can't add this dish`)
+        })
+    })
+  }
+  const DELETEDish = (userId, branchId, dishId) => {
+    return new Promise((res, rej) => {
+      fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
+        method: 'DELETE'
+      })
+        .then(async response => {
+          if (response.ok) {
+            const dish = await response.json()
+            res(dish)
+          } else rej(`Can't delete this dish`)
+        })
+    })
+  }
 
   //Misc
   const noFranchise = () => branches[0]
@@ -99,11 +143,8 @@ export const MenuContextProvider = ({ children }) => {
 
     try {
       await PUTDishStatus(user.id, branch, dish, status)
-
     } catch (err) {
-      toast.error(`Sorry, ${err}`,
-        { duration: 1500, iconTheme: { primary: '#ff3229' } }
-      )
+      notifyError(err)
       return false
     }
 
@@ -121,24 +162,58 @@ export const MenuContextProvider = ({ children }) => {
     try {
       await PUTDishInfo(user.id, branch, dish, data)
     } catch (err) {
-      toast.error(`Sorry, ${err}`,
-        { duration: 1500, iconTheme: { primary: '#ff3229' } }
-      )
+      notifyError(err)
       return false
     }
     toast('Updated!', { icon: '👍', duration: 500 })
     dispatch({ type: TYPES.MENU.UPDATE.DISHINFO, payload: { branch, dish, current, data } })
     return true
   }
-  const deleteDish = (branch, dish) => {
-    dispatch({ type: TYPES.MENU.DELETE.DISH, payload: { branch, dish } })
+  const deleteDish = (branch, dishId) => {
+    const data = state.dishes[branch]
+    delete data[dishId]
 
+    const deleteItem = async (t) => {
+      try {
+        await DELETEDish(user.id, branch, dishId)
+      } catch (err) {
+        notifyError(err)
+      }
+      dispatch({ type: TYPES.MENU.DELETE.DISH, payload: { branch, data } })
+      toast.dismiss(t.id)
+    }
+    //Delete confirmation
     toast(t => {
       return <div>
-        <p>Estas seguro? <i class="material-icons" onClick={() => toast.dismiss(t.id)}>cancel</i></p>
-        <button>Delete</button>
+        <p>Estas seguro?</p>
+        <button onClick={() => toast.dismiss(t.id)}>Cancel</button>
+        <button onClick={() => deleteItem(t)}>Delete</button>
       </div>
     })
+  }
+  const addDish = async (branch, crudeData) => {
+    let data = {
+      ...crudeData,
+      ingredients: toArray(crudeData.ingredients)
+    }
+    let newData
+
+    try {
+      newData = await POSTDish(user.id, branch, data)
+      data = {
+        ...data,
+        id: newData.id
+      }
+
+    } catch (err) {
+      notifyError(err)
+      return false
+    }
+
+    dispatch({ type: TYPES.MENU.CREATE.DISH, payload: { branch, dish: newData.id, data } })
+    console.log(newData.id)
+    toast('Dish Added!', { icon: '👍', duration: 500 })
+    return true
   }
 
   return <MenuContext.Provider value={{
@@ -147,6 +222,7 @@ export const MenuContextProvider = ({ children }) => {
     switchDishStatus,
     updateDishInfo,
     deleteDish,
+    addDish,
     noFranchise
   }}>
     {children}

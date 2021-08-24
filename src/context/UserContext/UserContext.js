@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react'
 import toast from 'react-hot-toast'
 import TYPES from '../types'
-import { pipe, prevMonth } from '../../helpers/helpers'
+import { notifyError, pipe, prevMonth } from '../../helpers/helpers'
 import { UserReducer, initialState } from './UserReducer'
 
 
@@ -56,9 +56,7 @@ export const UserContextProvider = ({ children }) => {
       branches = await getBranches(id)
     }
     catch (err) {
-      toast.error(`Sorry, ${err}`,
-        { duration: 1500, iconTheme: { primary: '#ff3229' } }
-      )
+      notifyError(err)
       dispatch({ type: TYPES.USER.LOGOUT })
       return false
     }

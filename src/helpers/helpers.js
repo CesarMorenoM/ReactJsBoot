@@ -1,6 +1,7 @@
+import toast from "react-hot-toast"
+
 //! Concat different functions
 export const pipe = (...functions) => value => functions.reduce((acc, func) => func(acc), value)
-
 
 //! Get the last N months (in text)
 export const prevMonth = (max, date = new Date()) => {
@@ -30,3 +31,9 @@ export const toArray = arr => arr.split(',')
       .toLowerCase()
       .replace(/\w/, firstLetter => firstLetter.toUpperCase())
   )
+
+export const notifyError = err => {
+  toast.error(`Sorry, ${err}`,
+    { duration: 1500, iconTheme: { primary: '#ff3229' } }
+  )
+}

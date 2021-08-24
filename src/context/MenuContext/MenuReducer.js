@@ -16,6 +16,25 @@ export const MenuReducer = (state, action) => {
       ...state,
       dishesStatus: payload
     }
+    case (TYPES.MENU.CREATE.DISH): return {
+      ...state,
+      dishes: {
+        ...state.dishes,
+        [payload.branch]: {
+          ...state.dishes[payload.branch],
+          [payload.dish]: {
+            ...payload.data
+          }
+        }
+      },
+      dishesStatus: {
+        ...state.dishesStatus,
+        [payload.branch]: {
+          ...state.dishesStatus[payload.branch],
+          [payload.dish]: true
+        }
+      }
+    }
     case (TYPES.MENU.UPDATE.DISHSTATUS): return {
       ...state,
       dishesStatus: {
@@ -35,6 +54,15 @@ export const MenuReducer = (state, action) => {
           [payload.dish]: {
             ...payload.current, ...payload.data
           }
+        }
+      }
+    }
+    case (TYPES.MENU.DELETE.DISH): return {
+      ...state,
+      dishes: {
+        ...state.dishes,
+        [payload.branch]: {
+          ...payload.data
         }
       }
     }
