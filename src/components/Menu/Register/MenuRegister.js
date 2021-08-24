@@ -1,71 +1,48 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import UserContext from "../../../context/UserContext/UserContext";
+import MenuContext from "../../../context/MenuContext/MenuContext";
 import './menuRegister.scss'
 
-const API_URL = process.env.REACT_APP_MOCKAPI
-async function putData(userId, branchId, dishId, data) {
-  fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: data.name,
-      image: data.image,
-      price: data.price,
-      category: data.category,
-      protein: data.protein,
-      fats: data.fats,
-      sugars: data.sugars,
-      ingredients: data.ingredientes,
-      calories: {
-        min: data.calories.min,
-        max: data.calories.max
-      },
-    })
-  })
-    .then(res => res.json())
-    .catch(err => console.log(err))
-}
-
-const MenuRegister = ({ dish, closeModal, branch }) => {
+const MenuRegister = ({ dish, closeModal, branch, action }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const { updateDishInfo } = useContext(MenuContext)
 
-  const { user } = useContext(UserContext)
+  if (!dish) dish = {}
 
-  const onSubmit = data => {
-    putData(user.id, branch.id, dish.id, data, closeModal)
+
+  const updateDish = data => {
+    updateDishInfo(dish.id, branch.id, data)
+    closeModal()
+  }
+  const addDish = data => {
+    console.log(data)
   }
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
+    <form className='menuRegister' onSubmit={action === 'Edit' ? handleSubmit(updateDish) : handleSubmit(addDish)}>
 
-    <form className='menuRegister' onSubmit={handleSubmit(onSubmit)}>
-
-      {/* Imagen del producto */}
+      {/* Mainsection */}
       <div className="dish">
-        <div className="dish__image">
-          <label className="dish__image__label" htmlFor="plato-figura-imagen">
-            Add image
-          </label>
-          <input id="plato-figura-imagen" type="file" alt="Image" {...register("image")} />
-        </div>
 
-        <div className="plato-detalle">
-          {/* Nombre */}
-          {/* register your input into the hook by invoking the "register" function */}
-          <input className="plato-detalle-nombre" defaultValue={dish ? dish.name : ''} placeholder="Nombre del plato" {...register("name", { required: true })} />
+        {/* Name */}
+        <label className="dish__label">Name</label>
+        <input className=" input" placeholder="Dish name"
+          defaultValue={dish.name || ''}
+          {...register("name", { required: true })} />
 
-          {/* Precio */}
-          {/* include validation with required or other standard HTML validation rules */}
-          <input className="plato-detalle-precio" defaultValue={dish ? dish.price : ''} placeholder="Price" {...register("price", { required: true, valueAsNumber: true })} />
+        <div className="dish__general">
+          <label className="dish__label">Price</label>
+          <label className="dish__label">Category</label>
 
-          {/* Ingrediente */}
-          <textarea className="plato-detalle-descripcion" defaultValue={dish ? dish.ingredients : ''} placeholder="Description" {...register("ingredients")} />
+          {/* Price */}
+          <input className="dish__general__price input" placeholder="Price"
+            defaultValue={dish.price || ''}
+            {...register("price", { required: true, valueAsNumber: true })} />
 
-          {/* Categoria */}
-          <select className="plato-detalle-categoria" defaultValue={dish ? dish.category : ''} id=""  {...register("category")}>
+          {/* Categories */}
+          <select className="input"
+            defaultValue={dish.category || ''}
+            {...register("category")}>
             <option value="Entrada">Entrada</option>
             <option value="Botana">Botana</option>
             <option value="Aperitivo">Aperitivo</option>
@@ -75,45 +52,80 @@ const MenuRegister = ({ dish, closeModal, branch }) => {
             <option value="Postre">Postre</option>
             <option value="Bebida">Bebida</option>
           </select>
+        </div>
 
-          {/* Calorias */}
-          {/* <div className="plato-detalle-calorias">
-            <label style={{ display: "block" }} >Calorías</label>
-            <input defaultValue={dish ? dish.calories.min : ''} placeholder="0" style={{ width: "30px" }} {...register("calories.min", { required: true, valueAsNumber: true })} />
-            <span>{' '}-{' '}</span>
-            <input defaultValue={dish ? dish.calories.max : ''} placeholder="0" style={{ width: "30px" }}  {...register("calorias-max", { required: true, valueAsNumber: true })} />
-          </div> */}
+        {/* Ingredients */}
+        <label className="dish__label">Ingredients<span>Separated by commas</span></label>
+        <textarea className=' input' placeholder="Description"
+          defaultValue={dish.ingredients || ''}
+          {...register("ingredients")} />
 
-          <div className="plato-detalle-informacion_nutricional">
+        {/* Nutrition section */}
+        <details className="dish__nutrition">
+          <summary className="dish__label">
+            Health Information
+          </summary>
 
-            {/* Proteina */}
-            <div className="plato-detalle-proteina">
-              <label>Proteina</label>
-              <input type="number" defaultValue={dish ? dish.protein : ''} placeholder="0" style={{ width: "50px" }}  {...register("proteina", { required: true, valueAsNumber: true })} />
+          <div className="dish__info">
+            {/* Calorias */}
+            <label className="dish__label">Calories</label>
+            <div className="dish__info__calories">
+              <input type="number" className="input" placeholder="--"
+                defaultValue={dish.calories ? dish.calories.min : ''}
+                {...register("calories.min", { valueAsNumber: true })} />
+              <span> - </span>
+              <input type="number" className="input" placeholder="--"
+                defaultValue={dish.calories ? dish.calories.max : ''}
+                {...register("calories.max", { valueAsNumber: true })} />
             </div>
 
-            {/* Grasas */}
-            <div className="plato-detalle-grasas">
-              <label>Grasas</label>
-              <input type="number" defaultValue={dish ? dish.fats : ''} placeholder="0" style={{ width: "50px" }}  {...register("grasas", { required: true, valueAsNumber: true })} />
-            </div>
+            {/* Protein */}
+            <label className="dish__label">Proteins</label>
+            <input type="number" placeholder="--" className="input"
+              defaultValue={dish.protein || ''}
+              {...register("protein", { valueAsNumber: true })} />
 
-            {/* Azucares */}
-            <div className="plato-detalle-azucares">
-              <label>Azucares</label>
-              <input type="number" defaultValue={dish ? dish.sugars : ''} placeholder="0" style={{ width: "50px" }}  {...register("azucares", { required: true, valueAsNumber: true })} />
-            </div>
+            {/* Fats */}
+            <label className="dish__label">Fats</label>
+            <input type="number" placeholder="--" className="input"
+              defaultValue={dish.fats || ''}
+              {...register("fats", { valueAsNumber: true })} />
+
+            {/* Sugars */}
+            <label className="dish__label">Sugars</label>
+            <input type="number" placeholder="--" className="input"
+              defaultValue={dish.sugars || ''}
+              {...register("sugars", { valueAsNumber: true })} />
 
           </div>
+
+        </details>
+      </div>
+
+      {/* Side section */}
+      <div className='menuRegister__side'>
+        <div className="menuRegister__image">
+          <img src={dish.image || ''} alt='Dish' />
+          <input className="menuRegister__image__button" type="text" name='picture'
+            defaultValue={dish.image || ''}
+            {...register("image")}
+          />
         </div>
+        {/* Buttons section */}
+        <div className="menuRegister__buttons">
+          <button className="menuRegister__buttons__cancel" onClick={closeModal}>Cancel</button>
+          <button className="menuRegister__buttons__add " type="submit">
+            {action === 'Edit'
+              ? 'Update'
+              : 'Add'}
+          </button>
+        </div>
+
       </div>
 
-      <div className="form-buttons">
-        <button className="form-buttons-cancelar" onClick={closeModal}>Cancelar</button>
-        <button className="form-buttons-agregar " type="submit">Agregar</button>
-      </div>
 
-      {/* errors will return when field validation fails  */}
+
+      {/* Error handling */}
       {errors.lastname && <span>This field is required</span>}
 
 

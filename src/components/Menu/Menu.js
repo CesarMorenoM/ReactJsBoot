@@ -1,5 +1,5 @@
 //libraries
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Switch from "react-switch";
 import ModalView from './Modal/Modal'
 //components
@@ -7,21 +7,23 @@ import Loader from '../Common/Loader/Loader'
 import Card from '../Common/Cards/Card'
 import './Menu.scss'
 //custom hooks
-import useDishes from './useDishes';
+import MenuContext from '../../context/MenuContext/MenuContext';
 
 const Menu = ({ franch = true, branch }) => {
 
-  const { getDishes, dishesStatus, switchDishStatus, deleteDish, noFranchise } = useDishes()
+  const { dishes, dishesStatus, switchDishStatus, deleteDish, noFranchise } = useContext(MenuContext)
+  const [currentDishes, setCurrentDishes] = useState()
   branch = branch ?? noFranchise()
-  const [currentDishes, setCurrentDishes] = useState(getDishes(branch.id))
 
   //Change dishes when change branch
   useEffect(() => {
-    setCurrentDishes(getDishes(branch.id))
-  }, [branch, getDishes])
+    if (Object.keys(dishes).length !== 0) {
+      setCurrentDishes(Object.values(dishes[branch.id]))
+    }
+  }, [branch, dishes])
 
   //Show the Loading
-  if (dishesStatus[branch.id] === undefined) return <Loader />
+  if (dishesStatus[branch.id] === undefined || currentDishes === undefined) return <Loader />
 
   //Menu
   return <>
@@ -30,7 +32,6 @@ const Menu = ({ franch = true, branch }) => {
         <h1 className='menuList__header__title'>{branch.name}</h1>
         <button className='menuList__header__button'>Settings</button>
       </div>}
-
     <Card title='Menu'>
       <div className="menuList">
         {currentDishes.map(dish =>

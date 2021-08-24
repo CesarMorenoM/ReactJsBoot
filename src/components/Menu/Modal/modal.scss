@@ -12,9 +12,11 @@
         font-size: 0.9em;
     }
     &__modal {
-        background-color: $bgColor;
+        background-color: $seconColor;
+        box-shadow: $basicShadow;
         padding: 1em;
-        max-width: 50vw;
+        max-width: 65vw;
+        height: auto;
         top: 50%;
         left: 50%;
         right: auto;

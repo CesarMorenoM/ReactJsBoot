@@ -59,13 +59,13 @@ export const UserContextProvider = ({ children }) => {
       toast.error(`Sorry, ${err}`,
         { duration: 1500, iconTheme: { primary: '#ff3229' } }
       )
-      dispatch({ type: TYPES.LOGOUT })
+      dispatch({ type: TYPES.USER.LOGOUT })
       return false
     }
 
-    dispatch({ type: TYPES.LOGIN, payload: user })
-    dispatch({ type: TYPES.BRANCHES, payload: pipe(createGeneralBranch, createBranchesInfo)(branches) })
-    dispatch({ type: TYPES.FRANCHISE, payload: branches.length > 1 })
+    dispatch({ type: TYPES.USER.LOGIN, payload: user })
+    dispatch({ type: TYPES.USER.BRANCHES, payload: pipe(createGeneralBranch, createBranchesInfo)(branches) })
+    dispatch({ type: TYPES.USER.FRANCHISE, payload: branches.length > 1 })
 
     toast('Welcome again!', { icon: '👋', duration: 1000 })
     return true
@@ -73,7 +73,7 @@ export const UserContextProvider = ({ children }) => {
   const logOut = () => {
     toast('Good Bye!', { icon: '👏', duration: 1000 })
     localStorage.clear()
-    dispatch({ type: TYPES.LOGOUT })
+    dispatch({ type: TYPES.USER.LOGOUT })
   }
   const isAuth = () => {
     return (state.user && localStorage.getItem('session'))

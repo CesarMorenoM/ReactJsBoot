@@ -23,11 +23,9 @@ const ModalView = ({ action, dish, branch }) => {
         isOpen={modalIsOpen}
         onAfterOpen={() => { }}
         onRequestClose={closeModal}
-        contentLabel="Example Modal"
         ariaHideApp={false}
       >
-        <MenuRegister dish={dish} closeModal={closeModal} branch={branch} />
-
+        <MenuRegister dish={dish} closeModal={closeModal} branch={branch} action={action} />
       </Modal>
     </div>
   )

@@ -22,3 +22,11 @@ export const prevMonth = (max, date = new Date()) => {
   }
   return [...new Set(prevMonths)]
 }
+
+//! Transform a text separated by commas in an array
+export const toArray = arr => arr.split(',')
+  .map(el =>
+    el.trim()
+      .toLowerCase()
+      .replace(/\w/, firstLetter => firstLetter.toUpperCase())
+  )

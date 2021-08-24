@@ -12,7 +12,7 @@
         overflow: hidden;
         transition: 0.2s;
         &:hover {
-            box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         }
         &__close {
             color: $color;
@@ -86,7 +86,7 @@
             margin-left: 5px;
         }
         &[open] > &__info {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
         }
         &[open] > &__info::before {
             transform: rotate(90deg);

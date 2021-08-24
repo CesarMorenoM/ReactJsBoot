@@ -9,7 +9,6 @@ import Menu from '../Menu/Menu'
 import Card from '../Common/Cards/Card'
 import './Branches.scss'
 
-
 const Branches = () => {
   //Get the branches
   const { branches: branchesInfo } = useContext(UserContext)
