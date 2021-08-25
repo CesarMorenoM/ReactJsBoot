@@ -7,7 +7,7 @@ const BranchesList = ({ branches, currentBranch, setBranch }) => {
         <button
           key={branch.id}
           className={`branchesList__branch ${currentBranch === branch ? '--selected' : ''}`}
-          onClick={() => { setBranch(branch) }}
+          onClick={() => setBranch(branch)}
         >
           <i className="material-icons">home</i>
           <span>{branch.name}</span>

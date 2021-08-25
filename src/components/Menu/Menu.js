@@ -11,19 +11,28 @@ import MenuContext from '../../context/MenuContext/MenuContext';
 
 const Menu = ({ franch = true, branch }) => {
 
-  const { dishes, dishesStatus, switchDishStatus, deleteDish, noFranchise } = useContext(MenuContext)
-  const [currentDishes, setCurrentDishes] = useState()
-  branch = branch ?? noFranchise()
+  const { dishes, switchDishStatus, deleteDish, noFranchise } = useContext(MenuContext)
+  const [currentDishes, setCurrentDishes] = useState({})
+  const [currentBranch, setCurrentBranch] = useState()
+  if (branch === undefined) branch = noFranchise()
+
+  console.log('Original')
+  console.log(branch)
+  console.log('copy')
+  console.log(currentBranch)
 
   //Change dishes when change branch
   useEffect(() => {
-    if (Object.keys(dishes).length !== 0) {
+    setCurrentBranch(branch)
+    if (Object.values(dishes).length !== 0) {
       setCurrentDishes(Object.values(dishes[branch.id]))
     }
-  }, [branch, dishes])
+  }, [dishes, branch])
+
+  const comprobration = dishes[branch.id] ? Object.keys(dishes[branch.id]).length === 0 : true
 
   //Show the Loading
-  if (dishesStatus[branch.id] === undefined || currentDishes === undefined) return <Loader />
+  if (comprobration || Object.keys(currentDishes).length === 0) return <Loader />
 
   //Menu
   return <>
@@ -33,7 +42,6 @@ const Menu = ({ franch = true, branch }) => {
         <button className='menuList__header__button'>Settings</button>
       </div>}
     <Card title='Menu'>
-      {console.log(currentDishes)}
       <div className="menuList">
         {currentDishes.map(dish =>
           <details key={dish.id} className='menuList__dish'>
@@ -42,7 +50,7 @@ const Menu = ({ franch = true, branch }) => {
               <div className="menuList__dish__options">
                 <Switch
                   onChange={() => switchDishStatus(dish.id, branch.id)}
-                  checked={dishesStatus[branch.id][dish.id]}
+                  checked={dishes[branch.id][dish.id].status}
                   onColor="#ff3229"
                   onHandleColor="#ff3229"
                   handleDiameter={20}

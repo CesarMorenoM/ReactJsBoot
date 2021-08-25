@@ -44,20 +44,19 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
           <select className="input"
             defaultValue={dish.category || ''}
             {...register("category")}>
-            <option value="Entrada">Entrada</option>
-            <option value="Botana">Botana</option>
-            <option value="Aperitivo">Aperitivo</option>
-            <option value="Sopa">Sopa</option>
-            <option value="Ensalada">Ensalada</option>
-            <option value="Plato principal">Plato principal</option>
-            <option value="Postre">Postre</option>
-            <option value="Bebida">Bebida</option>
+            <option value="inlet">Inlet</option>
+            <option value="snack">Snack</option>
+            <option value="soup">Soup</option>
+            <option value="salad">Salad</option>
+            <option value="main-course">Main Course</option>
+            <option value="dessert">Dessert</option>
+            <option value="Drink">Drink</option>
           </select>
         </div>
 
         {/* Ingredients */}
         <label className="dish__label">Ingredients<span>Separated by commas</span></label>
-        <textarea className=' input' placeholder="Description"
+        <textarea className=' input' placeholder="Salt , Sugar , Love ..."
           defaultValue={dish.ingredients || ''}
           {...register("ingredients")} />
 

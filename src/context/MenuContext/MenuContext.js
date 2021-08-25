@@ -18,7 +18,6 @@ export const MenuContextProvider = ({ children }) => {
   useEffect(() => {
     if (branches) {
       let dishesList = {}
-      let initialStatuses = {}
 
       branches.forEach(branch => {
         let dishesInfo = {}
@@ -26,14 +25,7 @@ export const MenuContextProvider = ({ children }) => {
         dishesList = { ...dishesList, [branch.id]: dishesInfo }
       })
 
-      branches.forEach(branch => {
-        let dishesStatus = {}
-        branch.dishes.forEach(dish => dishesStatus = { ...dishesStatus, [dish.id]: dish.status })
-        initialStatuses = { ...initialStatuses, [branch.id]: { ...dishesStatus } }
-      })
-
       dispatch({ type: TYPES.MENU.CREATE.DISHESCOPY, payload: { ...dishesList } })
-      dispatch({ type: TYPES.MENU.CREATE.DISHSTATUSLIST, payload: { ...initialStatuses } })
     }
 
   }, [branches])
@@ -139,7 +131,7 @@ export const MenuContextProvider = ({ children }) => {
   //Handlers for actions with dishes
   const switchDishStatus = async (dish, branch) => {
 
-    const status = !(!!state.dishesStatus[branch][dish])
+    const status = !(!!state.dishes[branch][dish].status)
 
     try {
       await PUTDishStatus(user.id, branch, dish, status)
@@ -171,7 +163,9 @@ export const MenuContextProvider = ({ children }) => {
   }
   const deleteDish = (branch, dishId) => {
     const data = state.dishes[branch]
+    const deleted = data[dishId]
     delete data[dishId]
+
 
     const deleteItem = async (t) => {
       try {
@@ -185,11 +179,11 @@ export const MenuContextProvider = ({ children }) => {
     //Delete confirmation
     toast(t => {
       return <div>
-        <p>Estas seguro?</p>
+        <p>Delete {deleted.name}?</p>
         <button onClick={() => toast.dismiss(t.id)}>Cancel</button>
         <button onClick={() => deleteItem(t)}>Delete</button>
       </div>
-    })
+    }, { icon: '⚠️' })
   }
   const addDish = async (branch, crudeData) => {
     let data = {

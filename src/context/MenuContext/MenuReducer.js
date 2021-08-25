@@ -1,8 +1,7 @@
 import TYPES from "../types";
 
 export const initialState = {
-  dishes: undefined,
-  dishesStatus: undefined
+  dishes: undefined
 }
 
 export const MenuReducer = (state, action) => {
@@ -12,10 +11,6 @@ export const MenuReducer = (state, action) => {
       ...state,
       dishes: payload
     }
-    case (TYPES.MENU.CREATE.DISHSTATUSLIST): return {
-      ...state,
-      dishesStatus: payload
-    }
     case (TYPES.MENU.CREATE.DISH): return {
       ...state,
       dishes: {
@@ -23,25 +18,22 @@ export const MenuReducer = (state, action) => {
         [payload.branch]: {
           ...state.dishes[payload.branch],
           [payload.dish]: {
-            ...payload.data
+            ...payload.data,
+            status: true
           }
-        }
-      },
-      dishesStatus: {
-        ...state.dishesStatus,
-        [payload.branch]: {
-          ...state.dishesStatus[payload.branch],
-          [payload.dish]: true
         }
       }
     }
     case (TYPES.MENU.UPDATE.DISHSTATUS): return {
       ...state,
-      dishesStatus: {
-        ...state.dishesStatus,
+      dishes: {
+        ...state.dishes,
         [payload.branch]: {
-          ...state.dishesStatus[payload.branch],
-          [payload.dish]: payload.status
+          ...state.dishes[payload.branch],
+          [payload.dish]: {
+            ...state.dishes[payload.branch][payload.dish],
+            status: payload.status
+          }
         }
       }
     }
