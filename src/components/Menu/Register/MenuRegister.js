@@ -1,6 +1,10 @@
+//libraries
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
+//personal
 import MenuContext from "../../../context/MenuContext/MenuContext";
+//images
+import defaultImg from '../../../static/default-img.jpg'
 import './menuRegister.scss'
 
 const MenuRegister = ({ dish, closeModal, branch, action }) => {
@@ -44,12 +48,12 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
           <select className="input"
             defaultValue={dish.category || ''}
             {...register("category")}>
-            <option value="inlet">Inlet</option>
-            <option value="snack">Snack</option>
-            <option value="soup">Soup</option>
-            <option value="salad">Salad</option>
-            <option value="main-course">Main Course</option>
-            <option value="dessert">Dessert</option>
+            <option value="Inlet">Inlet</option>
+            <option value="Snack">Snack</option>
+            <option value="Soup">Soup</option>
+            <option value="Salad">Salad</option>
+            <option value="Main Course">Main Course</option>
+            <option value="Dessert">Dessert</option>
             <option value="Drink">Drink</option>
           </select>
         </div>
@@ -105,7 +109,7 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
       {/* Side section */}
       <div className='menuRegister__side'>
         <div className="menuRegister__image">
-          <img src={dish.image || ''} alt='Dish' />
+          <img src={dish.image || defaultImg} alt='Dish' />
           <input className="menuRegister__image__button" type="text" name='picture'
             defaultValue={dish.image || ''}
             {...register("image")}

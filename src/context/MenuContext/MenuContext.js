@@ -30,7 +30,7 @@ export const MenuContextProvider = ({ children }) => {
 
   }, [branches])
 
-  //PUT Methods
+  //Fetch Methods
   const PUTDishStatus = (userId, branchId, dishId, currentStatus) => {
     return new Promise((res, rej) => {
       fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
@@ -162,8 +162,8 @@ export const MenuContextProvider = ({ children }) => {
     return true
   }
   const deleteDish = (branch, dishId) => {
-    const data = state.dishes[branch]
-    const deleted = data[dishId]
+    let data = { ...state.dishes[branch] }
+    let deleted = data[dishId]
     delete data[dishId]
 
 

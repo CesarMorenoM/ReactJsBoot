@@ -2,6 +2,8 @@
 import { useContext } from 'react'
 import Switch from "react-switch";
 import ModalView from './Modal/Modal'
+//images
+import defaultImg from '../../static/default-img.jpg'
 //components
 import Loader from '../Common/Loader/Loader'
 import Card from '../Common/Cards/Card'
@@ -56,7 +58,7 @@ const Menu = ({ franch = true, branch }) => {
 
             </summary>
             <div className='menuList__dish__desc'>
-              <img className='menuList__dish__desc__img' src={dish.image} alt='img' />
+              <img className='menuList__dish__desc__img' src={dish.image || defaultImg} alt='img' />
               <div className='menuList__dish__desc__section'>
                 <p className='menuList__dish__desc__text'><span>Price:</span> ${dish.price.toLocaleString()}</p>
                 <p className='menuList__dish__desc__text'><span> Category:</span> {dish.category}</p>

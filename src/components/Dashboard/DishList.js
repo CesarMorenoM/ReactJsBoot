@@ -1,11 +1,12 @@
 import React from 'react'
+import defaultImg from '../../static/default-img.jpg'
 import './dishList.scss'
 
 const DishList = ({ dishes, quantity }) => {
   return (
     <ol className='dishList'>
       {dishes.slice(0, quantity).map((dish, id) => {
-        let dishImg = dish.image ? dish.image : 'https://parade.com/wp-content/uploads/2014/05/epicurious-tidal.jpg'
+        let dishImg = dish.image ? dish.image : defaultImg
         return (
           <li key={dish.id}>
             <div className='dishList__cover'>
