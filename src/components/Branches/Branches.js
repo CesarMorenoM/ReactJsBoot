@@ -20,7 +20,7 @@ const Branches = () => {
   const [currentBranch, setCurrentBranch] = useState(branches[0])
 
   const handleChangeBranch = branch => {
-    setCurrentBranch({ ...branch })
+    setCurrentBranch(branch)
   }
 
   return (

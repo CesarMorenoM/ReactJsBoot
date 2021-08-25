@@ -1,5 +1,5 @@
 //libraries
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import Switch from "react-switch";
 import ModalView from './Modal/Modal'
 //components
@@ -10,31 +10,17 @@ import './Menu.scss'
 import MenuContext from '../../context/MenuContext/MenuContext';
 
 const Menu = ({ franch = true, branch }) => {
-
   const { dishes, switchDishStatus, deleteDish, noFranchise } = useContext(MenuContext)
-  const [currentDishes, setCurrentDishes] = useState({})
-  const [currentBranch, setCurrentBranch] = useState()
+
+  //Define the branch to not franchises restaurants
   if (branch === undefined) branch = noFranchise()
 
-  console.log('Original')
-  console.log(branch)
-  console.log('copy')
-  console.log(currentBranch)
+  //What are the current dishes
+  const currentDishes = Object.keys(dishes).length !== 0 ? Object.values(dishes[branch.id]) : undefined
 
-  //Change dishes when change branch
-  useEffect(() => {
-    setCurrentBranch(branch)
-    if (Object.values(dishes).length !== 0) {
-      setCurrentDishes(Object.values(dishes[branch.id]))
-    }
-  }, [dishes, branch])
 
-  const comprobration = dishes[branch.id] ? Object.keys(dishes[branch.id]).length === 0 : true
+  if (!currentDishes) return <Loader />
 
-  //Show the Loading
-  if (comprobration || Object.keys(currentDishes).length === 0) return <Loader />
-
-  //Menu
   return <>
     {!!franch &&
       <div className='menuList__header'>
@@ -48,6 +34,7 @@ const Menu = ({ franch = true, branch }) => {
             <summary className='menuList__dish__info'>
               <span className='menuList__dish__name'>{dish.name}</span>
               <div className="menuList__dish__options">
+                {console.log(dishes[branch.id])}
                 <Switch
                   onChange={() => switchDishStatus(dish.id, branch.id)}
                   checked={dishes[branch.id][dish.id].status}

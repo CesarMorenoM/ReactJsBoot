@@ -25,6 +25,7 @@
             }
         }
         &__desc {
+            max-height: 0px;
             padding: 1em;
             display: grid;
             grid-template-columns: 1fr 4fr;
@@ -91,6 +92,9 @@
         &[open] > &__info::before {
             transform: rotate(90deg);
         }
+        &[open] > &__desc {
+            animation: openDetails 1s ease-out forwards;
+        }
     }
     &__header {
         display: flex;
@@ -112,5 +116,16 @@
     100% {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+@keyframes openDetails {
+    0% {
+        max-height: 0;
+    }
+    99% {
+        max-height: 640px;
+    }
+    100% {
+        max-height: initial;
     }
 }
