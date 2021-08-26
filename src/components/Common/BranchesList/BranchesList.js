@@ -12,6 +12,7 @@ const BranchesList = ({ branches, currentBranch, setBranch }) => {
           <i className="material-icons">home</i>
           <span>{branch.name}</span>
         </button>))}
+      <button className='branchesList__add' ><i className="material-icons">add</i></button>
     </ul>
   )
 }

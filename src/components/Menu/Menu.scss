@@ -4,7 +4,6 @@
 .menuList {
     display: flex;
     flex-direction: column;
-    padding: 10px;
     &__dish {
         margin-bottom: 0.5rem;
         box-shadow: $basicShadow;

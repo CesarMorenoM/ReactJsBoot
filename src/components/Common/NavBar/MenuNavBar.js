@@ -46,7 +46,7 @@ const Menu = ({ menuToggle, setMenuToggle }) => {
     }
     if (menuToggle) document.getElementById('LogOut').addEventListener('click', toggleLogOut)
     return () => {
-      if (!!document.getElementById('LogOut')) {
+      if (document.getElementById('LogOut')) {
         document.getElementById('LogOut').removeEventListener('click', toggleLogOut)
       }
     }

@@ -22,7 +22,7 @@ const LogIn = () => {
 
   return (
     <div className='logIn' style={{ backgroundImage: `url(${bgImage})` }}>
-      <NavBar />
+      <NavBar logged={false} />
       <div className='logIn__container'>
         <form className="logIn__form" onSubmit={e => e.preventDefault()}>
           <div className="logIn__field">

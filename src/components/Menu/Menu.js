@@ -14,13 +14,13 @@ import MenuContext from '../../context/MenuContext/MenuContext';
 const Menu = ({ franch = true, branch }) => {
   const { dishes, switchDishStatus, deleteDish, noFranchise } = useContext(MenuContext)
 
-  //Define the branch to not franchises restaurants
+  //! Define the branch to not franchises restaurants
   if (branch === undefined) branch = noFranchise()
 
-  //What are the current dishes
+  //! What are the current dishes
   const currentDishes = Object.keys(dishes).length !== 0 ? Object.values(dishes[branch.id]) : undefined
 
-
+  //! Is charging
   if (!currentDishes) return <Loader />
 
   return <>
@@ -36,7 +36,6 @@ const Menu = ({ franch = true, branch }) => {
             <summary className='menuList__dish__info'>
               <span className='menuList__dish__name'>{dish.name}</span>
               <div className="menuList__dish__options">
-                {console.log(dishes[branch.id])}
                 <Switch
                   onChange={() => switchDishStatus(dish.id, branch.id)}
                   checked={dishes[branch.id][dish.id].status}

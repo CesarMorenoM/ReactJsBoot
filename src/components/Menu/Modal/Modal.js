@@ -1,10 +1,10 @@
-import React from 'react'
+import { useState } from 'react'
 import Modal from 'react-modal';
 import MenuRegister from '../Register/MenuRegister';
 import './modal.scss'
 
 const ModalView = ({ action, dish, branch }) => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);

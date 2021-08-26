@@ -22,22 +22,22 @@ function App() {
     <>
       <Toaster />
       <UserContextProvider>
-        <Router>
-          <Switch>
-            <Route exact path='/home' component={LandingPage} />
-            <Route exact path='/login' component={LogIn} />
-            <PrivateRoute exact path='/' component={Dashboard} />
-            <PrivateRoute exact path='/dashboard' component={Dashboard} />
-            <PrivateRoute exact path='/profile' component={() => <h1>Profile</h1>} />
-            <PrivateRoute exact path='/reservations' component={() => <h1>Reservations</h1>} />
-            <PrivateRoute exact path='/config' component={() => <h1>Configuration</h1>} />
-            <MenuContextProvider>
+        <MenuContextProvider>
+          <Router>
+            <Switch>
+              <Route exact path='/home' component={LandingPage} />
+              <Route exact path='/login' component={LogIn} />
+              <PrivateRoute exact path='/' component={Dashboard} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute exact path='/profile' component={() => <h1>Profile</h1>} />
+              <PrivateRoute exact path='/reservations' component={() => <h1>Reservations</h1>} />
+              <PrivateRoute exact path='/config' component={() => <h1>Configuration</h1>} />
               <PrivateRoute exact path='/branches' component={Branches} />
               <PrivateRoute exact path='/menu' component={Menu} />
-            </MenuContextProvider>
-            <Route path='*' component={ErrorPage} />
-          </Switch>
-        </Router>
+              <Route path='*' component={ErrorPage} />
+            </Switch>
+          </Router>
+        </MenuContextProvider>
       </UserContextProvider>
     </>
   )

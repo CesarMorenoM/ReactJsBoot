@@ -46,4 +46,23 @@
             }
         }
     }
+    &.--init {
+        background: transparent;
+        padding: 1em;
+        position: relative;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .nav-bar {
+        justify-content: space-around;
+        &__title {
+            width: 60%;
+        }
+        &__login {
+            width: auto;
+            padding: 0;
+            margin: 0;
+            font-stretch: expanded;
+        }
+    }
 }

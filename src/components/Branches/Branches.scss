@@ -17,17 +17,19 @@
                 align-content: center;
                 justify-content: center;
                 & > * {
-                    margin-block: 1em;
+                    margin-bottom: 1em;
                 }
             }
             &__img {
-                width: 15vw;
-                height: 15vw;
+                width: 100%;
+                height: 100%;
+                aspect-ratio: 1/1;
                 object-fit: cover;
                 border-radius: 1em;
             }
             &__settings {
                 @include button;
+                margin-top: 5em;
             }
         }
     }

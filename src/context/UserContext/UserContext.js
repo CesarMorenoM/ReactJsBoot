@@ -12,7 +12,7 @@ export const UserContextProvider = ({ children }) => {
   const API_URL = process.env.REACT_APP_MOCKAPI
   const [state, dispatch] = useReducer(UserReducer, initialState)
 
-  // GET methods
+  // Fetch methods
   const getUser = id => {
     return new Promise((result, rej) => {
       fetch(`${API_URL}/user/${id}`)
@@ -77,7 +77,7 @@ export const UserContextProvider = ({ children }) => {
     return (state.user && localStorage.getItem('session'))
   }
 
-  //Functions for the branches creation
+  //Functions for the branches render
   const createGeneralBranch = branches => {
     if (branches.length > 1) {
       let generalBranch = { name: 'General' }

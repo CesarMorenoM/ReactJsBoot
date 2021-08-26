@@ -70,3 +70,16 @@
         }
     }
 }
+@media only screen and (max-width: 550px) {
+    .logIn {
+        background-attachment: scroll;
+        width: auto;
+        height: 100vh;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        &__form {
+            background-color: transparent;
+            border: none;
+        }
+    }
+}

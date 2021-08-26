@@ -12,7 +12,6 @@ const Footer = () => {
     { name: 'Home', to: '/' },
     { name: 'Log In', to: '/login' },
     { name: 'Register restaurant' },
-    { name: 'Search restaurant' },
     { name: 'Recomendations' },
     { name: 'Help' },
     { name: 'FAQ' },

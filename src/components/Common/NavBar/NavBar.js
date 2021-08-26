@@ -10,12 +10,6 @@ const NavBar = ({ logged, minimal }) => {
   const [menuToggle, setMenuToggle] = useState(false)
   const { user } = useContext(UserContext)
 
-  const initialStyle = {
-    backgroundColor: 'transparent',
-    padding: '1em',
-    position: 'relative'
-  }
-
   const createLogged = () => {
     return <div className='nav-bar__user'>
       <i className=' nav-bar__user__icon material-icons'>notifications</i>
@@ -31,7 +25,7 @@ const NavBar = ({ logged, minimal }) => {
 
   return (
     <>
-      <nav className='nav-bar' style={!logged ? initialStyle : {}} id='inicio'>
+      <nav className={`nav-bar ${!logged ? '--init' : ''}`} id='inicio'>
         <NavLink to='/'>
           <img className='nav-bar__title' src={logo} alt="logo" />
         </NavLink>

@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 //personal
 import UserContext from '../../context/UserContext/UserContext'
 //images
-import contactImage from '../../static/contact-restaurant.jpg'
+import defaultImg from '../../static/default-img.jpg'
 //components
 import BranchesList from '../Common/BranchesList/BranchesList'
 import Menu from '../Menu/Menu'
@@ -32,7 +32,7 @@ const Branches = () => {
         <div className='branches__content__info'>
           <Card title='Branch'>
             <div className='branches__content__info__container'>
-              <img className='branches__content__info__img' src={currentBranch.image || contactImage} alt={currentBranch.name} />
+              <img className='branches__content__info__img' src={currentBranch.image || defaultImg} alt={currentBranch.name} />
               <h2 className='branches__content__info__name'>{currentBranch.name}</h2>
               <p className='branches__content__info__info'>{currentBranch.address}</p>
               <p className='branches__content__info__info'>{currentBranch.phone}</p>

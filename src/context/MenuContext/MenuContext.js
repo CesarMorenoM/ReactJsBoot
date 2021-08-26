@@ -180,8 +180,8 @@ export const MenuContextProvider = ({ children }) => {
     toast(t => {
       return <div>
         <p>Delete {deleted.name}?</p>
-        <button onClick={() => toast.dismiss(t.id)}>Cancel</button>
-        <button onClick={() => deleteItem(t)}>Delete</button>
+        <button className='notification__button invert' onClick={() => toast.dismiss(t.id)}>Cancel</button>
+        <button className='notification__button' onClick={() => deleteItem(t)}>Delete</button>
       </div>
     }, { icon: '⚠️' })
   }
@@ -205,7 +205,6 @@ export const MenuContextProvider = ({ children }) => {
     }
 
     dispatch({ type: TYPES.MENU.CREATE.DISH, payload: { branch, dish: newData.id, data } })
-    console.log(newData.id)
     toast('Dish Added!', { icon: '👍', duration: 500 })
     return true
   }

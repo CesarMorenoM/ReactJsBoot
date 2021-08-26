@@ -4,6 +4,8 @@
 .branchesList {
     display: flex;
     list-style-type: none;
+    align-items: center;
+    text-align: center;
     padding: 1em;
     font-size: 1em;
     &__branch {
@@ -19,6 +21,19 @@
             cursor: pointer;
             color: $seconColor;
             background-color: $color;
+        }
+    }
+    &__add {
+        @include button(-1);
+        color: rgba($color: $color, $alpha: 0.7);
+        display: flex;
+        padding: 0.5em;
+        border-radius: 50%;
+        border: dotted 1px rgba($color: $color, $alpha: 0.7);
+        text-align: center;
+        &:hover {
+            background-color: rgba($color: $color, $alpha: 0.7);
+            border: none;
         }
     }
 }
