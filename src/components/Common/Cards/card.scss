@@ -20,3 +20,24 @@
         margin-left: 1em;
     }
 }
+@media only screen and (max-width: 550px) {
+    .infoCard {
+        padding: 1em;
+        margin: 0;
+        padding-block: 2em;
+        border-radius: 1em;
+        &.--imp {
+            grid-template-columns: 1fr 3fr;
+            column-gap: 1em;
+            font-size: 1em;
+            padding: 1em;
+            i {
+                justify-self: center;
+            }
+        }
+        &__title {
+            margin-block: 1em;
+            margin-left: 0;
+        }
+    }
+}

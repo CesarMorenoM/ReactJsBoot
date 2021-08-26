@@ -7,7 +7,6 @@ import BranchesList from '../Common/BranchesList/BranchesList';
 import Loader from '../Common/Loader/Loader';
 import UserContext from '../../context/UserContext/UserContext';
 import { prevMonth } from '../../helpers/helpers';
-import MenuContext from '../../context/MenuContext/MenuContext';
 
 //! Select how many data show
 const lastNMonths = 6
@@ -79,7 +78,7 @@ const Dashboard = () => {
               options={{
                 scales: {
                   y: { beginAtZero: true },
-                  x: { reverse: true }
+                  x: { reverse: true },
                 }
               }}
             />

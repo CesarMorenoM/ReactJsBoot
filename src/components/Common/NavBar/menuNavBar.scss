@@ -1,7 +1,6 @@
 @import "../../../style/variables";
 .menu {
     position: fixed;
-    //float: right;
     bottom: 0;
     z-index: 2;
     background-color: $color;
@@ -43,5 +42,21 @@
     }
     &.--active {
         right: 0;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .menu {
+        width: 100vw;
+        right: 0;
+        top: -100vh;
+        &__list {
+            padding-top: 25vh;
+            &__item {
+                justify-content: center;
+            }
+        }
+        &.--active {
+            top: 0;
+        }
     }
 }

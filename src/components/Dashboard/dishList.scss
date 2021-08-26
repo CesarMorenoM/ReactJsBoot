@@ -34,3 +34,14 @@
         }
     }
 }
+@media only screen and (max-width: 550px) {
+    .dishList {
+        margin-bottom: 2em;
+        li {
+            grid-template-columns: 1fr 4fr;
+        }
+        &__price {
+            font-size: 1.4em;
+        }
+    }
+}
