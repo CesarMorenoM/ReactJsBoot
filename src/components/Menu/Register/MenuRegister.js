@@ -109,6 +109,7 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
       {/* Side section */}
       <div className='menuRegister__side'>
         <div className="menuRegister__image">
+          <label className="dish__label">Image</label>
           <img src={dish.image || defaultImg} alt='Dish' />
           <input className="menuRegister__image__button" type="text" name='picture'
             defaultValue={dish.image || ''}

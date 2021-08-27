@@ -36,11 +36,11 @@
             margin-inline: 1em;
         }
         &__img {
-            width: 100%;
+            width: 3em;
             aspect-ratio: 1/1;
             background-position: center;
             background-size: cover;
-            border-radius: 1em;
+            border-radius: 0.5em;
             &:hover {
                 cursor: pointer;
             }
