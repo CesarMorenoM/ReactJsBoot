@@ -1,3 +1,4 @@
+//images
 import positionMarker from '../../../static/position-marker.svg'
 import like from '../../../static/like.svg'
 import valorations from '../../../static/valorations.svg'

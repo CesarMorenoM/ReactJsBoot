@@ -1,6 +1,6 @@
 const API_URL = process.env.REACT_APP_MOCKAPI
 
-//! User methods
+// User methods
 export const GETUser = id => {
   return new Promise((result, rej) => {
     fetch(`${API_URL}/user/${id}`)
@@ -33,7 +33,7 @@ export const GETBranches = id => {
   })
 }
 
-//! Dishes methods
+// Dishes methods
 export const PUTDishStatus = (userId, branchId, dishId, currentStatus) => {
   return new Promise((res, rej) => {
     fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {

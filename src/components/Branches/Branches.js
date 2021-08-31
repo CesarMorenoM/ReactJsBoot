@@ -23,6 +23,7 @@ const Branches = () => {
     setCurrentBranch(branch)
   }
 
+  //Component
   return (
     <>
       <div className='branches__list'>

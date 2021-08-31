@@ -1,13 +1,11 @@
-import './calendar.scss'
+import { useEffect } from 'react'
 import { capitalize } from '../../../helpers/helpers'
-import { useEffect } from 'react/cjs/react.development'
+import './calendar.scss'
 
 const Calendar = ({ displayDay, setCurrentDay, days, currentDay, handleNavigation }) => {
-
   const weekDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
-
-
+  // Update the focus day when navigate
   useEffect(() => {
     const isInitialMonth = !!days.filter(day => day.date === currentDay.date).length
 
@@ -28,7 +26,7 @@ const Calendar = ({ displayDay, setCurrentDay, days, currentDay, handleNavigatio
     }
   }, [days, displayDay, setCurrentDay, currentDay])
 
-
+  //Component
   return (
     <div className='calendar'>
       <div className='calendar__header'>

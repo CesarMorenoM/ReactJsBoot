@@ -1,4 +1,3 @@
-import React from 'react'
 import defaultImg from '../../static/default-img.jpg'
 import './dishList.scss'
 

@@ -1,9 +1,9 @@
 import toast from "react-hot-toast"
 
-//! Concat different functions
+// Concat different functions
 export const pipe = (...functions) => value => functions.reduce((acc, func) => func(acc), value)
 
-//! Get the last N months (in text)
+// Get the last N months (in text)
 export const prevMonth = (max, date = new Date()) => {
   max += 1
   let temp = new Date(date)
@@ -24,16 +24,16 @@ export const prevMonth = (max, date = new Date()) => {
   return [...new Set(prevMonths)]
 }
 
-//! Capitalize an string
+// Capitalize an string
 export const capitalize = text => text
   .toLowerCase()
   .replace(/\w/, firstLetter => firstLetter.toUpperCase())
 
-//! Transform a text separated by commas in an array
+// Transform a text separated by commas in an array
 export const toArray = arr => arr.split(',')
   .map(el => capitalize(el.trim()))
 
-//! Show an error notification
+// Show an error notification
 export const notifyError = err => {
   toast.error(`Sorry, ${err}`,
     { duration: 1500, iconTheme: { primary: '#ff3229' } }

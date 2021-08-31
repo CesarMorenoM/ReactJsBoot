@@ -1,12 +1,14 @@
-import './reservations.scss'
+//libraries
+import { useState, useContext } from 'react'
+//components
 import Card from '../Common/Cards/Card'
 import Calendar from './Calendar/Calendar'
 import BranchesList from '../Common/BranchesList/BranchesList'
-import { useState } from 'react'
-import { useContext } from 'react/cjs/react.development'
 import Loader from '../Common/Loader/Loader'
 import UserContext from '../../context/UserContext/UserContext'
+//personal
 import useCalendar from './useCalendar'
+import './reservations.scss'
 
 const Reservations = () => {
   //Get the branches

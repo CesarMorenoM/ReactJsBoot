@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+//images
 import contactImage from '../../../static/contact-restaurant.jpg'
 import './landingContact.scss'
 

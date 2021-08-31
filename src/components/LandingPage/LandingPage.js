@@ -4,7 +4,6 @@ import Recommended from './Recommended/LandingRecommended'
 import Download from './DownloadApp/LandingDownload'
 import Contact from './Contact/LandingContact'
 import Footer from '../Common/Footer/Footer'
-import './landingPage.scss'
 
 const LandingPage = () => {
   return (

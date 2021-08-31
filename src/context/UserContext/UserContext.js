@@ -1,9 +1,12 @@
+//libraries
 import { createContext, useReducer } from 'react'
 import toast from 'react-hot-toast'
+//personal
 import TYPES from '../types'
-import { notifyError, pipe } from '../../helpers/helpers'
 import { UserReducer, initialState } from './UserReducer'
 import useMenu from './useMenu'
+//utility
+import { notifyError, pipe } from '../../helpers/helpers'
 import { GETBranches, GETUser } from './fetchMethods'
 import { createBranchesInfo, createGeneralBranch } from './branchFunctions'
 
@@ -13,7 +16,7 @@ const UserContext = createContext()
 export const UserContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState)
 
-  //! Account functions
+  // Account functions
   const logIn = async id => {
 
     let user
@@ -45,7 +48,7 @@ export const UserContextProvider = ({ children }) => {
     return (state.user && localStorage.getItem('session'))
   }
 
-  //! Update the info of one branch
+  // Update the info of one branch
   const updateBranchInfo = (branch, data) => {
     let newBranches = state.branches.map(obj =>
       obj.id === branch
@@ -56,7 +59,7 @@ export const UserContextProvider = ({ children }) => {
     dispatch({ type: TYPES.USER.BRANCHES, payload: pipe(createGeneralBranch, createBranchesInfo)(newBranches) })
   }
 
-  //! Get all the Menu functionality
+  // Get all the Menu functionality
   const { dishes, switchDishStatus, updateDishInfo, deleteDish, addDish, noFranchise }
     = useMenu(state.branches, updateBranchInfo, state.user)
 

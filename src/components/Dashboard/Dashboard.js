@@ -1,13 +1,16 @@
 //libraries
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Line, Pie } from 'react-chartjs-2';
+//personal
+import UserContext from '../../context/UserContext/UserContext';
+import './dashboard.scss'
+//components
 import Card from '../Common/Cards/Card'
 import DishList from './DishList';
 import BranchesList from '../Common/BranchesList/BranchesList';
 import Loader from '../Common/Loader/Loader';
-import UserContext from '../../context/UserContext/UserContext';
+//utility
 import { prevMonth } from '../../helpers/helpers';
-import './dashboard.scss'
 
 // Select how many data show
 const lastNMonths = 6

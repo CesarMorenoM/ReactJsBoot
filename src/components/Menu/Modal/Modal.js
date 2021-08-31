@@ -1,5 +1,7 @@
+//libraries
 import { useState } from 'react'
 import Modal from 'react-modal';
+//components
 import MenuRegister from '../Register/MenuRegister';
 import './modal.scss'
 

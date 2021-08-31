@@ -1,3 +1,4 @@
+//images
 import previewApp from '../../../static/preview-app.jpg'
 import androidApp from '../../../static/android-app.png'
 import appleApp from '../../../static/apple-app.png'

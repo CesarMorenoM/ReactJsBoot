@@ -6,7 +6,7 @@ import TYPES from "../types"
 import { DELETEDish, POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
 
 const useMenu = (branches, updateBranchInfo, user) => {
-  //! Dishes copy and reducer utilities
+  // Dishes copy and reducer utilities
   const initialState = {
     dishes: undefined
   }
@@ -34,10 +34,10 @@ const useMenu = (branches, updateBranchInfo, user) => {
     }
   }
 
-  //! Generate the initial state
+  // Generate the initial state
   const [state, dispatch] = useReducer(MenuReducer, initialState)
 
-  //! Update the dish copy everytime the branches/dishes change
+  // Update the dish copy everytime the branches/dishes change
   useEffect(() => {
     if (branches) {
       let dishesList = {}
@@ -53,10 +53,10 @@ const useMenu = (branches, updateBranchInfo, user) => {
 
   }, [branches])
 
-  //! Misc
+  // Misc
   const noFranchise = () => branches[0]
 
-  //! Handlers for actions with dishes
+  // Handlers for actions with dishes
   const addDish = async (branch, crudeData) => {
     let data = {
       ...crudeData,

@@ -1,10 +1,13 @@
-import React, { useContext, useState } from 'react'
+//libraries
+import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import toast from 'react-hot-toast'
+//components
 import UserContext from '../../context/UserContext/UserContext'
 import NavBar from '../Common/NavBar/NavBar'
+//images
 import bgImage from '../../static/background-restaurant.jpg'
 import './login.scss'
-import toast from 'react-hot-toast'
 
 const LogIn = () => {
   const { logIn } = useContext(UserContext)

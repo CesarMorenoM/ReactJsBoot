@@ -1,8 +1,8 @@
-import React from 'react'
-import NavBar from '../../Common/NavBar/NavBar'
 import bgImage from '../../../static/background-restaurant.jpg'
-import './landingInicio.scss'
+//components
+import NavBar from '../../Common/NavBar/NavBar'
 import Divider from '../../Common/Divider/Divider'
+import './landingInicio.scss'
 
 const LandingInicio = () => {
   return (
