@@ -1,5 +1,10 @@
 import { useState } from "react"
 
+/**
+ * Create all the functionality of a calendar
+ * @param {Number} navigation The current page that we're showing
+ * @param {Array<Object>} events The events of the current branch
+ */
 const useCalendar = (navigation, events) => {
 
   //Today
@@ -23,7 +28,11 @@ const useCalendar = (navigation, events) => {
   const dateInString = firstDay.toLocaleDateString('en-US', { weekday: 'short' })
   const paddingDays = weekDays.indexOf(dateInString)
 
-  //Function to search the events in a specific date
+  /**
+   * Function to search the events in a specific date
+   * @param {String} date String of the date
+   * @returns An array with the events to the date
+   */
   const eventsForDate = date => events.find(e => Date.parse(e.date) === Date.parse(date))
 
   //Generate the days for the month

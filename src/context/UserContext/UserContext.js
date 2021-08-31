@@ -17,6 +17,11 @@ export const UserContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState)
 
   // Account functions
+  /**
+   * Get the user and the branches
+   * @param {Number} id Id of the user
+   * @returns {void}
+   */
   const logIn = async id => {
 
     let user
@@ -48,7 +53,11 @@ export const UserContextProvider = ({ children }) => {
     return (state.user && localStorage.getItem('session'))
   }
 
-  // Update the info of one branch
+  /**
+   * Update the info of one branch, update all branches
+   * @param {Number} branch Id of the branch
+   * @param {Object} data Object with the data to edit
+   */
   const updateBranchInfo = (branch, data) => {
     let newBranches = state.branches.map(obj =>
       obj.id === branch

@@ -1,10 +1,18 @@
-import { useEffect } from "react"
-import { useReducer } from "react"
+//libaries
+import { useEffect, useReducer } from "react"
 import toast from "react-hot-toast"
+//utility
+import { DELETEDish, POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
 import { notifyError, toText } from "../../helpers/helpers"
 import TYPES from "../types"
-import { DELETEDish, POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
 
+/**
+ * Get all the functinality of the menu
+ * @param {Array} branches The current branches 
+ * @param {Function} updateBranchInfo The function to update the branches
+ * @param {Object} user The current user
+ * @returns 
+ */
 const useMenu = (branches, updateBranchInfo, user) => {
   // Dishes copy and reducer utilities
   const initialState = {
@@ -57,6 +65,12 @@ const useMenu = (branches, updateBranchInfo, user) => {
   const noFranchise = () => branches[0]
 
   // Handlers for actions with dishes
+  /**
+   * Add a new dish, update the branches and the database
+   * @param {Number} branch Id of the branch
+   * @param {Object} crudeData Object with the data of the dish
+   * @returns Boolean
+   */
   const addDish = async (branch, crudeData) => {
     let data = {
       ...crudeData,
@@ -80,6 +94,11 @@ const useMenu = (branches, updateBranchInfo, user) => {
     return true
   }
 
+  /**
+   * Delete an specific dish, delete it from branches and from the database
+   * @param {Number} branch Id of the branch
+   * @param {Number} dishId Id of the dish
+   */
   const deleteDish = (branch, dishId) => {
     let data = { ...state.dishes[branch] }
     let deleted = data[dishId]
@@ -91,6 +110,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
       } catch (err) {
         notifyError(err)
       }
+      //Create the new info to update the branches
       const newDishes = { ...state.dishes, [branch]: { ...data } }
       const newInfo = { dishes: Object.values(newDishes[branch]) }
 
@@ -108,6 +128,13 @@ const useMenu = (branches, updateBranchInfo, user) => {
     }, { icon: '⚠️' })
   }
 
+  /**
+   * Update the info of a dish, in branhces and in the database
+   * @param {Number} dish Id of the dish
+   * @param {Number} branch Id of the branch
+   * @param {Object} crudeData Object with the new dish info
+   * @returns 
+   */
   const updateDishInfo = async (dish, branch, crudeData) => {
     //Convert the ingredients in array to save
     const data = {
@@ -134,7 +161,11 @@ const useMenu = (branches, updateBranchInfo, user) => {
     return true
   }
 
-  //Manage the switch apart to not being updating all dishes and branches just because a switch
+  /**
+   * Change the state of a dish, in database and in the copy of dishes
+   * @param {Number} dish Id of the dish
+   * @param {Number} branch Id of the branch
+   *///Manage the switch apart to not being updating all dishes and branches just because a switch
   const switchDishStatus = async (dish, branch) => {
 
     const status = !(!!state.dishes[branch][dish].status)

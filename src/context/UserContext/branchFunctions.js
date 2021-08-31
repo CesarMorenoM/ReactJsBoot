@@ -3,7 +3,7 @@ import { prevMonth } from "../../helpers/helpers"
 
 /**
  * Generate a general branch from a branches list
- * @param {Array} branches Base branches
+ * @param {Array<Object>} branches Base branches
  * @returns Array of branches with the general branch
  * @returns Same array if it have less than 1 branch
  */
@@ -37,7 +37,7 @@ export const createGeneralBranch = branches => {
 /**
  * Generate extra info to branches 
  * (bestMonth, bestDishes, allSells)
- * @param {Array} branchesMap Base branches
+ * @param {Array<Object>} branchesMap Base branches
  * @returns Array of branches with the info added
  */
 export const createBranchesInfo = branchesMap => {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import NavBar from '../components/Common/NavBar/NavBar'
 import Footer from '../components/Common/Footer/Footer'

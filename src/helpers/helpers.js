@@ -10,7 +10,7 @@ export const pipe = (...functions) => value => functions.reduce((acc, func) => f
  * Get an array of the last N months 
  * @param {number} max How many months
  * @param {date} [date] Optional: The start date (today by default)
- * @returns {Array} Array with names of last months
+ * @returns {Array<String>} Array with names of last months
  */
 export const prevMonth = (max, date = new Date()) => {
   max += 1
@@ -43,7 +43,7 @@ export const capitalize = text => text
 
 /**
  * Transform an array into a text 
- * @param {Array} arr Array to transform
+ * @param {Array<String>} arr Array to transform
  * @returns String separated by commas
  */
 export const toText = arr => {

@@ -1,11 +1,13 @@
-import React from 'react'
+//libraries
+import { NavLink } from 'react-router-dom'
+//components
 import Divider from '../Divider/Divider'
+//images
 import logo from '../../../static/logo.svg'
 import facebook from '../../../static/facebook.svg'
 import instagram from '../../../static/instagram.svg'
 import mail from '../../../static/mail.svg'
 import './footer.scss'
-import { NavLink } from 'react-router-dom'
 
 const Footer = () => {
   const links = [
