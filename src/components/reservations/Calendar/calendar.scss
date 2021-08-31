@@ -82,3 +82,32 @@
         }
     }
 }
+@media only screen and (max-width: 550px) {
+    .calendar {
+        padding: 1em;
+        &__day {
+            &.--events {
+                &::after {
+                    position: absolute;
+                    content: "";
+                    background-color: $color;
+                    bottom: 0.2em;
+                    border-radius: 50%;
+                    border: 0.15em solid $color;
+                }
+            }
+            &.--current {
+                &.--events {
+                    &::after {
+                        position: absolute;
+                        content: "";
+                        background-color: $seconColor;
+                        bottom: 0.2em;
+                        border-radius: 50%;
+                        border: 0.15em solid $seconColor;
+                    }
+                }
+            }
+        }
+    }
+}
