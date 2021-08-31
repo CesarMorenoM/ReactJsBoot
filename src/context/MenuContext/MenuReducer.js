@@ -18,8 +18,7 @@ export const MenuReducer = (state, action) => {
         [payload.branch]: {
           ...state.dishes[payload.branch],
           [payload.dish]: {
-            ...payload.data,
-            status: true
+            ...payload.data
           }
         }
       }

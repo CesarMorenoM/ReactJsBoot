@@ -128,8 +128,6 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
 
       </div>
 
-
-
       {/* Error handling */}
       {errors.lastname && <span>This field is required</span>}
 

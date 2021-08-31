@@ -1,0 +1,11 @@
+.reservations {
+    padding: 1em;
+    &__list {
+        display: flex;
+        justify-content: center;
+    }
+    &__container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+}

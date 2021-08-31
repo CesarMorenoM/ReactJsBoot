@@ -107,6 +107,13 @@
             @include button;
             height: 50%;
         }
+        & ~ .infoCard {
+            margin: 3em;
+            margin-top: 2em;
+            &__title {
+                margin-left: 2em;
+            }
+        }
     }
 }
 

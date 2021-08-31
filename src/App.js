@@ -16,6 +16,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Branches from './components/Branches/Branches';
 import Menu from './components/Menu/Menu';
 import { MenuContextProvider } from './context/MenuContext/MenuContext';
+import Reservations from './components/reservations/Reservations';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
               <PrivateRoute exact path='/' component={Dashboard} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute exact path='/profile' component={() => <h1>Profile</h1>} />
-              <PrivateRoute exact path='/reservations' component={() => <h1>Reservations</h1>} />
+              <PrivateRoute exact path='/reservations' component={Reservations} />
               <PrivateRoute exact path='/config' component={() => <h1>Configuration</h1>} />
               <PrivateRoute exact path='/branches' component={Branches} />
               <PrivateRoute exact path='/menu' component={Menu} />

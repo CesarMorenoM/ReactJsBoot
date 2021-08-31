@@ -8,6 +8,8 @@
     text-align: center;
     padding: 1em;
     font-size: 1em;
+    flex-wrap: wrap;
+    row-gap: 1em;
     &__branch {
         @include button(-1);
         border-radius: 5em;

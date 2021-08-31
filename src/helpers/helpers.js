@@ -24,14 +24,15 @@ export const prevMonth = (max, date = new Date()) => {
   return [...new Set(prevMonths)]
 }
 
+export const capitalize = text => text
+  .toLowerCase()
+  .replace(/\w/, firstLetter => firstLetter.toUpperCase())
+
 //! Transform a text separated by commas in an array
 export const toArray = arr => arr.split(',')
-  .map(el =>
-    el.trim()
-      .toLowerCase()
-      .replace(/\w/, firstLetter => firstLetter.toUpperCase())
-  )
+  .map(el => capitalize(el.trim()))
 
+//! Show an error notification
 export const notifyError = err => {
   toast.error(`Sorry, ${err}`,
     { duration: 1500, iconTheme: { primary: '#ff3229' } }

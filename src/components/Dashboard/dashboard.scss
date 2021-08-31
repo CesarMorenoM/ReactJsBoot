@@ -2,7 +2,7 @@
 
 .dashboard {
     background-color: $bgColor;
-    padding: 2em;
+    padding: 1em;
     color: $fontColor;
     &__user {
         span {
@@ -12,6 +12,9 @@
     &__statistics {
         display: grid;
         grid-template-columns: 2fr 1fr;
+        h2 {
+            margin-left: 1em;
+        }
         &__overview {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;

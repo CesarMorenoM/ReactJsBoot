@@ -150,15 +150,16 @@ export const MenuContextProvider = ({ children }) => {
       ingredients: toArray(crudeData.ingredients)
     }
     const current = state.dishes[branch][dish]
+    let newData
 
     try {
-      await PUTDishInfo(user.id, branch, dish, data)
+      newData = await PUTDishInfo(user.id, branch, dish, data)
     } catch (err) {
       notifyError(err)
       return false
     }
     toast('Updated!', { icon: '👍', duration: 500 })
-    dispatch({ type: TYPES.MENU.UPDATE.DISHINFO, payload: { branch, dish, current, data } })
+    dispatch({ type: TYPES.MENU.UPDATE.DISHINFO, payload: { branch, dish, current, data: newData } })
     return true
   }
   const deleteDish = (branch, dishId) => {
@@ -204,14 +205,13 @@ export const MenuContextProvider = ({ children }) => {
       return false
     }
 
-    dispatch({ type: TYPES.MENU.CREATE.DISH, payload: { branch, dish: newData.id, data } })
+    dispatch({ type: TYPES.MENU.CREATE.DISH, payload: { branch, dish: newData.id, data: newData } })
     toast('Dish Added!', { icon: '👍', duration: 500 })
     return true
   }
 
   return <MenuContext.Provider value={{
     dishes: { ...state.dishes },
-    dishesStatus: { ...state.dishesStatus },
     switchDishStatus,
     updateDishInfo,
     deleteDish,
