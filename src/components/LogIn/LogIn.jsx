@@ -30,23 +30,11 @@ const LogIn = () => {
         <form className="logIn__form" onSubmit={e => e.preventDefault()}>
           <div className="logIn__field">
             <i className="material-icons">local_post_office</i>
-            <input
-              value={username}
-              placeholder='User ID'
-              onChange={({ target }) => {
-                setUsername(target.value)
-              }}
-            />
+            <input value={username} placeholder='User ID' onChange={({ target }) => { setUsername(target.value) }} />
           </div>
           <div className="logIn__field">
             <i className="material-icons">lock_outline</i>
-            <input
-              value={username}
-              placeholder='User ID'
-              onChange={({ target }) => {
-                setUsername(target.value)
-              }}
-            />
+            <input value={username} placeholder='User ID' onChange={({ target }) => { setUsername(target.value) }} />
           </div>
           <button className="logIn__submit" onClick={handleLogin}>Log In</button>
           <div className="logIn__help">

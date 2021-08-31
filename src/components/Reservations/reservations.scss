@@ -1,0 +1,21 @@
+.reservations {
+	padding: 1em;
+	&__list {
+		display: flex;
+		justify-content: center;
+	}
+	&__container {
+		display: grid;
+		grid-template-columns: 3fr 1fr;
+	}
+}
+@media only screen and (max-width: 550px) {
+	.reservations {
+		&__container {
+			grid-template-columns: 1fr;
+		}
+		&__side {
+			order: -1;
+		}
+	}
+}

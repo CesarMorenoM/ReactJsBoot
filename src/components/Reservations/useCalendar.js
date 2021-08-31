@@ -42,8 +42,6 @@ const useCalendar = (navigation, events) => {
     }
   }
 
-  //debugger
-
   const [currentDay, setCurrentDay] = useState(days.find(day => day.isInitialDay))
 
   const displayToday = `${date.toLocaleDateString('en-US', { month: 'long' })} ${year}`

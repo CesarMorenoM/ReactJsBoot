@@ -1,14 +1,14 @@
-@import "./mixins";
-@import "./variables";
+@import './mixins';
+@import './variables';
 
 .notification {
-    &__button {
-        @include button();
-        padding: 0.55em;
-        margin-right: 0.5em;
-        &.invert {
-            @include button(-1);
-            padding: 0.5em;
-        }
-    }
+	&__button {
+		@include button();
+		padding: 0.55em;
+		margin-right: 0.5em;
+		&.invert {
+			@include button(-1);
+			padding: 0.5em;
+		}
+	}
 }

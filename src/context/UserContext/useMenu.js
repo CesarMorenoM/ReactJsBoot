@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useReducer } from "react"
 import toast from "react-hot-toast"
-import { notifyError, toArray } from "../../helpers/helpers"
+import { notifyError, toText } from "../../helpers/helpers"
 import TYPES from "../types"
 import { DELETEDish, POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
 
@@ -60,7 +60,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
   const addDish = async (branch, crudeData) => {
     let data = {
       ...crudeData,
-      ingredients: toArray(crudeData.ingredients)
+      ingredients: toText(crudeData.ingredients)
     }
     let newData
 
@@ -112,7 +112,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
     //Convert the ingredients in array to save
     const data = {
       ...crudeData,
-      ingredients: toArray(crudeData.ingredients)
+      ingredients: toText(crudeData.ingredients)
     }
     let newData
 

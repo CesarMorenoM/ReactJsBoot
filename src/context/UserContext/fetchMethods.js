@@ -1,6 +1,11 @@
 const API_URL = process.env.REACT_APP_MOCKAPI
 
 // User methods
+/**
+ * GET petition for an user
+ * @param {Number} id Id of the user we're looking for
+ * @returns A promise ( User | Error msj )
+ */
 export const GETUser = id => {
   return new Promise((result, rej) => {
     fetch(`${API_URL}/user/${id}`)
@@ -16,6 +21,12 @@ export const GETUser = id => {
       })
   })
 }
+
+/**
+ * GET petition for the branches of an specific user
+ * @param {Number} id Id of user
+ * @returns A promise ( Array of branches | Error msj )
+ */
 export const GETBranches = id => {
   return new Promise((result, rej) => {
     fetch(`${API_URL}/user/${id}/branches`)
@@ -34,6 +45,14 @@ export const GETBranches = id => {
 }
 
 // Dishes methods
+/**
+ * PUT petition to change the status of an specific dish
+ * @param {Number} userId Id of the user
+ * @param {Number} branchId Id of the branch
+ * @param {Number} dishId Id of the dish
+ * @param {Boolean} currentStatus The new status of the dish
+ * @returns Promise ( Updated dish | Error msj )
+ */
 export const PUTDishStatus = (userId, branchId, dishId, currentStatus) => {
   return new Promise((res, rej) => {
     fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
@@ -53,6 +72,15 @@ export const PUTDishStatus = (userId, branchId, dishId, currentStatus) => {
       })
   })
 }
+
+/**
+ * PUT petition to edit the data of a dish
+ * @param {Number} userId Id of the user
+ * @param {Number} branchId Id of the branch
+ * @param {Number} dishId Id of the dish
+ * @param {Object} data Object with the new data of the dish
+ * @returns Promise ( Dish with updated info | Error msj )
+ */
 export const PUTDishInfo = (userId, branchId, dishId, data) => {
   return new Promise((res, rej) => {
     fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
@@ -83,6 +111,14 @@ export const PUTDishInfo = (userId, branchId, dishId, data) => {
       })
   })
 }
+
+/**
+ * POST petition to add a new dish
+ * @param {Number} userId Id of the user
+ * @param {Number} branchId Id of the branch
+ * @param {Object} data Object with the info of the new dish
+ * @returns Promise ( New dish | Error msj )
+ */
 export const POSTDish = (userId, branchId, data) => {
   return new Promise((res, rej) => {
     fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes`, {
@@ -114,6 +150,14 @@ export const POSTDish = (userId, branchId, data) => {
       })
   })
 }
+
+/**
+ * DELETE petition to remove a specific dish
+ * @param {Number} userId Id of the user
+ * @param {Number} branchId Id of the branch
+ * @param {Number} dishId Id of the dish
+ * @returns Promise ( Deleted dish | Error msj )
+ */
 export const DELETEDish = (userId, branchId, dishId) => {
   return new Promise((res, rej) => {
     fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {

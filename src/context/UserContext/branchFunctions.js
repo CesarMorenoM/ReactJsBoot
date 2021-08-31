@@ -1,6 +1,12 @@
 import { prevMonth } from "../../helpers/helpers"
 
-// Generate a general branch from a branches list
+
+/**
+ * Generate a general branch from a branches list
+ * @param {Array} branches Base branches
+ * @returns Array of branches with the general branch
+ * @returns Same array if it have less than 1 branch
+ */
 export const createGeneralBranch = branches => {
   if (branches.length > 1) {
     let generalBranch = { name: 'General' }
@@ -28,7 +34,12 @@ export const createGeneralBranch = branches => {
   } else return branches
 }
 
-// Generate extra info from a branches
+/**
+ * Generate extra info to branches 
+ * (bestMonth, bestDishes, allSells)
+ * @param {Array} branchesMap Base branches
+ * @returns Array of branches with the info added
+ */
 export const createBranchesInfo = branchesMap => {
   let branches = [...branchesMap]
   branches.map(branch => {
