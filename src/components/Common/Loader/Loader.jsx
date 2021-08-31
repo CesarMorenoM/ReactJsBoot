@@ -1,71 +1,20 @@
-import React from 'react'
-import { motion } from 'framer-motion'
 
-const style = {
-  width: 20,
-  height: 20,
-  opacity: 1,
-  margin: 8,
-  borderRadius: 0,
-  display: "inline-block",
-  background: "#ff3229",
-}
-
-const variants = {
-  start: {
-    scale: 0.2,
-    rotate: 0,
-  },
-  end: {
-    scale: 1,
-    rotate: 360,
-  },
-}
-
-const Loader = (props) => {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <motion.div
-        style={style}
-        variants={variants}
-        initial={"start"}
-        animate={"end"}
-        transition={{
-          repeat: "Infinity",
-          repeatType: "reverse",
-          ease: "backInOut",
-          duration: 1,
-          delay: 0
-        }}
-      />
-      <motion.div
-        style={style}
-        variants={variants}
-        initial={"start"}
-        animate={"end"}
-        transition={{
-          repeat: "Infinity",
-          repeatType: "reverse",
-          ease: "backInOut",
-          duration: 1,
-          delay: 0.2
-        }}
-      />
-      <motion.div
-        style={style}
-        variants={variants}
-        initial={"start"}
-        animate={"end"}
-        transition={{
-          repeat: "Infinity",
-          repeatType: "reverse",
-          ease: "backInOut",
-          duration: 1,
-          delay: 0.4
-        }}
-      />
-    </div>
-  )
+const Loader = () => {
+  return <div>
+    <svg xmlns="http://www.w3.org/2000/svg" style={{ 'margin': 'auto', 'background': 'transparent', 'display': 'block' }} width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+      <rect x="17.5" y="30" width="15" height="40" fill="#ff3229">
+        <animate attributeName="y" repeatCount="indefinite" dur="0.9090909090909091s" calcMode="spline" keyTimes="0;0.5;1" values="18;30;30" keySplines="0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.18181818181818182s"></animate>
+        <animate attributeName="height" repeatCount="indefinite" dur="0.9090909090909091s" calcMode="spline" keyTimes="0;0.5;1" values="64;40;40" keySplines="0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.18181818181818182s"></animate>
+      </rect>
+      <rect x="42.5" y="30" width="15" height="40" fill="#ff3229">
+        <animate attributeName="y" repeatCount="indefinite" dur="0.9090909090909091s" calcMode="spline" keyTimes="0;0.5;1" values="20.999999999999996;30;30" keySplines="0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.09090909090909091s"></animate>
+        <animate attributeName="height" repeatCount="indefinite" dur="0.9090909090909091s" calcMode="spline" keyTimes="0;0.5;1" values="58.00000000000001;40;40" keySplines="0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.09090909090909091s"></animate>
+      </rect>
+      <rect x="67.5" y="30" width="15" height="40" fill="#ff3229">
+        <animate attributeName="y" repeatCount="indefinite" dur="0.9090909090909091s" calcMode="spline" keyTimes="0;0.5;1" values="20.999999999999996;30;30" keySplines="0 0.5 0.5 1;0 0.5 0.5 1"></animate>
+        <animate attributeName="height" repeatCount="indefinite" dur="0.9090909090909091s" calcMode="spline" keyTimes="0;0.5;1" values="58.00000000000001;40;40" keySplines="0 0.5 0.5 1;0 0.5 0.5 1"></animate>
+      </rect></svg>
+  </div>
 }
 
 export default Loader
