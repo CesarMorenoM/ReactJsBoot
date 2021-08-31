@@ -15,7 +15,6 @@ import { UserContextProvider } from './context/UserContext/UserContext';
 import LandingPage from './components/LandingPage/LandingPage';
 import Branches from './components/Branches/Branches';
 import Menu from './components/Menu/Menu';
-import { MenuContextProvider } from './context/MenuContext/MenuContext';
 import Reservations from './components/reservations/Reservations';
 
 function App() {
@@ -23,22 +22,20 @@ function App() {
     <>
       <Toaster />
       <UserContextProvider>
-        <MenuContextProvider>
-          <Router>
-            <Switch>
-              <Route exact path='/home' component={LandingPage} />
-              <Route exact path='/login' component={LogIn} />
-              <PrivateRoute exact path='/' component={Dashboard} />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
-              <PrivateRoute exact path='/profile' component={() => <h1>Profile</h1>} />
-              <PrivateRoute exact path='/reservations' component={Reservations} />
-              <PrivateRoute exact path='/config' component={() => <h1>Configuration</h1>} />
-              <PrivateRoute exact path='/branches' component={Branches} />
-              <PrivateRoute exact path='/menu' component={Menu} />
-              <Route path='*' component={ErrorPage} />
-            </Switch>
-          </Router>
-        </MenuContextProvider>
+        <Router>
+          <Switch>
+            <Route exact path='/home' component={LandingPage} />
+            <Route exact path='/login' component={LogIn} />
+            <PrivateRoute exact path='/' component={Dashboard} />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute exact path='/profile' component={() => <h1>Profile</h1>} />
+            <PrivateRoute exact path='/reservations' component={Reservations} />
+            <PrivateRoute exact path='/config' component={() => <h1>Configuration</h1>} />
+            <PrivateRoute exact path='/branches' component={Branches} />
+            <PrivateRoute exact path='/menu' component={Menu} />
+            <Route path='*' component={ErrorPage} />
+          </Switch>
+        </Router>
       </UserContextProvider>
     </>
   )

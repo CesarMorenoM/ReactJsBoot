@@ -1,5 +1,5 @@
+//libraries
 import React, { useState, useEffect, useContext } from 'react'
-import './dashboard.scss'
 import { Line, Pie } from 'react-chartjs-2';
 import Card from '../Common/Cards/Card'
 import DishList from './DishList';
@@ -7,14 +7,13 @@ import BranchesList from '../Common/BranchesList/BranchesList';
 import Loader from '../Common/Loader/Loader';
 import UserContext from '../../context/UserContext/UserContext';
 import { prevMonth } from '../../helpers/helpers';
+import './dashboard.scss'
 
-//! Select how many data show
+// Select how many data show
 const lastNMonths = 6
 const bestDishesQuantity = 3
 
 const Dashboard = () => {
-
-  //! States
   const { user, branches } = useContext(UserContext)
   const [branch, setBranch] = useState()
 
@@ -24,10 +23,10 @@ const Dashboard = () => {
     }
   }, [branches])
 
-  //! Is charging
+  // Is charging
   if (!branch || !user) return <Loader />
 
-  //! Component
+  // Component
   return (
     <div className='dashboard'>
       <h1 className='dashboard__user'>Welcome, <span>{user.name}</span></h1>

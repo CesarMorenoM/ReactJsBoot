@@ -4,14 +4,15 @@ import UserContext from '../../../context/UserContext/UserContext'
 import './menuNavBar.scss'
 
 const Menu = ({ menuToggle, setMenuToggle }) => {
-
   const { logOut, isFranchise } = useContext(UserContext)
 
+  // Select the link that will appear based on if it is a franchise or not
   const type =
     isFranchise
       ? { name: 'Branches', path: '/branches', icon: 'domain' }
       : { name: 'Menu', path: '/menu', icon: 'dns' }
 
+  //Wich links will appear in the menu
   const links = [
     { name: 'Profile', path: '/profile', icon: 'person' },
     { name: 'Dashboard', path: '/dashboard', icon: 'view_quilt' },
@@ -20,7 +21,7 @@ const Menu = ({ menuToggle, setMenuToggle }) => {
     { name: 'Configuration', path: '/config', icon: 'settings' },
   ]
 
-  //! Close menu with scrolling or click
+  // Close menu with scrolling or click
   useEffect(() => {
     const changeToggle = () => setMenuToggle(!menuToggle)
     if (menuToggle) {
@@ -37,7 +38,7 @@ const Menu = ({ menuToggle, setMenuToggle }) => {
   }, [menuToggle, setMenuToggle])
 
 
-  //! Manage the LogOut button
+  // Manage the LogOut button
   useEffect(() => {
     const toggleLogOut = e => {
       e.stopPropagation()
@@ -52,7 +53,7 @@ const Menu = ({ menuToggle, setMenuToggle }) => {
     }
   }, [menuToggle, setMenuToggle, logOut])
 
-
+  //Component
   return (
     <div id='Menu' className={`menu ${menuToggle ? '--active' : ''}`}>
       <ul className='menu__list'>

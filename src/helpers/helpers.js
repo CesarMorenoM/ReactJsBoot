@@ -24,6 +24,7 @@ export const prevMonth = (max, date = new Date()) => {
   return [...new Set(prevMonths)]
 }
 
+//! Capitalize an string
 export const capitalize = text => text
   .toLowerCase()
   .replace(/\w/, firstLetter => firstLetter.toUpperCase())

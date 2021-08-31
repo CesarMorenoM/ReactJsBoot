@@ -2,14 +2,14 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 //personal
-import MenuContext from "../../../context/MenuContext/MenuContext";
+import UserContext from "../../../context/UserContext/UserContext";
 //images
 import defaultImg from '../../../static/default-img.jpg'
 import './menuRegister.scss'
 
 const MenuRegister = ({ dish, closeModal, branch, action }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
-  const { updateDishInfo, addDish } = useContext(MenuContext)
+  const { updateDishInfo, addDish } = useContext(UserContext)
 
   if (!dish) dish = {}
 

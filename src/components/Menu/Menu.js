@@ -9,20 +9,21 @@ import Loader from '../Common/Loader/Loader'
 import Card from '../Common/Cards/Card'
 import './Menu.scss'
 //custom hooks
-import MenuContext from '../../context/MenuContext/MenuContext';
+import UserContext from '../../context/UserContext/UserContext';
 
 const Menu = ({ franch = true, branch }) => {
-  const { dishes, switchDishStatus, deleteDish, noFranchise } = useContext(MenuContext)
+  const { dishes, switchDishStatus, deleteDish, noFranchise } = useContext(UserContext)
 
-  //! Define the branch to not franchises restaurants
+  // Define the branch to not franchises restaurants
   if (branch === undefined) branch = noFranchise()
 
-  //! What are the current dishes
+  // Which are the current dishes
   const currentDishes = Object.keys(dishes).length !== 0 ? Object.values(dishes[branch.id]) : undefined
 
-  //! Is charging
+  // Is charging
   if (!currentDishes) return <Loader />
 
+  //Component
   return <>
     {!!franch &&
       <div className='menuList__header'>
