@@ -1,19 +1,22 @@
+//libraries
 import Flickity from 'flickity'
 import { useEffect, useState } from 'react'
+//components
 import Loader from '../../Common/Loader/Loader'
-
 import './landingRecommended.scss'
 
 const LandingRecommended = () => {
   const API_URL = process.env.REACT_APP_MOCKAPI
   const [recommendations, setRecommendations] = useState()
 
+  // Get the recommendations
   useEffect(() => {
-    //The recommendation carrousel only support 6 recommendations for the moment (no reactive)
     fetch(`${API_URL}/recommendation`)
       .then(data => data.json())
       .then(recommends => setRecommendations(recommends))
   }, [API_URL])
+
+  // Create the carrousel
   useEffect(() => {
     if (recommendations) {
       const $carrousel = document.querySelector('#carrousel')

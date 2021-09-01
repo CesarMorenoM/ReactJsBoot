@@ -1,4 +1,5 @@
 import './divider.scss'
+import PropTypes from 'prop-types'
 
 const Divider = ({ top, color = '#fff' }) => {
   return (
@@ -21,6 +22,13 @@ const Divider = ({ top, color = '#fff' }) => {
       }
     </>
   )
+}
+
+Divider.propTypes = {
+  /**Is the divider type top? */
+  top: PropTypes.bool,
+  /**Specify color of the divider */
+  color: PropTypes.string
 }
 
 export default Divider

@@ -1,4 +1,6 @@
+//libraries
 import { useHistory } from 'react-router-dom'
+//images
 import bgImage from '../../static/background-restaurant.jpg'
 import './errorPage.scss'
 

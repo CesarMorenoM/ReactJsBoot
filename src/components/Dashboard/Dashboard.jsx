@@ -89,23 +89,25 @@ const Dashboard = () => {
         </div>
         <div className="dashboard__statistics__aside">
           <Card title="Best-Selling Dishes">
-            <DishList dishes={branch.bestDishes} quantity={bestDishesQuantity} />
-            <Pie
-              data={{
-                labels: branch.bestDishes.slice(0, bestDishesQuantity + 2).map(a => a.name),
-                datasets: [
-                  {
-                    label: 'Dishes',
-                    data: branch.bestDishes.slice(0, bestDishesQuantity + 2).map(a => a.sold),
-                    backgroundColor: ['rgba(255, 50, 41,.8)', 'rgba(255, 50, 41,.6)', 'rgba(255, 50, 41,.4)', 'rgba(255, 50, 41,.2)'],
-                    hoverOffset: 5,
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-              }}
-            />
+            <div>
+              <DishList dishes={branch.bestDishes} quantity={bestDishesQuantity} />
+              <Pie
+                data={{
+                  labels: branch.bestDishes.slice(0, bestDishesQuantity + 2).map(a => a.name),
+                  datasets: [
+                    {
+                      label: 'Dishes',
+                      data: branch.bestDishes.slice(0, bestDishesQuantity + 2).map(a => a.sold),
+                      backgroundColor: ['rgba(255, 50, 41,.8)', 'rgba(255, 50, 41,.6)', 'rgba(255, 50, 41,.4)', 'rgba(255, 50, 41,.2)'],
+                      hoverOffset: 5,
+                    },
+                  ],
+                }}
+                options={{
+                  responsive: true,
+                }}
+              />
+            </div>
           </Card>
         </div>
       </div>

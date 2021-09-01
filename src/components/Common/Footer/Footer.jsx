@@ -26,19 +26,14 @@ const Footer = () => {
   return (
     <div className='footer'>
       <Divider top color='transparent' />
-
       <div className='footer__links'>
         {links.map((link, id) =>
           <NavLink key={id} to={link.to || '/'}>{link.name}</NavLink>
         )}
       </div>
-
       <hr />
-
       <div className='footer__low'>
-
         <a href='/'><img className='footer__low__logo' src={logo} alt="logo" /></a>
-
         <p className='footer__low__text'> Desarrollado por Exsis &#169; 2021</p>
         <div className='footer__low__social'>
           {social.map((link, id) =>

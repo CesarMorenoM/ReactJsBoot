@@ -1,11 +1,12 @@
-import { useForm } from "react-hook-form";
+//libraries
+import { useForm } from "react-hook-form"
 //images
 import contactImage from '../../../static/contact-restaurant.jpg'
 import './landingContact.scss'
 
 const LandingContact = () => {
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm()
   const onSubmit = data => { }
 
   return (

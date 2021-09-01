@@ -25,8 +25,8 @@ export const prevMonth = (max, date = new Date()) => {
 
     } else {
       prevMonths.push(months[temp.getMonth()])
-      temp = temp.setYear(temp.getYear() - 1);
-      temp.setMonth(12);
+      temp = temp.setYear(temp.getYear() - 1)
+      temp.setMonth(12)
     }
   }
   return [...new Set(prevMonths)]

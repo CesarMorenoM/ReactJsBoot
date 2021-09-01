@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { capitalize } from '../../../helpers/helpers'
 import './calendar.scss'
 
@@ -61,6 +62,19 @@ const Calendar = ({ displayDay, setCurrentDay, days, currentDay, handleNavigatio
       </div>
     </div>
   )
+}
+
+Calendar.propTypes = {
+  /**The date we want to put in the title */
+  displayDay: PropTypes.string.isRequired,
+  /**Function to change the focused/current day */
+  setCurrentDay: PropTypes.func.isRequired,
+  /**List of all days ( with padding days ) */
+  days: PropTypes.array.isRequired,
+  /**The current/focused day */
+  currentDay: PropTypes.object.isRequired,
+  /**Function to manage the navigation in the menu */
+  handleNavigation: PropTypes.func
 }
 
 export default Calendar

@@ -54,6 +54,12 @@ export const UserContextProvider = ({ children }) => {
   }
 
   /**
+   * A function to determine what are the branches when it is not a franchise
+   * @returns {object} The only branch
+   */
+  const noFranchise = () => state.branches[0]
+
+  /**
    * Update the info of one branch, update all branches
    * @param {Number} branch Id of the branch
    * @param {Object} data Object with the data to edit
@@ -69,7 +75,7 @@ export const UserContextProvider = ({ children }) => {
   }
 
   // Get all the Menu functionality
-  const { dishes, switchDishStatus, updateDishInfo, deleteDish, addDish, noFranchise }
+  const { dishes, switchDishStatus, updateDishInfo, deleteDish, addDish }
     = useMenu(state.branches, updateBranchInfo, state.user)
 
   return <UserContext.Provider value={{

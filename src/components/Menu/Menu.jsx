@@ -1,15 +1,16 @@
 //libraries
 import { useContext } from 'react'
-import Switch from "react-switch";
-import ModalView from './Modal/Modal'
+import Switch from "react-switch"
+import PropTypes from 'prop-types'
 //images
 import defaultImg from '../../static/default-img.jpg'
 //components
 import Loader from '../Common/Loader/Loader'
 import Card from '../Common/Cards/Card'
+import MenuModal from './Modal/MenuModal'
 import './Menu.scss'
 //custom hooks
-import UserContext from '../../context/UserContext/UserContext';
+import UserContext from '../../context/UserContext/UserContext'
 
 const Menu = ({ franch = true, branch }) => {
   const { dishes, switchDishStatus, deleteDish, noFranchise } = useContext(UserContext)
@@ -52,7 +53,7 @@ const Menu = ({ franch = true, branch }) => {
                   className="react-switch"
                   id={dish.id}
                 />
-                <ModalView action={'Edit'} dish={dish} branch={branch} />
+                <MenuModal action={'Edit'} dish={dish} branch={branch} />
                 <i className="menuList__dish__close material-icons" onClick={() => deleteDish(branch.id, dish.id)}>close</i>
               </div>
 
@@ -78,10 +79,17 @@ const Menu = ({ franch = true, branch }) => {
             </div>
           </details>)}
 
-        <ModalView action={"Add Dish"} branch={branch} />
+        <MenuModal action={"Add Dish"} branch={branch} />
       </div>
     </Card>
   </>
+}
+
+Menu.propTypes = {
+  /**Is the restaurant a franchise? */
+  franch: PropTypes.bool,
+  /**The branch we want to show */
+  branch: PropTypes.object.isRequired
 }
 
 export default Menu

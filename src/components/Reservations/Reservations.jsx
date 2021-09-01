@@ -59,12 +59,14 @@ const Reservations = () => {
       <div className='reservations__container'>
         <div className='reservations__main'>
           <Card title='Agenda'>
-            <h2>{currentDisplay}</h2>
-            {
-              !currentDay.events
-                ? <h2>There are not reservations for today</h2>
-                : <h2>Today we have reservations!</h2>
-            }
+            <div>
+              <h2>{currentDisplay}</h2>
+              {
+                !currentDay.events
+                  ? <h2>There are not reservations for today</h2>
+                  : <h2>Today we have reservations!</h2>
+              }
+            </div>
           </Card>
         </div>
         <div className='reservations__side'>

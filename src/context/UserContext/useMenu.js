@@ -61,9 +61,6 @@ const useMenu = (branches, updateBranchInfo, user) => {
 
   }, [branches])
 
-  // Misc
-  const noFranchise = () => branches[0]
-
   // Handlers for actions with dishes
   /**
    * Add a new dish, update the branches and the database
@@ -187,8 +184,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
     switchDishStatus,
     updateDishInfo,
     deleteDish,
-    addDish,
-    noFranchise
+    addDish
   }
 }
 

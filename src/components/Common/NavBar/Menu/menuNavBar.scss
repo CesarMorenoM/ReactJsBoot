@@ -1,5 +1,5 @@
 @import '../../../../style/variables';
-.menu {
+.menuNavBar {
 	position: fixed;
 	bottom: 0;
 	z-index: 2;
@@ -45,7 +45,7 @@
 	}
 }
 @media only screen and (max-width: 550px) {
-	.menu {
+	.menuNavBar {
 		width: 100vw;
 		right: 0;
 		top: -100vh;

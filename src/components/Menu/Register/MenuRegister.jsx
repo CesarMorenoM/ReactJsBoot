@@ -1,8 +1,9 @@
 //libraries
-import { useContext } from "react";
-import { useForm } from "react-hook-form";
+import { useContext } from "react"
+import { useForm } from "react-hook-form"
+import PropTypes from 'prop-types'
 //personal
-import UserContext from "../../../context/UserContext/UserContext";
+import UserContext from "../../../context/UserContext/UserContext"
 //images
 import defaultImg from '../../../static/default-img.jpg'
 import './menuRegister.scss'
@@ -106,7 +107,6 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
         </details>
       </div>
 
-      {/* Side section */}
       <div className='menuRegister__side'>
         <div className="menuRegister__image">
           <label className="dish__label">Image</label>
@@ -116,7 +116,7 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
             {...register("image")}
           />
         </div>
-        {/* Buttons section */}
+
         <div className="menuRegister__buttons">
           <button className="menuRegister__buttons__cancel" onClick={closeModal}>Cancel</button>
           <button className="menuRegister__buttons__add " type="submit">
@@ -133,7 +133,18 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
 
 
     </form>
-  );
+  )
+}
+
+MenuRegister.propTypes = {
+  /**The Information of the dish */
+  dish: PropTypes.object,
+  /**The function to close the modal */
+  closeModal: PropTypes.func.isRequired,
+  /**The current Branch */
+  branch: PropTypes.object.isRequired,
+  /**The type of modal that will be */
+  action: PropTypes.string.isRequired
 }
 
 export default MenuRegister

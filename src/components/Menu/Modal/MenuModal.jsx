@@ -1,19 +1,20 @@
 //libraries
 import { useState } from 'react'
-import Modal from 'react-modal';
+import Modal from 'react-modal'
+import PropTypes from 'prop-types'
 //components
-import MenuRegister from '../Register/MenuRegister';
+import MenuRegister from '../Register/MenuRegister'
 import './modal.scss'
 
-const ModalView = ({ action, dish, branch }) => {
-  const [modalIsOpen, setIsOpen] = useState(false);
+const MenuModal = ({ action, dish, branch }) => {
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   function openModal() {
-    setIsOpen(true);
+    setIsOpen(true)
   }
 
   function closeModal() {
-    setIsOpen(false);
+    setIsOpen(false)
   }
 
   return (
@@ -33,4 +34,13 @@ const ModalView = ({ action, dish, branch }) => {
   )
 }
 
-export default ModalView
+MenuModal.propTypes = {
+  /**What kind of modal is? ( 'Edit' | any ) */
+  action: PropTypes.string,
+  /**The current dish */
+  dish: PropTypes.object,
+  /**The current branch */
+  branch: PropTypes.object
+}
+
+export default MenuModal

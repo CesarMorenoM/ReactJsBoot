@@ -1,6 +1,5 @@
 import { prevMonth } from "../../helpers/helpers"
 
-
 /**
  * Generate a general branch from a branches list
  * @param {Array<Object>} branches Base branches
