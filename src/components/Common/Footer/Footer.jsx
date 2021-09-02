@@ -13,7 +13,7 @@ const Footer = () => {
   const links = [
     { name: 'Home', to: '/' },
     { name: 'Log In', to: '/login' },
-    { name: 'Register restaurant' },
+    { name: 'Register restaurant', to: '/register' },
     { name: 'Recomendations' },
     { name: 'Help' },
     { name: 'FAQ' },

@@ -38,3 +38,56 @@
 		}
 	}
 }
+
+@mixin form {
+	display: flex;
+	flex-direction: column;
+	.input {
+		padding: 0.5em;
+		border: none;
+		box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+		border-radius: 0.5em;
+		background-color: $seconColor;
+		margin-top: 1em;
+	}
+	.label {
+		margin-top: 1.2em;
+		font-weight: 600;
+		font-size: 0.9em;
+		&.--first {
+			margin-top: 0;
+		}
+		span {
+			font-weight: 100;
+			font-size: 0.8em;
+			&::before {
+				content: '   -';
+			}
+		}
+	}
+	.error {
+		font-size: 0.9em;
+		color: $color;
+	}
+	.fill {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 1em;
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	.form {
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-content: center;
+		overflow-x: hidden;
+		.input {
+			width: 100%;
+			margin-bottom: 0.2em !important;
+		}
+		.fill {
+			grid-auto-flow: row;
+		}
+	}
+}

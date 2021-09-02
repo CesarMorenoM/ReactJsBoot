@@ -48,7 +48,7 @@ const Calendar = ({ displayDay, setCurrentDay, days, currentDay, handleNavigatio
         {days.map((day, id) => {
           const type = `
             ${day.isInitialDay ? '--initial' : ''} 
-            ${day.events ? '--events' : ''} 
+            ${day.events !== undefined && day.events?.length > 0 ? '--events' : ''} 
             ${day.date === currentDay.date ? '--current' : ''}`
           if (!day.value) return <div className='calendar__day --none' key={id}></div>
           return (

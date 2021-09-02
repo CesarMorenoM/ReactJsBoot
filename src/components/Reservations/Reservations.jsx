@@ -26,10 +26,32 @@ const Reservations = () => {
   const [currentBranch, setCurrentBranch] = useState(branches[0])
 
   //Use the calendar
-  const events = [{ date: '8/27/2021' }, { date: '8/1/2021' }, { date: '9/3/2021' }, { date: '8/30/2021' }]
+  const events = [
+    {
+      "orderDate": "2021-09-02T18:25:55.380Z",
+      "numberPeople": 7,
+      "dishesList": [
+        {
+          "dishId": 0,
+          "quantity": 0,
+          "notes": "string"
+        }
+      ]
+    },
+    {
+      "orderDate": "2021-09-02T18:50:55.380Z",
+      "numberPeople": 15,
+      "dishesList": [
+        {
+          "dishId": 0,
+          "quantity": 0,
+          "notes": "string"
+        }
+      ]
+    }
+  ]
 
   const [navigation, setNavigation] = useState(0)
-
   const { displayToday, days, currentDay, setCurrentDay } = useCalendar(navigation, events)
 
   const currentDisplay = new Date(currentDay.date).toLocaleDateString('en-US', {
@@ -59,12 +81,17 @@ const Reservations = () => {
       <div className='reservations__container'>
         <div className='reservations__main'>
           <Card title='Agenda'>
-            <div>
+            <div className='reservations__agenda'>
               <h2>{currentDisplay}</h2>
               {
-                !currentDay.events
+                !currentDay.events || currentDay.events?.length < 1
                   ? <h2>There are not reservations for today</h2>
-                  : <h2>Today we have reservations!</h2>
+                  : currentDay.events.map(event =>
+                    <div className='reservations__reservation' >
+                      <h3>{new Date(event.orderDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</h3>
+                      <p>People: {event.numberPeople}</p>
+                    </div>
+                  )
               }
             </div>
           </Card>

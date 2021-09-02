@@ -33,7 +33,10 @@ const useCalendar = (navigation, events) => {
    * @param {String} date String of the date
    * @returns An array with the events to the date
    */
-  const eventsForDate = date => events.find(e => Date.parse(e.date) === Date.parse(date))
+  const eventsForDate = date => events.filter(e => {
+    let eventDate = new Date(e.orderDate).toLocaleDateString()
+    return eventDate === new Date(date).toLocaleDateString()
+  })
 
   //Generate the days for the month
   const days = []
