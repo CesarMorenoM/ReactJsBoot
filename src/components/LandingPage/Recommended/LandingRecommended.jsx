@@ -11,10 +11,12 @@ const LandingRecommended = () => {
 
   // Get the recommendations
   useEffect(() => {
-    fetch(`${API_URL}/recommendation`)
-      .then(data => data.json())
-      .then(recommends => setRecommendations(recommends))
-  }, [API_URL])
+    if (!recommendations) {
+      fetch(`${API_URL}/recommendation`)
+        .then(data => data.json())
+        .then(recommends => setRecommendations(recommends))
+    }
+  }, [API_URL, recommendations])
 
   // Create the carrousel
   useEffect(() => {

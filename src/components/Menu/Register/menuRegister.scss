@@ -16,6 +16,11 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		.label {
+			font-weight: 600;
+			font-size: 0.9em;
+			margin-bottom: 1em;
+		}
 		img {
 			width: 80%;
 			aspect-ratio: 1/1;
@@ -27,34 +32,7 @@
 		}
 	}
 	.dish {
-		display: flex;
-		flex-direction: column;
-		.input {
-			padding: 0.5em;
-			border: none;
-			box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-			border-radius: 0.5em;
-			background-color: $seconColor;
-			margin-bottom: 1.5em;
-		}
-		&__label {
-			margin-block: 0.5em;
-			font-weight: 600;
-			font-size: 0.9em;
-			span {
-				font-weight: 100;
-				//font-style: italic;
-				font-size: 0.8em;
-				&::before {
-					content: '   -';
-				}
-			}
-		}
-		&__general {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			column-gap: 1em;
-		}
+		@include form;
 		&__nutrition {
 			summary {
 				&:hover {
@@ -73,6 +51,9 @@
 				width: 45%;
 				justify-self: flex-start;
 				margin-bottom: 0;
+			}
+			.label {
+				margin-top: 1em;
 			}
 			&__calories {
 				justify-self: stretch;
@@ -103,18 +84,38 @@
 		}
 	}
 }
+
+//! Determine the register view
+.menuRegister {
+	&.--register {
+		padding: 2em;
+		align-items: center;
+	}
+	&.--register &__side {
+		grid-template-rows: 1fr;
+	}
+	&.--register &__buttons {
+		display: none;
+	}
+}
+
 @media only screen and (max-width: 550px) {
 	.menuRegister {
 		display: grid;
 		grid-template-columns: 1fr;
-		flex-direction: column;
+		grid-template-rows: 4fr 1fr;
 		padding: 0;
-		gap: 0;
+		height: 100%;
+		&__side {
+			height: 100%;
+			gap: 4em;
+		}
 		&__image {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			column-gap: 1em;
-			label {
+			.label {
+				margin-top: 1em;
 				grid-column-start: span 3;
 			}
 			img {
@@ -129,13 +130,14 @@
 		}
 	}
 	.dish {
-		display: grid;
-		grid-template-columns: 1fr;
-		justify-content: center;
-		overflow-x: hidden;
+		display: flex;
+		justify-content: flex-end;
 		.input {
 			width: 100%;
-			margin-bottom: 0.2em !important;
+			margin-top: 0.2em !important;
+		}
+		.label {
+			margin-top: 0.5em;
 		}
 		&__general {
 			grid-auto-flow: row;
@@ -143,6 +145,9 @@
 		&__info {
 			grid-template-columns: 1fr 2fr 1fr 2fr !important;
 			gap: 0.5em !important;
+			.label {
+				margin-top: 0 !important;
+			}
 			.input {
 				width: 100% !important;
 			}

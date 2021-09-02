@@ -16,6 +16,7 @@ import LandingPage from './components/LandingPage/LandingPage'
 import Branches from './components/Branches/Branches'
 import Menu from './components/Menu/Menu'
 import Reservations from './components/Reservations/Reservations'
+import Register from './components/Register/Register'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Switch>
             <Route exact path="/home" component={LandingPage} />
             <Route exact path="/login" component={LogIn} />
+            <Route exact path="/register" component={Register} />
             <PrivateRoute exact path="/" component={Dashboard} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/profile" component={() => <h1>Profile</h1>} />

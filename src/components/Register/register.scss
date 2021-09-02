@@ -1,0 +1,73 @@
+@import '../../style/variables';
+@import '../../style/mixins';
+
+.register {
+	overflow-y: scroll;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	height: 100vh;
+	width: 100vw;
+	nav {
+		background-color: $color !important;
+		button {
+			font-weight: 600 !important;
+		}
+	}
+	&__container {
+		color: $seconColor;
+		height: 90%;
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 4fr 1fr;
+		align-items: center;
+		justify-content: center;
+	}
+	&__steps {
+		display: grid;
+		justify-self: center;
+		width: auto;
+		grid-template-columns: 1fr 1fr 1fr;
+		text-align: center;
+		gap: 3em;
+		&__step {
+			aspect-ratio: 1/1;
+			height: 100%;
+			color: $color;
+			font-size: 3em;
+			padding: 0.5em;
+			border-radius: 50%;
+			border: 1px solid rgba($color: $color, $alpha: 0.8);
+			transition: background ease 0.3s;
+			&.--current {
+				color: $seconColor;
+				background-color: rgba($color: $color, $alpha: 0.9);
+				border: none;
+				font-weight: 600;
+			}
+		}
+	}
+	&__content {
+		color: $fontColor;
+		align-self: center;
+		height: 100%;
+		padding-inline: 20em;
+	}
+	&__buttons {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		justify-self: center;
+		width: auto;
+		gap: 1em;
+		button {
+			@include button;
+			font-size: 1.2em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+	}
+}

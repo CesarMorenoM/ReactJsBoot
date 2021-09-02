@@ -27,18 +27,22 @@ const LogIn = () => {
         <form className="logIn__form" onSubmit={handleSubmit(handleLogin)}>
           <div className="logIn__field">
             <i className="material-icons">local_post_office</i>
-            <input placeholder='User Email' defaultValue='' {...register('username', { required: true })} />
+            <input placeholder='User Email' defaultValue=''
+              {...register('username', { required: 'Please put your username' })} />
           </div>
-          <span className='logIn__error'>{errors?.username && 'Please put your username'}</span>
+          <span className='logIn__error'>{errors?.username?.message}</span>
+
           <div className="logIn__field">
             <i className="material-icons">lock_outline</i>
-            <input type='password' placeholder='Password' defaultValue='' {...register('password', { required: true })} />
+            <input type='password' placeholder='Password' defaultValue=''
+              {...register('password', { required: 'Please put your password' })} />
           </div>
-          <span className='logIn__error'>{errors?.password && 'Please put your password'}</span>
+          <span className='logIn__error'>{errors?.password?.message}</span>
+
           <button type='submit' className="logIn__submit" >Log In</button>
           <div className="logIn__help">
             <a href='#!' >Forgot your password?</a>
-            <a href='#!' >Register</a>
+            <a href='/register' >Register</a>
           </div>
         </form>
       </div>

@@ -8,40 +8,41 @@ import UserContext from "../../../context/UserContext/UserContext"
 import defaultImg from '../../../static/default-img.jpg'
 import './menuRegister.scss'
 
-const MenuRegister = ({ dish, closeModal, branch, action }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+const MenuRegister = ({ dish, closeModal, branch, action, registerType }) => {
+  const { register, handleSubmit } = useForm()
   const { updateDishInfo, addDish } = useContext(UserContext)
 
   if (!dish) dish = {}
 
   const updateDishHandler = data => {
     updateDishInfo(dish.id, branch.id, data)
-    closeModal()
+    if (!registerType) closeModal()
   }
 
   const addDishHandler = data => {
     addDish(branch.id, data)
-    closeModal()
+    if (!registerType) closeModal()
   }
 
   return (
-    <form className='menuRegister' onSubmit={action === 'Edit' ? handleSubmit(updateDishHandler) : handleSubmit(addDishHandler)}>
+    <form id='dishRegister' className={`menuRegister ${registerType ? '--register' : ''}`}
+      onSubmit={action === 'Edit' ? handleSubmit(updateDishHandler) : handleSubmit(addDishHandler)}>
 
       {/* Mainsection */}
       <div className="dish">
 
         {/* Name */}
-        <label className="dish__label">Name</label>
-        <input className=" input" placeholder="Dish name"
+        <label className="label --first">Name</label>
+        <input className="input" placeholder="Dish name"
           defaultValue={dish.name || ''}
           {...register("name", { required: true })} />
 
-        <div className="dish__general">
-          <label className="dish__label">Price</label>
-          <label className="dish__label">Category</label>
+        <div className="fill">
+          <label className="label">Price</label>
+          <label className="label">Category</label>
 
           {/* Price */}
-          <input className="dish__general__price input" placeholder="Price"
+          <input className="input" placeholder="Price"
             defaultValue={dish.price || ''}
             {...register("price", { required: true, valueAsNumber: true })} />
 
@@ -60,20 +61,20 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
         </div>
 
         {/* Ingredients */}
-        <label className="dish__label">Ingredients<span>Separated by commas</span></label>
+        <label className="label">Ingredients<span>Separated by commas</span></label>
         <textarea className=' input' placeholder="Salt , Sugar , Love ..."
           defaultValue={dish.ingredients || ''}
           {...register("ingredients")} />
 
         {/* Nutrition section */}
-        <details className="dish__nutrition">
-          <summary className="dish__label">
+        <details className="dish__nutrition" open>
+          <summary className="label">
             Health Information
           </summary>
 
           <div className="dish__info">
             {/* Calorias */}
-            <label className="dish__label">Calories</label>
+            <label className="label">Calories</label>
             <div className="dish__info__calories">
               <input type="number" className="input" placeholder="--"
                 defaultValue={dish.calories ? dish.calories.min : ''}
@@ -85,19 +86,19 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
             </div>
 
             {/* Protein */}
-            <label className="dish__label">Proteins</label>
+            <label className="label">Proteins</label>
             <input type="number" placeholder="--" className="input"
               defaultValue={dish.protein || ''}
               {...register("protein", { valueAsNumber: true })} />
 
             {/* Fats */}
-            <label className="dish__label">Fats</label>
+            <label className="label">Fats</label>
             <input type="number" placeholder="--" className="input"
               defaultValue={dish.fats || ''}
               {...register("fats", { valueAsNumber: true })} />
 
             {/* Sugars */}
-            <label className="dish__label">Sugars</label>
+            <label className="label">Sugars</label>
             <input type="number" placeholder="--" className="input"
               defaultValue={dish.sugars || ''}
               {...register("sugars", { valueAsNumber: true })} />
@@ -109,7 +110,7 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
 
       <div className='menuRegister__side'>
         <div className="menuRegister__image">
-          <label className="dish__label">Image</label>
+          <label className="label">Image</label>
           <img src={dish.image || defaultImg} alt='Dish' />
           <input className="menuRegister__image__button" type="text" name='picture'
             defaultValue={dish.image || ''}
@@ -119,7 +120,7 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
 
         <div className="menuRegister__buttons">
           <button className="menuRegister__buttons__cancel" onClick={closeModal}>Cancel</button>
-          <button className="menuRegister__buttons__add " type="submit">
+          <button className="menuRegister__buttons__add" id='sendDishRegister' type="submit">
             {action === 'Edit'
               ? 'Update'
               : 'Add'}
@@ -127,10 +128,6 @@ const MenuRegister = ({ dish, closeModal, branch, action }) => {
         </div>
 
       </div>
-
-      {/* Error handling */}
-      {errors.lastname && <span>This field is required</span>}
-
 
     </form>
   )
@@ -144,7 +141,9 @@ MenuRegister.propTypes = {
   /**The current Branch */
   branch: PropTypes.object.isRequired,
   /**The type of modal that will be */
-  action: PropTypes.string.isRequired
+  action: PropTypes.string.isRequired,
+  /**Is in a register type? */
+  registerType: PropTypes.bool
 }
 
 export default MenuRegister

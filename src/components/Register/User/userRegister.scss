@@ -1,0 +1,7 @@
+@import '../../../style/variables';
+@import '../../../style/mixins';
+
+.userRegister {
+	@include form;
+	padding: 2em;
+}
