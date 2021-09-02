@@ -1,4 +1,5 @@
 @import '../../style/variables';
+@import '../../style/mixins';
 
 .reservations {
 	padding: 1em;
@@ -11,15 +12,89 @@
 		grid-template-columns: 3fr 1fr;
 	}
 	&__agenda {
-		h2 {
+		&__header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 			margin-bottom: 1em;
+			button {
+				@include button;
+				display: flex;
+				align-items: center;
+				padding: 0.5em;
+			}
 		}
 	}
 	&__reservation {
-		margin-bottom: 0.5rem;
+		margin-bottom: 1.5em;
 		box-shadow: $basicShadow;
 		border-radius: 0.5em;
 		padding: 1em;
+		.title {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			color: $color;
+			font-size: 1.5em;
+			margin-bottom: 1em;
+			span {
+				color: rgba($color: $fontColor, $alpha: 0.3);
+				font-size: 0.8em;
+				margin-left: 0.5em;
+			}
+		}
+		.text {
+			display: flex;
+			align-items: center;
+			font-size: 1.1em;
+			font-weight: 600;
+			margin-bottom: 0.5em;
+			i {
+				font-size: 1.5em;
+				margin-right: 0.5em;
+			}
+			span {
+				margin-left: 0.5em;
+				font-weight: initial;
+			}
+		}
+		.menu {
+			display: grid;
+			&__list {
+				display: flex;
+				flex-wrap: wrap;
+				list-style: none;
+				gap: 1em;
+				li {
+					border: 1px solid rgba($color: $fontColor, $alpha: 0.5);
+					border-radius: 0.5em;
+					padding: 0.5em;
+					display: grid;
+					gap: 0.5em;
+					grid-template-columns: 3fr 1fr;
+					.name {
+						font-weight: 600;
+					}
+					.quantity {
+						justify-self: flex-end;
+						&::after {
+							content: ' /u';
+							font-size: 0.8em;
+							color: rgba($color: $fontColor, $alpha: 0.7);
+						}
+					}
+					.notes {
+						grid-column-start: span 2;
+						&::before {
+							content: '" ';
+						}
+						&::after {
+							content: ' "';
+						}
+					}
+				}
+			}
+		}
 	}
 }
 @media only screen and (max-width: 550px) {

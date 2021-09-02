@@ -28,24 +28,56 @@ const Reservations = () => {
   //Use the calendar
   const events = [
     {
+      "userName": 'Santiago',
       "orderDate": "2021-09-02T18:25:55.380Z",
       "numberPeople": 7,
       "dishesList": [
         {
+          "name": 'Tacos al pastor',
           "dishId": 0,
-          "quantity": 0,
-          "notes": "string"
+          "quantity": 7,
+          "notes": "More sauce please"
+        },
+        {
+          "name": 'Arroz con pollo',
+          "dishId": 0,
+          "quantity": 1
+        },
+        {
+          "name": 'Arroz con pollo',
+          "dishId": 0,
+          "quantity": 2,
+          "notes": "Without carrot"
         }
       ]
     },
     {
+      "userName": 'Ana María',
+      "orderDate": "2021-09-02T18:25:55.380Z",
+      "numberPeople": 2,
+    },
+    {
+      "userName": 'Juan Carlos',
       "orderDate": "2021-09-02T18:50:55.380Z",
       "numberPeople": 15,
       "dishesList": [
         {
+          "name": 'Arroz con pollo',
           "dishId": 0,
-          "quantity": 0,
-          "notes": "string"
+          "quantity": 3,
+        }
+      ]
+    },
+    {
+      "userName": 'Pedro',
+      "orderDate": "2021-09-03T18:50:55.380Z",
+      "numberPeople": 2,
+      "dishesList": [
+        {
+          "name": 'Arroz con atún',
+          "dishId": 0,
+          "quantity": 4,
+          "notes": "Without tuna"
         }
       ]
     }
@@ -82,14 +114,45 @@ const Reservations = () => {
         <div className='reservations__main'>
           <Card title='Agenda'>
             <div className='reservations__agenda'>
-              <h2>{currentDisplay}</h2>
+              <header className="reservations__agenda__header">
+                <h2>{currentDisplay}</h2>
+                <button onClick={() => setNavigation(0)}>Today <i className="material-icons">arrow_downward</i></button>
+              </header>
               {
                 !currentDay.events || currentDay.events?.length < 1
                   ? <h2>There are not reservations for today</h2>
-                  : currentDay.events.map(event =>
-                    <div className='reservations__reservation' >
-                      <h3>{new Date(event.orderDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</h3>
-                      <p>People: {event.numberPeople}</p>
+                  : currentDay.events.map((event, id) =>
+                    <div key={id} className='reservations__reservation' >
+                      <h3 className='title'>
+                        {new Date(event.orderDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                        <span>In 6 hours - 4 minutes</span>
+                      </h3>
+                      <p className='text'>
+                        <i className="material-icons">person_pin</i>
+                        Diner:<span>{event.userName || 'Anonymous'}</span>
+                      </p>
+                      <p className='text'>
+                        <i className="material-icons">people</i>
+                        People:<span>{event.numberPeople}</span>
+                      </p>
+                      {
+                        event.dishesList &&
+                        <div className='menu'>
+                          <p className='text'>
+                            <i className="material-icons">restaurant</i>
+                            Menu:
+                          </p>
+                          <ul className='menu__list'>
+                            {event.dishesList.map(dish =>
+                              <li>
+                                <p className="name" >{dish.name}</p>
+                                <p className="quantity" >{dish.quantity}</p>
+                                {dish.notes && <p className="notes">{dish.notes}</p>}
+                              </li>
+                            )}
+                          </ul>
+                        </div>
+                      }
                     </div>
                   )
               }
