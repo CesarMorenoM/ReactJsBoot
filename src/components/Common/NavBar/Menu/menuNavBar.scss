@@ -1,0 +1,62 @@
+@import '../../../../style/variables';
+.menuNavBar {
+	position: fixed;
+	bottom: 0;
+	z-index: 2;
+	background-color: $color;
+	height: 100vh;
+	right: -20em;
+	transition: 0.3s;
+	&__list {
+		padding-top: 15vh;
+		list-style: none;
+		&__item {
+			display: flex;
+			align-items: center;
+			color: $seconColor;
+			padding: 1em;
+			padding-inline: 4em;
+			&__title {
+				color: inherit;
+				padding-left: 1em;
+			}
+			&::before {
+				background-color: $seconColor;
+				border-top-right-radius: 5em;
+				border-bottom-right-radius: 5em;
+			}
+			&:hover,
+			&:focus,
+			&:active {
+				color: $color;
+				cursor: pointer;
+			}
+			&.--active {
+				background-color: $seconColor;
+				border-top-right-radius: 5em;
+				border-bottom-right-radius: 5em;
+				color: $color;
+				cursor: pointer;
+			}
+		}
+	}
+	&.--active {
+		right: 0;
+	}
+}
+@media only screen and (max-width: 550px) {
+	.menuNavBar {
+		width: 100vw;
+		right: 0;
+		top: -100vh;
+		&__list {
+			padding-top: 25vh;
+			&__item {
+				justify-content: center;
+			}
+		}
+		&.--active {
+			top: 0;
+		}
+	}
+}

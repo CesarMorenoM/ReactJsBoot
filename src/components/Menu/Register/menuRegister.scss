@@ -1,0 +1,160 @@
+@import '../../../style/variables';
+@import '../../../style/mixins';
+
+.menuRegister {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 2em;
+	padding: 1em;
+	&__side {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 3em;
+		gap: 2em;
+	}
+	&__image {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		img {
+			width: 80%;
+			aspect-ratio: 1/1;
+			object-fit: cover;
+			border-radius: 0.5em;
+		}
+		&__button {
+			margin-top: 1em;
+		}
+	}
+	.dish {
+		display: flex;
+		flex-direction: column;
+		.input {
+			padding: 0.5em;
+			border: none;
+			box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+			border-radius: 0.5em;
+			background-color: $seconColor;
+			margin-bottom: 1.5em;
+		}
+		&__label {
+			margin-block: 0.5em;
+			font-weight: 600;
+			font-size: 0.9em;
+			span {
+				font-weight: 100;
+				//font-style: italic;
+				font-size: 0.8em;
+				&::before {
+					content: '   -';
+				}
+			}
+		}
+		&__general {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			column-gap: 1em;
+		}
+		&__nutrition {
+			summary {
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+		&__info {
+			margin-top: 1em;
+			display: grid;
+			grid-template-columns: 1fr 3fr 1fr 3fr;
+			gap: 1em;
+			align-items: center;
+			justify-items: center;
+			.input {
+				width: 45%;
+				justify-self: flex-start;
+				margin-bottom: 0;
+			}
+			&__calories {
+				justify-self: stretch;
+				display: flex;
+				align-items: center;
+				span {
+					padding-inline: 0.5em;
+					margin-bottom: 0.5em;
+				}
+			}
+		}
+	}
+	&__buttons {
+		width: 100%;
+		justify-self: flex-end;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		justify-content: flex-end;
+		&__cancel {
+			@include button(1);
+			width: 70%;
+			justify-self: center;
+		}
+		&__add {
+			@include button();
+			width: 70%;
+			justify-self: center;
+		}
+	}
+}
+@media only screen and (max-width: 550px) {
+	.menuRegister {
+		display: grid;
+		grid-template-columns: 1fr;
+		flex-direction: column;
+		padding: 0;
+		gap: 0;
+		&__image {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			column-gap: 1em;
+			label {
+				grid-column-start: span 3;
+			}
+			img {
+				justify-self: center;
+				width: 100%;
+				aspect-ratio: 4/3;
+			}
+			&__button {
+				margin: 0;
+				width: 100%;
+			}
+		}
+	}
+	.dish {
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-content: center;
+		overflow-x: hidden;
+		.input {
+			width: 100%;
+			margin-bottom: 0.2em !important;
+		}
+		&__general {
+			grid-auto-flow: row;
+		}
+		&__info {
+			grid-template-columns: 1fr 2fr 1fr 2fr !important;
+			gap: 0.5em !important;
+			.input {
+				width: 100% !important;
+			}
+			&__calories {
+				grid-column-start: span 3;
+				span {
+					margin-inline: 1.5em;
+				}
+				input {
+					width: 80% !important;
+				}
+			}
+		}
+	}
+}

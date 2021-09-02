@@ -1,0 +1,43 @@
+@import '../../../style/variables';
+.infoCard {
+	background-color: $seconColor;
+	padding: 3em;
+	margin: 2em;
+	border-radius: 1.5em;
+	box-shadow: 1px 5px 24px -10px rgba(0, 0, 0, 0.4);
+	&.--imp {
+		background-color: $color;
+		color: $bgColor;
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		align-items: center;
+		justify-content: space-evenly;
+		i {
+			font-size: 3em;
+		}
+	}
+	&__title {
+		margin-left: 1em;
+	}
+}
+@media only screen and (max-width: 550px) {
+	.infoCard {
+		padding: 1em;
+		margin: 0;
+		padding-block: 1em;
+		border-radius: 1em;
+		&.--imp {
+			grid-template-columns: 1fr 3fr;
+			column-gap: 1em;
+			font-size: 1em;
+			padding: 1em;
+			i {
+				justify-self: center;
+			}
+		}
+		&__title {
+			margin-block: 1em;
+			margin-left: 0;
+		}
+	}
+}

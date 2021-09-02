@@ -1,0 +1,83 @@
+@import '../../../style/variables';
+@import '../../../style/mixins';
+
+.recommended {
+	background-color: $sectionColor;
+	padding: 2em;
+	padding-bottom: 5em;
+	&__title {
+		font-size: 2.5em;
+		margin-bottom: 2em;
+	}
+}
+.carousel {
+	outline: none;
+	&__item {
+		background-size: cover;
+		background-repeat: no-repeat;
+		border-radius: 1em;
+		color: $seconColor;
+		display: flex;
+		height: 40vh;
+		width: 40%;
+		margin-inline: 3em;
+		flex-direction: column;
+		justify-content: space-between;
+		cursor: pointer;
+		&__header {
+			padding: 1.5em;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			&__name {
+				font-size: 2em;
+				display: flex;
+				align-items: center;
+			}
+			&__fav {
+				font-size: 2em;
+			}
+		}
+		&__footer {
+			font-size: 1.2em;
+			padding: 1.5em;
+			display: flex;
+			border-bottom-left-radius: 1em;
+			border-bottom-right-radius: 1em;
+			justify-content: space-between;
+			background-color: rgba(0, 0, 0, 0.5);
+			p.--imp {
+				font-weight: 600;
+			}
+			&__buttons {
+				button {
+					@include button;
+					margin-inline: 0.5em;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	.recommended {
+		padding-bottom: 3em;
+		&__title {
+			font-size: 1.5em;
+		}
+	}
+	.carousel {
+		overflow-x: hidden;
+		&__item {
+			margin-inline: 2.5em;
+			height: 30vh;
+			width: 100%;
+			&__header {
+				font-size: 0.7em;
+			}
+			&__footer {
+				font-size: 0.9em;
+			}
+		}
+	}
+}
