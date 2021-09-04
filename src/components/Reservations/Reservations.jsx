@@ -9,6 +9,7 @@ import UserContext from '../../context/UserContext/UserContext'
 //personal
 import useCalendar from './useCalendar'
 import './reservations.scss'
+import ReservationCard from './ReservationCard/ReservationCard'
 
 const Reservations = () => {
   //Get the branches
@@ -26,7 +27,7 @@ const Reservations = () => {
   const [currentBranch, setCurrentBranch] = useState(branches[0])
 
   //Use the calendar
-  const events = [
+  let events = [
     {
       "userName": 'Santiago',
       "orderDate": "2021-09-02T18:25:55.380Z",
@@ -83,22 +84,32 @@ const Reservations = () => {
     }
   ]
 
+  events = events.sort((a, b) => new Date(a.orderDate) - new Date(b.orderDate))
+
   const [navigation, setNavigation] = useState(0)
   const { displayToday, days, currentDay, setCurrentDay } = useCalendar(navigation, events)
 
-  const currentDisplay = new Date(currentDay.date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long'
-  })
+  let currentDisplay
 
+  if (currentDay) {
+    currentDisplay = new Date(currentDay.date).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long'
+    })
+  }
+
+  /**
+   * Change the navigation forward or backward
+   * @param {Number} value When we want to change the navigation (>1 ->) (<1 <-)
+   */
   const handleNavigation = value => {
     value >= 1
       ? setNavigation(navigation + 1)
       : setNavigation(navigation - 1)
   }
 
-  if (!currentBranch || !currentDay) return <Loader />
+  if (!currentBranch || !currentDay || !currentDisplay) return <Loader />
   return (
     <div className='reservations'>
       {
@@ -122,38 +133,7 @@ const Reservations = () => {
                 !currentDay.events || currentDay.events?.length < 1
                   ? <h2>There are not reservations for today</h2>
                   : currentDay.events.map((event, id) =>
-                    <div key={id} className='reservations__reservation' >
-                      <h3 className='title'>
-                        {new Date(event.orderDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
-                        <span>In 6 hours - 4 minutes</span>
-                      </h3>
-                      <p className='text'>
-                        <i className="material-icons">person_pin</i>
-                        Diner:<span>{event.userName || 'Anonymous'}</span>
-                      </p>
-                      <p className='text'>
-                        <i className="material-icons">people</i>
-                        People:<span>{event.numberPeople}</span>
-                      </p>
-                      {
-                        event.dishesList &&
-                        <div className='menu'>
-                          <p className='text'>
-                            <i className="material-icons">restaurant</i>
-                            Menu:
-                          </p>
-                          <ul className='menu__list'>
-                            {event.dishesList.map(dish =>
-                              <li>
-                                <p className="name" >{dish.name}</p>
-                                <p className="quantity" >{dish.quantity}</p>
-                                {dish.notes && <p className="notes">{dish.notes}</p>}
-                              </li>
-                            )}
-                          </ul>
-                        </div>
-                      }
-                    </div>
+                    <ReservationCard event={event} id={id} />
                   )
               }
             </div>
