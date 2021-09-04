@@ -30,7 +30,7 @@ const Reservations = () => {
   let events = [
     {
       "userName": 'Santiago',
-      "orderDate": "2021-09-02T18:25:55.380Z",
+      "orderDate": "2021-09-05T21:25:55.380Z",
       "numberPeople": 7,
       "dishesList": [
         {
@@ -54,12 +54,12 @@ const Reservations = () => {
     },
     {
       "userName": 'Ana María',
-      "orderDate": "2021-09-02T18:25:55.380Z",
+      "orderDate": "2021-09-05T18:25:55.380Z",
       "numberPeople": 2,
     },
     {
       "userName": 'Juan Carlos',
-      "orderDate": "2021-09-02T18:50:55.380Z",
+      "orderDate": "2021-09-05T18:50:55.380Z",
       "numberPeople": 15,
       "dishesList": [
         {
@@ -71,7 +71,7 @@ const Reservations = () => {
     },
     {
       "userName": 'Pedro',
-      "orderDate": "2021-09-03T18:50:55.380Z",
+      "orderDate": "2021-09-04T18:50:55.380Z",
       "numberPeople": 2,
       "dishesList": [
         {
@@ -109,6 +109,8 @@ const Reservations = () => {
       : setNavigation(navigation - 1)
   }
 
+  console.log('Re-rendered')
+
   if (!currentBranch || !currentDay || !currentDisplay) return <Loader />
   return (
     <div className='reservations'>
@@ -133,7 +135,7 @@ const Reservations = () => {
                 !currentDay.events || currentDay.events?.length < 1
                   ? <h2>There are not reservations for today</h2>
                   : currentDay.events.map((event, id) =>
-                    <ReservationCard event={event} id={id} />
+                    <ReservationCard event={event} id={id} key={id} />
                   )
               }
             </div>
