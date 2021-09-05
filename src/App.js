@@ -1,22 +1,22 @@
+//libraries
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
 import { Toaster } from 'react-hot-toast'
-
+//styles
 import './style/normalize.scss'
 import './style/Global.scss'
 import './style/_animations.scss'
-
+//components
 import Dashboard from './components/Dashboard/Dashboard'
 import ErrorPage from './components/ErrorPage/ErrorPage'
 import PrivateRoute from './router/PrivateRoute'
 import LogIn from './components/LogIn/LogIn'
-
-import { UserContextProvider } from './context/UserContext/UserContext'
 import LandingPage from './components/LandingPage/LandingPage'
 import Branches from './components/Branches/Branches'
 import Menu from './components/Menu/Menu'
 import Reservations from './components/Reservations/Reservations'
 import Register from './components/Register/Register'
+//personal
+import { UserContextProvider } from './context/UserContext/UserContext'
 
 function App() {
   return (

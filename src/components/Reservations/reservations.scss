@@ -1,4 +1,5 @@
 @import '../../style/variables';
+@import '../../style/mixins';
 
 .reservations {
 	padding: 1em;
@@ -11,15 +12,18 @@
 		grid-template-columns: 3fr 1fr;
 	}
 	&__agenda {
-		h2 {
+		&__header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 			margin-bottom: 1em;
+			button {
+				@include button;
+				display: flex;
+				align-items: center;
+				padding: 0.5em;
+			}
 		}
-	}
-	&__reservation {
-		margin-bottom: 0.5rem;
-		box-shadow: $basicShadow;
-		border-radius: 0.5em;
-		padding: 1em;
 	}
 }
 @media only screen and (max-width: 550px) {

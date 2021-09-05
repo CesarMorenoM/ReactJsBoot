@@ -137,11 +137,11 @@ MenuRegister.propTypes = {
   /**The Information of the dish */
   dish: PropTypes.object,
   /**The function to close the modal */
-  closeModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func,
   /**The current Branch */
   branch: PropTypes.object.isRequired,
   /**The type of modal that will be */
-  action: PropTypes.string.isRequired,
+  action: PropTypes.string,
   /**Is in a register type? */
   registerType: PropTypes.bool
 }
