@@ -26,7 +26,6 @@ const Reservations = () => {
 
   const [currentBranch, setCurrentBranch] = useState(branches[0])
 
-  //Use the calendar
   let events = [
     {
       "userName": 'Santiago',
@@ -59,7 +58,7 @@ const Reservations = () => {
     },
     {
       "userName": 'Juan Carlos',
-      "orderDate": "2021-09-05T18:50:55.380Z",
+      "orderDate": "2021-09-04T18:50:55.380Z",
       "numberPeople": 15,
       "dishesList": [
         {
@@ -71,7 +70,7 @@ const Reservations = () => {
     },
     {
       "userName": 'Pedro',
-      "orderDate": "2021-09-04T18:50:55.380Z",
+      "orderDate": "2021-09-04T23:50:55.380Z",
       "numberPeople": 2,
       "dishesList": [
         {
@@ -84,7 +83,10 @@ const Reservations = () => {
     }
   ]
 
-  events = events.sort((a, b) => new Date(a.orderDate) - new Date(b.orderDate))
+  if (events) {
+    events = events.sort((a, b) => new Date(a.orderDate) - new Date(b.orderDate))
+  }
+
 
   const [navigation, setNavigation] = useState(0)
   const { displayToday, days, currentDay, setCurrentDay } = useCalendar(navigation, events)

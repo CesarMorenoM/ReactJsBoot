@@ -1,46 +1,27 @@
-import './reservationCard.scss'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
-import { useEffect } from 'react/cjs/react.development'
+import './reservationCard.scss'
+import { calculateDateDifference, updateUntilTimeText } from '../../../helpers/helpers'
 
 const ReservationCard = ({ event, id }) => {
 
   const [untilTime, setUntilTime] = useState()
   const eventHourText = new Date(event.orderDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 
-  /**
-   * Calculate the time until a specifc date
-   * @param {String} date The date we want to know the time
-   * @returns A number with the time time until something happens
-   */
-  const calculateDifference = (date) => {
-    const now = new Date().getTime()
-    const eventHour = new Date(date).getTime()
-    return eventHour - now
-  }
 
   useEffect(() => {
-    const updateUntilTime = () => {
-      const untilDifference = calculateDifference(event.orderDate)
-      const untilDays = Math.floor(untilDifference / (1000 * 60 * 60 * 24))
-      const untilHours = Math.floor((untilDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-      const untilMinutes = Math.floor((untilDifference % (1000 * 60 * 60)) / (1000 * 60))
-      setUntilTime(
-        `In ${untilDays > 0 ? `${untilDays} days - ` : ''}
-            ${untilHours > 0 ? `${untilHours} hours - ` : ''}
-            ${untilMinutes > 0 ? `${untilMinutes} minutes` : ''}`)
-    }
-
-    const difference = calculateDifference(event.orderDate)
-    let updateTime
+    const difference = calculateDateDifference(event.orderDate)
+    let timer
 
     if (difference > 0) {
-      updateUntilTime()
-      updateTime = setInterval(updateUntilTime, 1000)
+      setUntilTime(updateUntilTimeText(event.orderDate))
+      timer = setInterval(() =>
+        setUntilTime(updateUntilTimeText(event.orderDate))
+        , 1000)
     }
     else setUntilTime('Expired')
 
-    return () => updateTime ? clearInterval(updateTime) : null
+    return () => clearInterval(timer)
 
   }, [event])
 

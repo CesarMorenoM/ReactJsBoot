@@ -60,3 +60,31 @@ export const notifyError = err => {
     { duration: 1500, iconTheme: { primary: '#ff3229' } }
   )
 }
+
+/**
+ * Calculate the time until a specifc date
+ * @param {String} date The date we want to know the time
+ * @returns A number with the time time until something happens
+ */
+export const calculateDateDifference = (date) => {
+  const now = new Date().getTime()
+  const eventHour = new Date(date).getTime()
+  return eventHour - now
+}
+
+/**
+ * Return a text with the time until a specific date
+ * @param {String} date The date that we want to know the time until 
+ * @returns A string with the info
+ */
+export const updateUntilTimeText = (date) => {
+  const untilDifference = calculateDateDifference(date)
+
+  const untilDays = Math.floor(untilDifference / (1000 * 3600 * 24))
+  const untilHours = Math.floor((untilDifference % (1000 * 3600 * 24)) / (1000 * 3600))
+  const untilMinutes = Math.floor((untilDifference % (1000 * 3600)) / (1000 * 60))
+  return (
+    `In ${untilDays > 0 ? `${untilDays} days - ` : ''}
+          ${untilHours > 0 ? `${untilHours} hours - ` : ''}
+          ${untilMinutes > 0 ? `${untilMinutes} minutes` : ''}`)
+}
