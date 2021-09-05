@@ -54,11 +54,16 @@ const Reservations = () => {
   const [navigation, setNavigation] = useState(0)
   const { displayToday, days, currentDay, setCurrentDay } = useCalendar(navigation, events)
 
-  const currentDisplay = new Date(currentDay.date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long'
-  })
+  let currentDisplay;
+
+  if(currentDay){
+    currentDisplay = new Date(currentDay.date).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long'
+    })
+  }
+ 
 
   const handleNavigation = value => {
     value >= 1
@@ -66,7 +71,7 @@ const Reservations = () => {
       : setNavigation(navigation - 1)
   }
 
-  if (!currentBranch || !currentDay) return <Loader />
+  if (!currentBranch || !currentDay || !currentDisplay) return <Loader />
   return (
     <div className='reservations'>
       {

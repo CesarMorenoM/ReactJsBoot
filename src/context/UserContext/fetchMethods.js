@@ -15,6 +15,7 @@ export const GETUser = id => {
 
           //Save the token (Random for test porpuses)
           localStorage.setItem('session', Date.now())
+        
 
           result(user)
         } else rej('User not found')
