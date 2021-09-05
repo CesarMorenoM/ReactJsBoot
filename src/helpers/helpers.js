@@ -42,13 +42,14 @@ export const capitalize = text => text
   .replace(/\w/, firstLetter => firstLetter.toUpperCase())
 
 /**
- * Transform an array into a text 
- * @param {Array<String>} arr Array to transform
+ * Transform a text into an array 
+ * @param {String} text Text to transform separated by commas
  * @returns String separated by commas
  */
-export const toText = arr => {
-  return arr.split(',')
+export const toText = text => {
+  return text.split(',')
     .map(el => capitalize(el.trim()))
+    .filter(el => el !== '')
 }
 
 /**

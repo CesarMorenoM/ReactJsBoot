@@ -5,16 +5,15 @@ import Card from '../Common/Cards/Card'
 import Calendar from './Calendar/Calendar'
 import BranchesList from '../Common/BranchesList/BranchesList'
 import Loader from '../Common/Loader/Loader'
-import UserContext from '../../context/UserContext/UserContext'
+import ReservationCard from './ReservationCard/ReservationCard'
 //personal
+import UserContext from '../../context/UserContext/UserContext'
 import useCalendar from './useCalendar'
 import './reservations.scss'
-import ReservationCard from './ReservationCard/ReservationCard'
 
 const Reservations = () => {
   //Get the branches
   const { branches: branchesInfo } = useContext(UserContext)
-
   let branches = branchesInfo
   let franch = false
 
@@ -23,7 +22,6 @@ const Reservations = () => {
     branches.shift()
     franch = true
   }
-
   const [currentBranch, setCurrentBranch] = useState(branches[0])
 
   let events = [
@@ -53,12 +51,12 @@ const Reservations = () => {
     },
     {
       "userName": 'Ana María',
-      "orderDate": "2021-09-05T18:25:55.380Z",
+      "orderDate": "2021-09-05T23:25:55.380Z",
       "numberPeople": 2,
     },
     {
       "userName": 'Juan Carlos',
-      "orderDate": "2021-09-04T18:50:55.380Z",
+      "orderDate": "2021-09-05T19:50:55.380Z",
       "numberPeople": 15,
       "dishesList": [
         {
@@ -83,16 +81,16 @@ const Reservations = () => {
     }
   ]
 
+  //Order the events
   if (events) {
     events = events.sort((a, b) => new Date(a.orderDate) - new Date(b.orderDate))
   }
 
-
   const [navigation, setNavigation] = useState(0)
   const { displayToday, days, currentDay, setCurrentDay } = useCalendar(navigation, events)
 
+  //Set the current date to display
   let currentDisplay
-
   if (currentDay) {
     currentDisplay = new Date(currentDay.date).toLocaleDateString('en-US', {
       month: 'long',
@@ -110,8 +108,6 @@ const Reservations = () => {
       ? setNavigation(navigation + 1)
       : setNavigation(navigation - 1)
   }
-
-  console.log('Re-rendered')
 
   if (!currentBranch || !currentDay || !currentDisplay) return <Loader />
   return (
@@ -137,7 +133,7 @@ const Reservations = () => {
                 !currentDay.events || currentDay.events?.length < 1
                   ? <h2>There are not reservations for today</h2>
                   : currentDay.events.map((event, id) =>
-                    <ReservationCard event={event} id={id} key={id} />
+                    <ReservationCard event={event} key={id} />
                   )
               }
             </div>

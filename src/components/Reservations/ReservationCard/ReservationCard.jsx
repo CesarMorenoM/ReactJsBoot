@@ -1,13 +1,14 @@
+//libraries
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import './reservationCard.scss'
+//personal
 import { calculateDateDifference, updateUntilTimeText } from '../../../helpers/helpers'
+import './reservationCard.scss'
 
-const ReservationCard = ({ event, id }) => {
+const ReservationCard = ({ event }) => {
 
   const [untilTime, setUntilTime] = useState()
   const eventHourText = new Date(event.orderDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-
 
   useEffect(() => {
     const difference = calculateDateDifference(event.orderDate)
@@ -25,10 +26,8 @@ const ReservationCard = ({ event, id }) => {
 
   }, [event])
 
-
-
   return (
-    <div key={id} className='reservationCard' >
+    <div className='reservationCard' >
       <h3 className='reservationCard__title'>
         <p className='reservationCard__title__text'>
           <i className="material-icons">restaurant</i>
@@ -68,9 +67,7 @@ const ReservationCard = ({ event, id }) => {
 
 ReservationCard.propTypes = {
   /**The info of the reservation that we want to add */
-  event: PropTypes.object.isRequired,
-  /**An unique id to identify the event */
-  id: PropTypes.number.isRequired
+  event: PropTypes.object.isRequired
 }
 
 export default ReservationCard
