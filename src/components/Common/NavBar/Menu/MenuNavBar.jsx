@@ -12,7 +12,7 @@ const MenuNavBar = ({ menuToggle, setMenuToggle }) => {
   // Select the link that will appear based on if it is a franchise or not
   const type = isFranchise
     ? { name: "Branches", path: "/branches", icon: "domain" }
-    : { name: "Menu", path: "/NavBar", icon: "dns" }
+    : { name: "Menu", path: "/menu", icon: "dns" }
 
   //Wich links will appear in the menu
   const links = [
