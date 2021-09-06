@@ -39,6 +39,14 @@
 					margin-block: 0.5em;
 				}
 			}
+			.infoCard {
+				.line {
+					height: 35vh;
+					.reservations {
+						padding: 0;
+					}
+				}
+			}
 		}
 	}
 }

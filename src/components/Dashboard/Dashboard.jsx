@@ -20,6 +20,9 @@ const Dashboard = () => {
   const { user, branches } = useContext(UserContext)
   const [branch, setBranch] = useState()
 
+
+  const isMobile = navigator.userAgentData.mobile
+
   useEffect(() => {
     if (branches !== undefined) setBranch(branches[0])
   }, [branches])
@@ -62,29 +65,36 @@ const Dashboard = () => {
             </Card>
           </div>
 
-          <Card title="Reservations">
-            <Line
-              data={{
-                labels: prevMonth(lastNMonths - 1),
-                datasets: [
-                  {
-                    label: 'Reservations',
-                    data: branch.lastsells.slice(0, lastNMonths),
-                    backgroundColor: 'rgba(255, 50, 41,.2)',
-                    borderColor: '#ff3229',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.2,
+          <Card title="Reservations" >
+            <div className='line'>
+              <Line
+                data={{
+                  labels: prevMonth(lastNMonths - 1),
+                  datasets: [
+                    {
+                      label: 'Reservations',
+                      data: branch.lastsells.slice(0, lastNMonths),
+                      backgroundColor: 'rgba(255, 50, 41,.2)',
+                      borderColor: '#ff3229',
+                      borderWidth: 2,
+                      fill: true,
+                      tension: 0.2,
+                    },
+                  ],
+                }}
+                options={{
+                  maintainAspectRatio: !isMobile,
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      display: !isMobile
+                    },
+                    x: { reverse: true },
                   },
-                ],
-              }}
-              options={{
-                scales: {
-                  y: { beginAtZero: true },
-                  x: { reverse: true },
-                },
-              }}
-            />
+                }}
+                className='reservations'
+              />
+            </div>
           </Card>
         </div>
         <div className="dashboard__statistics__aside">
