@@ -28,6 +28,7 @@ const LandingRecommended = () => {
         wrapAround: true,
         pauseAutoPlayOnHover: false,
         pageDots: false,
+        prevNextButtons: false,
       })
     }
   }, [recommendations])

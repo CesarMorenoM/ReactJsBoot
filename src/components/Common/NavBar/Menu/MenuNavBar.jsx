@@ -19,11 +19,7 @@ const MenuNavBar = ({ menuToggle, setMenuToggle }) => {
     { name: "Profile", path: "/profile", icon: "person" },
     { name: "Dashboard", path: "/dashboard", icon: "view_quilt" },
     { ...type },
-    {
-      name: "Reservations",
-      path: "/reservations",
-      icon: "chrome_reader_mode",
-    },
+    { name: "Reservations", path: "/reservations", icon: "chrome_reader_mode",},
     { name: "Configuration", path: "/config", icon: "settings" },
   ]
 

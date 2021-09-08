@@ -20,8 +20,13 @@ const Dashboard = () => {
   const { user, branches } = useContext(UserContext)
   const [branch, setBranch] = useState()
 
-
-  const isMobile = navigator.userAgentData.mobile
+  
+  let isMobile = {}
+  try{
+    isMobile=Navigator.userAgentData.mobile
+  }catch{
+    isMobile=false
+  }
 
   useEffect(() => {
     if (branches !== undefined) setBranch(branches[0])
