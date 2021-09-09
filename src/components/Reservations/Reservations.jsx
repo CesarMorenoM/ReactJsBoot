@@ -110,6 +110,7 @@ const Reservations = () => {
       : setNavigation(navigation - 1)
   }
 
+  
   if (!currentBranch || !currentDay || !currentDisplay) return <Loader />
   return (
     <div className='reservations'>

@@ -34,8 +34,8 @@ const useCalendar = (navigation, events) => {
    * @returns An array with the events to the date
    */
   const eventsForDate = date => events.filter(e => {
-    let eventDate = new Date(e.orderDate).toLocaleDateString()
-    return eventDate === new Date(date).toLocaleDateString()
+    let eventDate = new Date(e.orderDate).toLocaleDateString('en-US')
+    return eventDate === new Date(date).toLocaleDateString('en-US')
   })
 
   //Generate the days for the month
@@ -43,7 +43,7 @@ const useCalendar = (navigation, events) => {
   for (let i = 1; i <= paddingDays + daysInMonth; i++) {
     const dayTemplate = {
       value: i - paddingDays,
-      date: new Date(year, month, i - paddingDays).toLocaleDateString()
+      date: new Date(year, month, i - paddingDays).toLocaleDateString('en-US')
     }
     if (i - paddingDays === day && navigation === 0) dayTemplate.isInitialDay = true
     if (eventsForDate(dayTemplate.date)) dayTemplate.events = eventsForDate(dayTemplate.date)
