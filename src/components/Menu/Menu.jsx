@@ -11,9 +11,10 @@ import MenuModal from './Modal/MenuModal'
 import './Menu.scss'
 //custom hooks
 import UserContext from '../../context/UserContext/UserContext'
+import { capitalize } from '../../helpers/helpers'
 
 const Menu = ({ franch = true, branch }) => {
-  const { dishes, switchDishStatus, deleteDish, noFranchise } = useContext(UserContext)
+  const { dishes, switchDishStatus, deleteDish, noFranchise, categories } = useContext(UserContext)
 
   // Define the branch to not franchises restaurants
   if (branch === undefined) branch = noFranchise()
@@ -22,7 +23,7 @@ const Menu = ({ franch = true, branch }) => {
   const currentDishes = Object.keys(dishes).length !== 0 ? Object.values(dishes[branch.id]) : undefined
 
   // Is charging
-  if (!currentDishes) return <Loader />
+  if (!currentDishes || !categories) return <Loader />
 
   //Component
   return <>
@@ -38,9 +39,10 @@ const Menu = ({ franch = true, branch }) => {
             <summary className='menuList__dish__info'>
               <span className='menuList__dish__name'>{dish.name}</span>
               <div className="menuList__dish__options">
+                {console.log(dish)}
                 <Switch
                   onChange={() => switchDishStatus(dish.id, branch.id)}
-                  checked={dishes[branch.id][dish.id].status}
+                  checked={dishes[branch.id][dish.id].isActive}
                   onColor="#ff3229"
                   onHandleColor="#ff3229"
                   handleDiameter={20}
@@ -59,22 +61,20 @@ const Menu = ({ franch = true, branch }) => {
 
             </summary>
             <div className='menuList__dish__desc'>
-              <img className='menuList__dish__desc__img' src={dish.image || defaultImg} alt='img' />
+              <img className='menuList__dish__desc__img' src={dish.pathImage || defaultImg} alt='img' />
               <div className='menuList__dish__desc__section'>
-                <p className='menuList__dish__desc__text'><span>Price:</span> ${dish.price.toLocaleString()}</p>
-                <p className='menuList__dish__desc__text'><span> Category:</span> {dish.category}</p>
-                {(dish.calories.min || dish.calories.max)
-                  ? <p className='menuList__dish__desc__text'><span>Calories: </span>{dish.calories.min || ' '} - {dish.calories.max || ' '}</p>
+                <p className='menuList__dish__desc__text'><span>Price:</span> ${dish.price.toLocaleString('en-US')}</p>
+                <p className='menuList__dish__desc__text'>
+                  <span> Category:</span> {categories.filter(c => +c.id === +dish.dishCategoryId)[0].name}
+                </p>
+                {(dish.caloriesMinimun || dish.caloriesMaximun)
+                  ? <p className='menuList__dish__desc__text'><span>Calories: </span>{dish.caloriesMinimun || ' '} - {dish.caloriesMaximun || ' '}</p>
                   : ''}
-                {dish.ingredients.length > 0
-                  ? <>
-                    <h4 className='menuList__dish__desc__subtitle'><span>Ingredients:</span></h4>
-                    <p className="menuList__dish__desc__ingredients">
-                      {dish.ingredients.map((ingredient, id) => <span key={id} >{ingredient}</span>)}
-                    </p>
-                  </>
-                  : ''
-                }
+                <h4 className='menuList__dish__desc__subtitle'><span>Description:</span></h4>
+                <p className="menuList__dish__desc__ingredients">
+                  <span>{capitalize(dish.description)}</span>
+                </p>
+
               </div>
             </div>
           </details>)}

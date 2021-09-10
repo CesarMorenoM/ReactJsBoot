@@ -7,7 +7,7 @@ import { UserReducer, initialState } from './UserReducer'
 import useMenu from './useMenu'
 //utility
 import { notifyError, pipe } from '../../helpers/helpers'
-import { GETBranches, GETUser } from './fetchMethods'
+import { GETBestDishes, GETBranches, GETCategories, GETDishes, GETRestaurant, GETUser } from './fetchMethods'
 import { createBranchesInfo, createGeneralBranch } from './branchFunctions'
 
 
@@ -22,14 +22,35 @@ export const UserContextProvider = ({ children }) => {
    * @param {Number} id Id of the user
    * @returns {void}
    */
-  const logIn = async id => {
+  const logIn = async ({ email, password }) => {
 
+    let Info
+    let branches = []
     let user
-    let branches
+    let categories
 
     try {
-      user = await GETUser(id)
-      branches = await GETBranches(id)
+      Info = await GETUser(email, password)
+      const { restaurant, token } = Info
+      const id = restaurant.id
+      user = restaurant.user
+
+      localStorage.setItem('session', token)
+
+      const restaurantInfo = await GETRestaurant(id, token)
+      restaurantInfo.dishes = await GETDishes(id, token)
+      restaurantInfo.bestDishes = await GETBestDishes(id, token)
+      restaurantInfo.id = id
+
+      const subBranches = await GETBranches(id, token)
+      subBranches.forEach(async branch => {
+        branch.dishes = await GETDishes(branch.id, token)
+        branch.bestDishes = await GETBestDishes(id, token)
+      })
+
+      categories = await GETCategories()
+
+      branches = [restaurantInfo].concat(subBranches)
     }
     catch (err) {
       notifyError(err)
@@ -38,8 +59,10 @@ export const UserContextProvider = ({ children }) => {
     }
 
     dispatch({ type: TYPES.USER.LOGIN, payload: user })
-    dispatch({ type: TYPES.USER.BRANCHES, payload: pipe(createGeneralBranch, createBranchesInfo)(branches) })
+    dispatch({ type: TYPES.USER.BRANCHES, payload: branches })
     dispatch({ type: TYPES.USER.FRANCHISE, payload: branches.length > 1 })
+    dispatch({ type: TYPES.MENU.CREATE.CATEGORIES, payload: categories })
+
 
     toast('Welcome again!', { icon: '👋', duration: 1000 })
     return true
@@ -69,9 +92,8 @@ export const UserContextProvider = ({ children }) => {
       obj.id === branch
         ? { ...obj, ...data }
         : obj)
-    newBranches = newBranches.filter(br => br.id !== 9999)
 
-    dispatch({ type: TYPES.USER.BRANCHES, payload: pipe(createGeneralBranch, createBranchesInfo)(newBranches) })
+    dispatch({ type: TYPES.USER.BRANCHES, payload: newBranches })
   }
 
   // Get all the Menu functionality
@@ -81,6 +103,7 @@ export const UserContextProvider = ({ children }) => {
   return <UserContext.Provider value={{
     user: state.user,
     branches: state.branches,
+    categories: state.categories,
     logIn,
     logOut,
     isAuth,

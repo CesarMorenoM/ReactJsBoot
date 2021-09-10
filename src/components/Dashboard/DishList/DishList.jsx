@@ -8,7 +8,7 @@ const DishList = ({ dishes, quantity }) => {
   return (
     <ol className='dishList'>
       {dishes.slice(0, quantity).map((dish, id) => {
-        let dishImg = dish.image ? dish.image : defaultImg
+        let dishImg = dish.pathImage ? dish.pathImage : defaultImg
         return (
           <li key={dish.id}>
             <div className='dishList__cover'>
@@ -18,8 +18,7 @@ const DishList = ({ dishes, quantity }) => {
             <div>
               <p className='dishList__name'>{dish.name}</p>
               <p className='dishList__price'>
-                {dish.sold}
-                <span> / $ {dish.price} c/u</span>
+                <span> $ {dish.price} c/u</span>
               </p>
             </div>
           </li>

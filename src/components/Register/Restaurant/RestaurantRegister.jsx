@@ -2,8 +2,10 @@ import { useForm } from 'react-hook-form'
 import defaultImg from '../../../static/default-img.jpg'
 import './restaurantRegister.scss'
 
-const RestaurantRegister = () => {
+const RestaurantRegister = ({ restaurant }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
+
+  if (!restaurant) restaurant = {}
 
   const addRestaurant = data => {
     console.log(data)
@@ -13,13 +15,15 @@ const RestaurantRegister = () => {
     <form id='restaurantRegister' onSubmit={handleSubmit(addRestaurant)} className="restaurantRegister">
       <div className="restaurantRegister__main">
         <label className='label --first' >Restaurant's name</label>
-        <input className='input' type="text" placeholder='Name of the restaurant'
+        <input className='input' type="text"
+          placeholder='Name of the restaurant' defaultValue={restaurant.name || ''}
           {...register('name', { required: `You may put the restaurant's name` })}
         />
         <span className="error">{errors?.name?.message}</span>
 
         <label className='label' >Restaurant's address</label>
-        <input className='input' type="address" placeholder='Where is your restaurant'
+        <input className='input' type="address"
+          placeholder='Where is your restaurant' defaultValue={restaurant.address || ''}
           {...register('address', { required: 'You may put the address' })}
         />
         <span className="error">{errors?.address?.message}</span>
@@ -27,7 +31,7 @@ const RestaurantRegister = () => {
         <div className="fill">
           <label className="label"> Restaurant's phone</label>
           <label className="label"> Restaurant's category</label>
-          <input className='input' type='phone' placeholder='Telephone number' />
+          <input className='input' type='phone' placeholder='Telephone number' defaultValue={restaurant.phone || ''} />
           <select className='input' name="" id="">
             <option value="Inlet">Inlet</option>
             <option value="Snack">Snack</option>
@@ -41,7 +45,7 @@ const RestaurantRegister = () => {
       </div>
       <div className="restaurantRegister__side">
         <label className="label">Restaurant's picture</label>
-        <img src={defaultImg} alt="" />
+        <img src={restaurant.image || defaultImg} alt="" />
         <input className="menuRegister__image__button" type="text" name='picture'
           {...register("image")}
         />

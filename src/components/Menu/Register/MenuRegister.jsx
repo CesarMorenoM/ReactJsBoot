@@ -10,7 +10,7 @@ import './menuRegister.scss'
 
 const MenuRegister = ({ dish, closeModal, branch, action, registerType }) => {
   const { register, handleSubmit } = useForm()
-  const { updateDishInfo, addDish } = useContext(UserContext)
+  const { updateDishInfo, addDish, categories } = useContext(UserContext)
 
   if (!dish) dish = {}
 
@@ -48,23 +48,21 @@ const MenuRegister = ({ dish, closeModal, branch, action, registerType }) => {
 
           {/* Categories */}
           <select className="input"
-            defaultValue={dish.category || ''}
-            {...register("category")}>
-            <option value="Inlet">Inlet</option>
-            <option value="Snack">Snack</option>
-            <option value="Soup">Soup</option>
-            <option value="Salad">Salad</option>
-            <option value="Main Course">Main Course</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Drink">Drink</option>
+            defaultValue={dish.dishCategoryId || ''}
+            {...register("dishCategoryId")}>
+            {
+              categories.map(category =>
+                <option value={category.id}>{category.name}</option>
+              )
+            }
           </select>
         </div>
 
         {/* Ingredients */}
         <label className="label">Ingredients<span>Separated by commas</span></label>
         <textarea className=' input' placeholder="Salt , Sugar , Love ..."
-          defaultValue={dish.ingredients || ''}
-          {...register("ingredients")} />
+          defaultValue={dish.description || ''}
+          {...register("description", { required: true })} />
 
         {/* Nutrition section */}
         <details className="dish__nutrition" open>
@@ -77,12 +75,12 @@ const MenuRegister = ({ dish, closeModal, branch, action, registerType }) => {
             <label className="label">Calories</label>
             <div className="dish__info__calories">
               <input type="number" className="input" placeholder="--"
-                defaultValue={dish.calories ? dish.calories.min : ''}
-                {...register("calories.min", { valueAsNumber: true })} />
+                defaultValue={dish.caloriesMinimun || ''}
+                {...register("caloriesMinimun", { valueAsNumber: true })} />
               <span> - </span>
               <input type="number" className="input" placeholder="--"
-                defaultValue={dish.calories ? dish.calories.max : ''}
-                {...register("calories.max", { valueAsNumber: true })} />
+                defaultValue={dish.caloriesMaximun || ''}
+                {...register("caloriesMaximun", { valueAsNumber: true })} />
             </div>
 
             {/* Protein */}
@@ -111,10 +109,10 @@ const MenuRegister = ({ dish, closeModal, branch, action, registerType }) => {
       <div className='menuRegister__side'>
         <div className="menuRegister__image">
           <label className="label">Image</label>
-          <img src={dish.image || defaultImg} alt='Dish' />
+          <img src={dish.pathImage || defaultImg} alt='Dish' />
           <input className="menuRegister__image__button" type="text" name='picture'
-            defaultValue={dish.image || ''}
-            {...register("image")}
+            defaultValue={dish.pathImage || ''}
+            {...register("pathImage")}
           />
         </div>
 

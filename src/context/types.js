@@ -10,6 +10,7 @@ const TYPES = {
     CREATE: {
       DISHESCOPY: 'Create a copy of all dishes in memory',
       DISHSTATUSLIST: 'Create a copy of the statuses of the dishes',
+      CATEGORIES: 'Update the categories of the dishes',
       DISH: 'Create a dish an add it to the database'
     },
     UPDATE: {

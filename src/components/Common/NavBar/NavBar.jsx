@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import UserContext from "../../../context/UserContext/UserContext"
 //images
 import logo from "../../../static/logo.svg"
+import defaultImg from '../../../static/default-img.jpg'
 //components
 import MenuNavBar from "./Menu/MenuNavBar"
 import "./nav-bar.scss"
@@ -24,7 +25,7 @@ const NavBar = ({ logged }) => {
         <h2 className=" nav-bar__user__name">{user.name}</h2>
         <div
           className="nav-bar__user__img"
-          style={{ backgroundImage: `url(${user.avatar})` }}
+          style={{ backgroundImage: `url(${user.avatar || defaultImg})` }}
           onClick={() => setMenuToggle(!menuToggle)}
         ></div>
       </div>

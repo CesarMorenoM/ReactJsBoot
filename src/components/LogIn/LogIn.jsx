@@ -16,7 +16,7 @@ const LogIn = () => {
   const history = useHistory()
 
   const handleLogin = async data => {
-    const verification = await logIn(data.username)
+    const verification = await logIn(data)
     if (verification) history.push('/')
   }
 
@@ -28,9 +28,9 @@ const LogIn = () => {
           <div className="logIn__field">
             <i className="material-icons">local_post_office</i>
             <input placeholder='User Email' defaultValue=''
-              {...register('username', { required: 'Please put your username' })} />
+              {...register('email', { required: 'Please put your username' })} />
           </div>
-          <span className='logIn__error'>{errors?.username?.message}</span>
+          <span className='logIn__error'>{errors?.email?.message}</span>
 
           <div className="logIn__field">
             <i className="material-icons">lock_outline</i>

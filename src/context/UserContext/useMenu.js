@@ -33,7 +33,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
             ...state.dishes[payload.branch],
             [payload.dish]: {
               ...state.dishes[payload.branch][payload.dish],
-              status: payload.status
+              isActive: payload.status
             }
           }
         }
@@ -56,6 +56,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
         dishesList = { ...dishesList, [branch.id]: dishesInfo }
       })
 
+
       dispatch({ type: TYPES.MENU.CREATE.DISHESCOPY, payload: { ...dishesList } })
     }
 
@@ -68,21 +69,17 @@ const useMenu = (branches, updateBranchInfo, user) => {
    * @param {Object} crudeData Object with the data of the dish
    * @returns Boolean
    */
-  const addDish = async (branch, crudeData) => {
-    let data = {
-      ...crudeData,
-      ingredients: toText(crudeData.ingredients)
-    }
-    let newData
+  const addDish = async (branch, data) => {
+    let id
 
     try {
-      newData = await POSTDish(user.id, branch, data)
+      id = await POSTDish(data, branch)
 
     } catch (err) {
       notifyError(err)
       return false
     }
-    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [newData.id]: newData } }
+    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [id]: { ...data, id: id, isActive: true } } }
     const newInfo = { dishes: Object.values(newDishes[branch]) }
 
     updateBranchInfo(branch, newInfo)
@@ -132,23 +129,18 @@ const useMenu = (branches, updateBranchInfo, user) => {
    * @param {Object} crudeData Object with the new dish info
    * @returns 
    */
-  const updateDishInfo = async (dish, branch, crudeData) => {
+  const updateDishInfo = async (dish, branch, data) => {
     //Convert the ingredients in array to save
-    const data = {
-      ...crudeData,
-      ingredients: toText(crudeData.ingredients)
-    }
-    let newData
 
     try {
-      newData = await PUTDishInfo(user.id, branch, dish, data)
+      await PUTDishInfo(dish, data, branch)
     } catch (err) {
       notifyError(err)
       return false
     }
 
     //Create the new info to update the branches
-    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [dish]: newData } }
+    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [dish]: { ...state.dishes[branch][dish], ...data } } }
     const newInfo = { dishes: Object.values(newDishes[branch]) }
 
     updateBranchInfo(branch, newInfo)
@@ -165,10 +157,9 @@ const useMenu = (branches, updateBranchInfo, user) => {
    *///Manage the switch apart to not being updating all dishes and branches just because a switch
   const switchDishStatus = async (dish, branch) => {
 
-    const status = !(!!state.dishes[branch][dish].status)
-
+    const status = !(!!state.dishes[branch][dish].isActive)
     try {
-      await PUTDishStatus(user.id, branch, dish, status)
+      await PUTDishStatus(dish, branch)
     } catch (err) {
       notifyError(err)
       return false

@@ -49,15 +49,6 @@
 			&__subtitle {
 				font-weight: 600;
 			}
-			&__ingredients {
-				display: flex;
-				span {
-					margin-right: 1em;
-					&::before {
-						content: '• ';
-					}
-				}
-			}
 		}
 		&__info {
 			display: grid;
@@ -154,9 +145,6 @@
 				}
 				&__subtitle {
 					margin-bottom: 0.5em;
-				}
-				&__ingredients {
-					flex-wrap: wrap;
 				}
 			}
 		}
