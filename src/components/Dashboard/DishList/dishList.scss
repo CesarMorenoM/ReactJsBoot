@@ -5,8 +5,9 @@
 	gap: 2em;
 	li {
 		display: grid;
-		grid-template-columns: 1fr 7fr;
+		grid-template-columns: 1fr 14fr;
 		align-items: center;
+		justify-content: flex-start;
 		gap: 1em;
 	}
 	&__cover {

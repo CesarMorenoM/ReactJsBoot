@@ -2,7 +2,7 @@
 import { useEffect, useReducer } from "react"
 import toast from "react-hot-toast"
 //utility
-import { DELETEDish, POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
+import { POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
 import { notifyError } from "../../helpers/helpers"
 import TYPES from "../types"
 
@@ -85,39 +85,39 @@ const useMenu = (branches, updateBranchInfo, user) => {
     return true
   }
 
-  /**
-   * Delete an specific dish, delete it from branches and from the database
-   * @param {Number} branch Id of the branch
-   * @param {Number} dishId Id of the dish
-   */
-  const deleteDish = (branch, dishId) => {
-    let data = { ...state.dishes[branch] }
-    let deleted = data[dishId]
-    delete data[dishId]
-
-    const deleteItem = async (t) => {
-      try {
-        await DELETEDish(user.id, branch, dishId)
-      } catch (err) {
-        notifyError(err)
-      }
-      //Create the new info to update the branches
-      const newDishes = { ...state.dishes, [branch]: { ...data } }
-      const newInfo = { dishes: Object.values(newDishes[branch]) }
-
-      updateBranchInfo(branch, newInfo)
-      toast.dismiss(t.id)
-    }
-
-    //Delete confirmation
-    toast(t => {
-      return <div>
-        <p>Delete {deleted.name}?</p>
-        <button className='notification__button invert' onClick={() => toast.dismiss(t.id)}>Cancel</button>
-        <button className='notification__button' onClick={() => deleteItem(t)}>Delete</button>
-      </div>
-    }, { icon: '⚠️' })
-  }
+  /*   *
+     * Delete an specific dish, delete it from branches and from the database
+     * @param {Number} branch Id of the branch
+     * @param {Number} dishId Id of the dish
+     */
+  /*  const deleteDish = (branch, dishId) => {
+     let data = { ...state.dishes[branch] }
+     let deleted = data[dishId]
+     delete data[dishId]
+ 
+     const deleteItem = async (t) => {
+       try {
+         await DELETEDish(user.id, branch, dishId)
+       } catch (err) {
+         notifyError(err)
+       }
+       //Create the new info to update the branches
+       const newDishes = { ...state.dishes, [branch]: { ...data } }
+       const newInfo = { dishes: Object.values(newDishes[branch]) }
+ 
+       updateBranchInfo(branch, newInfo)
+       toast.dismiss(t.id)
+     }
+ 
+     //Delete confirmation
+     toast(t => {
+       return <div>
+         <p>Delete {deleted.name}?</p>
+         <button className='notification__button invert' onClick={() => toast.dismiss(t.id)}>Cancel</button>
+         <button className='notification__button' onClick={() => deleteItem(t)}>Delete</button>
+       </div>
+     }, { icon: '⚠️' })
+   } */
 
   /**
    * Update the info of a dish, in branhces and in the database
@@ -171,7 +171,6 @@ const useMenu = (branches, updateBranchInfo, user) => {
     dishes: { ...state.dishes },
     switchDishStatus,
     updateDishInfo,
-    deleteDish,
     addDish
   }
 }
