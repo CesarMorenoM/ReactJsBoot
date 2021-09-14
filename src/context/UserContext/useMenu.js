@@ -2,8 +2,8 @@
 import { useEffect, useReducer } from "react"
 import toast from "react-hot-toast"
 //utility
-import { DELETEDish, POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
-import { notifyError, toText } from "../../helpers/helpers"
+import { POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
+import { notifyError } from "../../helpers/helpers"
 import TYPES from "../types"
 
 /**
@@ -14,10 +14,7 @@ import TYPES from "../types"
  * @returns 
  */
 const useMenu = (branches, updateBranchInfo, user) => {
-  // Dishes copy and reducer utilities
-  const initialState = {
-    dishes: undefined
-  }
+  // Dishes copy 
   const MenuReducer = (state, action) => {
     const { type, payload } = action
     switch (type) {
@@ -33,7 +30,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
             ...state.dishes[payload.branch],
             [payload.dish]: {
               ...state.dishes[payload.branch][payload.dish],
-              status: payload.status
+              isActive: payload.status
             }
           }
         }
@@ -43,7 +40,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
   }
 
   // Generate the initial state
-  const [state, dispatch] = useReducer(MenuReducer, initialState)
+  const [state, dispatch] = useReducer(MenuReducer, { dishes: undefined })
 
   // Update the dish copy everytime the branches/dishes change
   useEffect(() => {
@@ -55,6 +52,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
         branch.dishes.forEach(dish => dishesInfo = { ...dishesInfo, [dish.id]: dish })
         dishesList = { ...dishesList, [branch.id]: dishesInfo }
       })
+
 
       dispatch({ type: TYPES.MENU.CREATE.DISHESCOPY, payload: { ...dishesList } })
     }
@@ -68,21 +66,17 @@ const useMenu = (branches, updateBranchInfo, user) => {
    * @param {Object} crudeData Object with the data of the dish
    * @returns Boolean
    */
-  const addDish = async (branch, crudeData) => {
-    let data = {
-      ...crudeData,
-      ingredients: toText(crudeData.ingredients)
-    }
-    let newData
+  const addDish = async (branch, data) => {
+    let id
 
     try {
-      newData = await POSTDish(user.id, branch, data)
+      id = await POSTDish(data, branch)
 
     } catch (err) {
       notifyError(err)
       return false
     }
-    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [newData.id]: newData } }
+    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [id]: { ...data, id: id, isActive: true } } }
     const newInfo = { dishes: Object.values(newDishes[branch]) }
 
     updateBranchInfo(branch, newInfo)
@@ -91,39 +85,39 @@ const useMenu = (branches, updateBranchInfo, user) => {
     return true
   }
 
-  /**
-   * Delete an specific dish, delete it from branches and from the database
-   * @param {Number} branch Id of the branch
-   * @param {Number} dishId Id of the dish
-   */
-  const deleteDish = (branch, dishId) => {
-    let data = { ...state.dishes[branch] }
-    let deleted = data[dishId]
-    delete data[dishId]
-
-    const deleteItem = async (t) => {
-      try {
-        await DELETEDish(user.id, branch, dishId)
-      } catch (err) {
-        notifyError(err)
-      }
-      //Create the new info to update the branches
-      const newDishes = { ...state.dishes, [branch]: { ...data } }
-      const newInfo = { dishes: Object.values(newDishes[branch]) }
-
-      updateBranchInfo(branch, newInfo)
-      toast.dismiss(t.id)
-    }
-
-    //Delete confirmation
-    toast(t => {
-      return <div>
-        <p>Delete {deleted.name}?</p>
-        <button className='notification__button invert' onClick={() => toast.dismiss(t.id)}>Cancel</button>
-        <button className='notification__button' onClick={() => deleteItem(t)}>Delete</button>
-      </div>
-    }, { icon: '⚠️' })
-  }
+  /*   *
+     * Delete an specific dish, delete it from branches and from the database
+     * @param {Number} branch Id of the branch
+     * @param {Number} dishId Id of the dish
+     */
+  /*  const deleteDish = (branch, dishId) => {
+     let data = { ...state.dishes[branch] }
+     let deleted = data[dishId]
+     delete data[dishId]
+ 
+     const deleteItem = async (t) => {
+       try {
+         await DELETEDish(user.id, branch, dishId)
+       } catch (err) {
+         notifyError(err)
+       }
+       //Create the new info to update the branches
+       const newDishes = { ...state.dishes, [branch]: { ...data } }
+       const newInfo = { dishes: Object.values(newDishes[branch]) }
+ 
+       updateBranchInfo(branch, newInfo)
+       toast.dismiss(t.id)
+     }
+ 
+     //Delete confirmation
+     toast(t => {
+       return <div>
+         <p>Delete {deleted.name}?</p>
+         <button className='notification__button invert' onClick={() => toast.dismiss(t.id)}>Cancel</button>
+         <button className='notification__button' onClick={() => deleteItem(t)}>Delete</button>
+       </div>
+     }, { icon: '⚠️' })
+   } */
 
   /**
    * Update the info of a dish, in branhces and in the database
@@ -132,23 +126,18 @@ const useMenu = (branches, updateBranchInfo, user) => {
    * @param {Object} crudeData Object with the new dish info
    * @returns 
    */
-  const updateDishInfo = async (dish, branch, crudeData) => {
+  const updateDishInfo = async (dish, branch, data) => {
     //Convert the ingredients in array to save
-    const data = {
-      ...crudeData,
-      ingredients: toText(crudeData.ingredients)
-    }
-    let newData
 
     try {
-      newData = await PUTDishInfo(user.id, branch, dish, data)
+      await PUTDishInfo(dish, data, branch)
     } catch (err) {
       notifyError(err)
       return false
     }
 
     //Create the new info to update the branches
-    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [dish]: newData } }
+    const newDishes = { ...state.dishes, [branch]: { ...state.dishes[branch], [dish]: { ...state.dishes[branch][dish], ...data } } }
     const newInfo = { dishes: Object.values(newDishes[branch]) }
 
     updateBranchInfo(branch, newInfo)
@@ -165,10 +154,9 @@ const useMenu = (branches, updateBranchInfo, user) => {
    *///Manage the switch apart to not being updating all dishes and branches just because a switch
   const switchDishStatus = async (dish, branch) => {
 
-    const status = !(!!state.dishes[branch][dish].status)
-
+    const status = !(!!state.dishes[branch][dish].isActive)
     try {
-      await PUTDishStatus(user.id, branch, dish, status)
+      await PUTDishStatus(dish, branch)
     } catch (err) {
       notifyError(err)
       return false
@@ -183,7 +171,6 @@ const useMenu = (branches, updateBranchInfo, user) => {
     dishes: { ...state.dishes },
     switchDishStatus,
     updateDishInfo,
-    deleteDish,
     addDish
   }
 }

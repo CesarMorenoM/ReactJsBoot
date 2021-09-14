@@ -11,11 +11,7 @@ import './Branches.scss'
 
 const Branches = () => {
   //Get the branches
-  const { branches: branchesInfo } = useContext(UserContext)
-
-  //Delete the "General" branch to not show it
-  const branches = [...branchesInfo]
-  branches.shift()
+  const { branches } = useContext(UserContext)
 
   const [currentBranch, setCurrentBranch] = useState(branches[0])
 

@@ -6,7 +6,7 @@ import Loader from '../../Common/Loader/Loader'
 import './landingRecommended.scss'
 
 const LandingRecommended = () => {
-  const API_URL = process.env.REACT_APP_MOCKAPI
+  const API_URL = process.env.REACT_APP_API
   const [recommendations, setRecommendations] = useState()
 
   // Get the recommendations

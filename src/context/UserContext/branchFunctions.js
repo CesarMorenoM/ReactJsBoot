@@ -1,4 +1,4 @@
-import { prevMonth } from "../../helpers/helpers"
+//import { prevMonth } from "../../helpers/helpers"
 
 /**
  * Generate a general branch from a branches list
@@ -6,7 +6,7 @@ import { prevMonth } from "../../helpers/helpers"
  * @returns Array of branches with the general branch
  * @returns Same array if it have less than 1 branch
  */
-export const createGeneralBranch = branches => {
+/* export const createGeneralBranch = branches => {
   if (branches.length > 1) {
     let generalBranch = { name: 'General' }
     generalBranch.lastsells =
@@ -31,15 +31,15 @@ export const createGeneralBranch = branches => {
     branches.unshift(generalBranch)
     return branches
   } else return branches
-}
+} */
 
 /**
- * Generate extra info to branches 
+ * Generate extra info to branches
  * (bestMonth, bestDishes, allSells)
  * @param {Array<Object>} branchesMap Base branches
  * @returns Array of branches with the info added
  */
-export const createBranchesInfo = branchesMap => {
+/* export const createBranchesInfo = branchesMap => {
   let branches = [...branchesMap]
   branches.map(branch => {
     const today = new Date()
@@ -55,4 +55,4 @@ export const createBranchesInfo = branchesMap => {
     return branch
   })
   return branches
-}
+} */

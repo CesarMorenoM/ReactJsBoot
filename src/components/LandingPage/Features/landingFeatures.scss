@@ -1,6 +1,6 @@
 @import '../../../style/variables';
 .features {
-	background-color: #fff;
+	background-color: $sectionColor;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 5em;
