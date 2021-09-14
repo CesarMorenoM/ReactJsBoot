@@ -8,7 +8,7 @@ import UserContext from "../../../context/UserContext/UserContext"
 import defaultImg from '../../../static/default-img.jpg'
 import './menuRegister.scss'
 
-const MenuRegister = ({ dish, closeModal, branch, action, registerType }) => {
+const MenuRegister = ({ dish, closeModal, branch, action, registerType, nextElement }) => {
   const { register, handleSubmit } = useForm()
   const { updateDishInfo, addDish } = useContext(UserContext)
 
@@ -20,6 +20,7 @@ const MenuRegister = ({ dish, closeModal, branch, action, registerType }) => {
   }
 
   const addDishHandler = data => {
+    if (nextElement) nextElement()
     addDish(branch.id, data)
     if (!registerType) closeModal()
   }

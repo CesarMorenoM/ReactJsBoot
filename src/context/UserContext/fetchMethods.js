@@ -44,6 +44,36 @@ export const GETBranches = id => {
   })
 }
 
+/**
+ * POST petition to register a restaurant
+ */
+ export const POSTUser = userData => {
+  var formdata = new FormData();
+  formdata.append("Name",userData.name);
+  formdata.append("Address", userData.address);
+  formdata.append("LocationLatitude", "0");
+  formdata.append("LocationLongitude", "0");
+  formdata.append("image", "");
+  formdata.append("User.FirstName", userData.firstName);
+  formdata.append("User.LastName", userData.lastName);
+  formdata.append("User.Email", userData.email);
+  formdata.append("User.Password", userData.password);
+  return new Promise((res, rej) => {
+    fetch(`${API_URL}/restaurants/register`, {
+      method: 'POST',
+      headers: { 
+      },
+      body: formdata
+    })
+      .then(async response => {
+        if (response.ok) {
+          const restaurant = await response.json()
+          res(restaurant)
+        } else rej(`Can't add this restaurant`)
+      })
+  })
+}
+
 // Dishes methods
 /**
  * PUT petition to change the status of an specific dish

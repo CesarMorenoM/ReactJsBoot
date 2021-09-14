@@ -1,12 +1,16 @@
 import { useForm } from 'react-hook-form'
 import defaultImg from '../../../static/default-img.jpg'
 import './restaurantRegister.scss'
+//Fetch methods
+import {POSTUser} from '../../../context/UserContext/fetchMethods'
 
-const RestaurantRegister = () => {
+const RestaurantRegister = ({nextElement,accountInfo}) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
 
-  const addRestaurant = data => {
-    console.log(data)
+  const addRestaurant = restaurantData => {
+    if (nextElement) nextElement()
+    POSTUser({...restaurantData,...accountInfo})
+    console.log({...restaurantData,...accountInfo})
   }
 
   return (

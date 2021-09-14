@@ -7,14 +7,18 @@ import UserRegister from './User/UserRegister'
 import './register.scss'
 import NavBar from '../Common/NavBar/NavBar'
 import Card from '../Common/Cards/Card'
+//fetch methods
+
 
 const Register = () => {
 
   const [steps] = useState([
     { value: 1, title: 'create your account', form: 'userRegister' },
-    { value: 2, title: 'register your restaurant', form: 'dishRegister' },
-    { value: 3, title: 'create your first dish' }
+    { value: 2, title: 'register your restaurant', form: 'restaurantRegister' },
+    { value: 3, title: 'create your first dish', form:'dishRegister'}
   ])
+
+  const [accountInfo, setAccountInfo] = useState({})
 
   const [step, setStep] = useState(0)
 
@@ -31,6 +35,7 @@ const Register = () => {
     <div className='register'>
       <NavBar />
       <div className="register__container">
+        {/* Step Number */}
         <div className="register__steps">
           {
             steps.map((stepSelect, id) => {
@@ -38,22 +43,31 @@ const Register = () => {
             })
           }
         </div>
+        {/* Step component */}
         <div className="register__content">
           <Card title={`Let's ${steps[step].title}`}>
-            {step === 0 && <UserRegister />}
-            {step === 1 && <RestaurantRegister />}
-            {step === 2 && <MenuRegister registerType />}
+            {step === 0 && <UserRegister nextElement={handleNext} setAccountInfo={setAccountInfo}/>}
+            {step === 1 && <RestaurantRegister nextElement={handleNext} accountInfo={accountInfo}/>}
+            {step === 2 && <MenuRegister registerType nextElement={handleNext}/>}
           </Card>
         </div>
+        {/* Submit Button */}
         <div className="register__buttons">
+        {step > 0 ?
           <button className="--prev hvr-i-left" onClick={e => handlePrev(e)}>
             <i className="material-icons hvr-i">arrow_back</i>
             Back
           </button>
-          <button type='submit' form={steps[step].form} className="hvr-i-right" onClick={handleNext}>
+          : null
+        }
+        
+          <button type='submit'  className="hvr-i-right" form={steps[step].form}>
+          
             {step !== 2 ? 'Next' : 'Finish'}
             <i className="material-icons hvr-i">arrow_forward</i>
+            
           </button>
+          
         </div>
       </div>
     </div>
