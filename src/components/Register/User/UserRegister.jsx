@@ -12,10 +12,15 @@ const UserRegister = ({ user }) => {
   return (
     <form className='userRegister form' id='userRegister' onSubmit={handleSubmit(createUser)}>
 
-      <label className='label --first' >Name <span>Your full name</span> </label>
-      <input className='input' placeholder='Name' defaultValue={user.name || ''}
-        {...register('name', { required: 'Please put your name' })} />
-      <span className='error'>{errors?.name?.message}</span>
+      <div className="fill">
+        <label className='label --first' >First Name</label>
+        <label className='label --first' >Last Name</label>
+
+        <input className='input' placeholder='Name' defaultValue={user.firstName || ''}
+          {...register('firstName', { required: 'Please put your name' })} />
+        <input className='input' placeholder='Last Name' defaultValue={user.lastName || ''}
+          {...register('lastName', { required: 'Please put your last name' })} />
+      </div>
 
       <label className='label'>Email</label>
       <input className='input' placeholder='Email' defaultValue={user.email || ''}

@@ -10,7 +10,7 @@ const DishList = ({ dishes, quantity }) => {
       {dishes.slice(0, quantity).map((dish, id) => {
         let dishImg = dish.pathImage ? dish.pathImage : defaultImg
         return (
-          <li key={dish.id}>
+          <li key={id}>
             <div className='dishList__cover'>
               <span className='dishList__cover__number'>{id + 1}.</span>
               <img className='dishList__cover__img' src={dishImg} alt='img' />

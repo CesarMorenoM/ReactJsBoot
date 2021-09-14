@@ -6,9 +6,8 @@ import TYPES from '../types'
 import { UserReducer, initialState } from './UserReducer'
 import useMenu from './useMenu'
 //utility
-import { notifyError, pipe } from '../../helpers/helpers'
-import { GETBestDishes, GETBranches, GETCategories, GETDishes, GETRestaurant, GETUser } from './fetchMethods'
-import { createBranchesInfo, createGeneralBranch } from './branchFunctions'
+import { notifyError } from '../../helpers/helpers'
+import { GETBestDishes, GETBranches, GETCategories, GETDishes, GETRestaurant, GETRestaurantCategories, GETUser } from './fetchMethods'
 
 
 const UserContext = createContext()
@@ -23,36 +22,60 @@ export const UserContextProvider = ({ children }) => {
    * @returns {void}
    */
   const logIn = async ({ email, password }) => {
-
-    let Info
     let branches = []
     let user
     let categories
+    let resCategories
+
+    let id
+    let token
 
     try {
-      Info = await GETUser(email, password)
-      const { restaurant, token } = Info
-      const id = restaurant.id
-      user = restaurant.user
+      //Get the info of the user
+      const userInfo = await GETUser(email, password)
+      const { restaurant } = userInfo
+      token = userInfo.token
+      id = restaurant.id
 
+      //Save token in local storage
       localStorage.setItem('session', token)
+    } catch (err) {
+      notifyError(err)
+      dispatch({ type: TYPES.USER.LOGOUT })
+      return false
+    }
 
+    try {
+      //Get all the categories
+      categories = await GETCategories()
+      resCategories = await GETRestaurantCategories()
+    }
+    catch (err) {
+      notifyError(err)
+      dispatch({ type: TYPES.USER.LOGOUT })
+      return false
+    }
+
+    try {
+      //Get all the info of the restaurant
       const restaurantInfo = await GETRestaurant(id, token)
       restaurantInfo.dishes = await GETDishes(id, token)
       restaurantInfo.bestDishes = await GETBestDishes(id, token)
       restaurantInfo.id = id
+      restaurantInfo.isMain = true
+      user = restaurantInfo.user
 
+      //Get all the info of the branches 
       const subBranches = await GETBranches(id, token)
       subBranches.forEach(async branch => {
         branch.dishes = await GETDishes(branch.id, token)
         branch.bestDishes = await GETBestDishes(id, token)
+        branch.isMain = false
       })
 
-      categories = await GETCategories()
-
+      //Unify the restaurants and the branches 
       branches = [restaurantInfo].concat(subBranches)
-    }
-    catch (err) {
+    } catch (err) {
       notifyError(err)
       dispatch({ type: TYPES.USER.LOGOUT })
       return false
@@ -61,7 +84,8 @@ export const UserContextProvider = ({ children }) => {
     dispatch({ type: TYPES.USER.LOGIN, payload: user })
     dispatch({ type: TYPES.USER.BRANCHES, payload: branches })
     dispatch({ type: TYPES.USER.FRANCHISE, payload: branches.length > 1 })
-    dispatch({ type: TYPES.MENU.CREATE.CATEGORIES, payload: categories })
+    dispatch({ type: TYPES.USER.CATEGORIES.DISH_C, payload: categories })
+    dispatch({ type: TYPES.USER.CATEGORIES.RESTAURANT_C, payload: resCategories })
 
 
     toast('Welcome again!', { icon: '👋', duration: 1000 })
@@ -104,6 +128,7 @@ export const UserContextProvider = ({ children }) => {
     user: state.user,
     branches: state.branches,
     categories: state.categories,
+    resCategories: state.resCategories,
     logIn,
     logOut,
     isAuth,

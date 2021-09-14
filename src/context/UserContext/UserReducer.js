@@ -5,7 +5,8 @@ export const initialState = {
   user: null,
   branches: null,
   franchise: false,
-  categories: null
+  categories: null,
+  resCategories: null
 }
 
 export const UserReducer = (state, action) => {
@@ -26,9 +27,13 @@ export const UserReducer = (state, action) => {
       ...state,
       franchise: payload
     }
-    case (TYPES.MENU.CREATE.CATEGORIES): return {
+    case (TYPES.USER.CATEGORIES.DISH_C): return {
       ...state,
       categories: [...payload]
+    }
+    case (TYPES.USER.CATEGORIES.RESTAURANT_C): return {
+      ...state,
+      resCategories: [...payload]
     }
     default: return state
   }

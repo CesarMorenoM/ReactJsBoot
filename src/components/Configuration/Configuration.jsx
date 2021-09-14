@@ -6,10 +6,7 @@ import UserRegister from '../Register/User/UserRegister'
 import './configuration.scss'
 
 const Configuration = () => {
-  const { user, branches: branchesInfo } = useContext(UserContext)
-
-  const branches = [...branchesInfo]
-  branches.shift()
+  const { user, branches } = useContext(UserContext)
 
   return (
     <div className='configuration'>

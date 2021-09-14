@@ -14,7 +14,7 @@ import UserContext from '../../context/UserContext/UserContext'
 import { capitalize } from '../../helpers/helpers'
 
 const Menu = ({ franch = true, branch }) => {
-  const { dishes, switchDishStatus, deleteDish, noFranchise, categories } = useContext(UserContext)
+  const { dishes, switchDishStatus, noFranchise, categories } = useContext(UserContext)
 
   // Define the branch to not franchises restaurants
   if (branch === undefined) branch = noFranchise()
@@ -34,12 +34,11 @@ const Menu = ({ franch = true, branch }) => {
       </div>}
     <Card title='Menu'>
       <div className="menuList">
-        {currentDishes.map(dish =>
+        {currentDishes.map((dish) =>
           <details key={dish.id} className='menuList__dish'>
             <summary className='menuList__dish__info'>
               <span className='menuList__dish__name'>{dish.name}</span>
               <div className="menuList__dish__options">
-                {console.log(dish)}
                 <Switch
                   onChange={() => switchDishStatus(dish.id, branch.id)}
                   checked={dishes[branch.id][dish.id].isActive}
@@ -53,10 +52,10 @@ const Menu = ({ franch = true, branch }) => {
                   height={15}
                   width={32}
                   className="react-switch"
-                  id={dish.id}
+                  id={String(dish.id)}
                 />
                 <MenuModal action={'Edit'} dish={dish} branch={branch} />
-                <i className="menuList__dish__close material-icons" onClick={() => deleteDish(branch.id, dish.id)}>close</i>
+                {/* <i className="menuList__dish__close material-icons" onClick={() => deleteDish(branch.id, dish.id)}>close</i> */}
               </div>
 
             </summary>
@@ -89,7 +88,7 @@ Menu.propTypes = {
   /**Is the restaurant a franchise? */
   franch: PropTypes.bool,
   /**The branch we want to show */
-  branch: PropTypes.object.isRequired
+  branch: PropTypes.object
 }
 
 export default Menu

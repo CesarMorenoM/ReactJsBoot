@@ -3,7 +3,7 @@ import { useEffect, useReducer } from "react"
 import toast from "react-hot-toast"
 //utility
 import { DELETEDish, POSTDish, PUTDishInfo, PUTDishStatus } from "./fetchMethods"
-import { notifyError, toText } from "../../helpers/helpers"
+import { notifyError } from "../../helpers/helpers"
 import TYPES from "../types"
 
 /**
@@ -14,10 +14,7 @@ import TYPES from "../types"
  * @returns 
  */
 const useMenu = (branches, updateBranchInfo, user) => {
-  // Dishes copy and reducer utilities
-  const initialState = {
-    dishes: undefined
-  }
+  // Dishes copy 
   const MenuReducer = (state, action) => {
     const { type, payload } = action
     switch (type) {
@@ -43,7 +40,7 @@ const useMenu = (branches, updateBranchInfo, user) => {
   }
 
   // Generate the initial state
-  const [state, dispatch] = useReducer(MenuReducer, initialState)
+  const [state, dispatch] = useReducer(MenuReducer, { dishes: undefined })
 
   // Update the dish copy everytime the branches/dishes change
   useEffect(() => {

@@ -1,4 +1,3 @@
-import defaultImg from '../../static/default-img.jpg'
 const API_URL = process.env.REACT_APP_API
 
 /**
@@ -25,7 +24,7 @@ const fetchPetition = (url, name, config) => {
         if (response.ok) {
           const res = await response.json()
           result(res)
-        } else rej(`Fail to load the ${name}`)
+        } else rej(`Fail the petition of the ${name}`)
       })
   })
 }
@@ -56,34 +55,19 @@ export const GETUser = (email, password) => {
       })
   })
 }
-
-/**
- * Get the dishes categories
- */
+// Categories
 export const GETCategories = () => fetchPetition('/dish-categories', 'categories', null)
 
-/**
- * Search the info of a restaurant by its id
- * @param {Number} id The id of the restaurant we're looking for
- */
+export const GETRestaurantCategories = () => fetchPetition('/restaurant-categories', 'restaurant categories', null)
+
+// Restaurant info
 export const GETRestaurant = (id) => fetchPetition(`/restaurants/id?id=${id}`, 'restaurant')
 
-/**
- * Get the branches of a restaurant
- * @param {Number} id The id of the main restaurant
- */
 export const GETBranches = (id) => fetchPetition(`/branches/restaurants/id?id=${id}`, 'branches')
 
-/**
- * Get all the dishes of a restaurant
- * @param {Number} id The id of the restaurant / branch
- */
+// Dishes info
 export const GETDishes = (id) => fetchPetition(`/dishes/restaurants/${id}`, 'dishes')
 
-/**
- * Get a list of the best dishes in a restaurant
- * @param {*} id The id of the restaurant / branch
- */
 export const GETBestDishes = (id) => fetchPetition(`/dashboard/bestselling-dishes/restaurants/${id}`, 'best dishes')
 
 
