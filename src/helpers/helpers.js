@@ -41,6 +41,7 @@ export const capitalize = text => text
   .toLowerCase()
   .replace(/\w/, firstLetter => firstLetter.toUpperCase())
 
+
 /**
  * Transform a text into an array 
  * @param {String} text Text to transform separated by commas

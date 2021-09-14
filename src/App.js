@@ -15,6 +15,7 @@ import Branches from './components/Branches/Branches'
 import Menu from './components/Menu/Menu'
 import Reservations from './components/Reservations/Reservations'
 import Register from './components/Register/Register'
+import Configuration from './components/Configuration/Configuration'
 //personal
 import { UserContextProvider } from './context/UserContext/UserContext'
 
@@ -32,7 +33,7 @@ function App() {
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/profile" component={() => <h1>Profile</h1>} />
             <PrivateRoute exact path="/reservations" component={Reservations} />
-            <PrivateRoute exact path="/config" component={() => <h1>Configuration</h1>} />
+            <PrivateRoute exact path="/config" component={Configuration} />
             <PrivateRoute exact path="/branches" component={Branches} />
             <PrivateRoute exact path="/menu" component={Menu} />
             <Route path="*" component={ErrorPage} />

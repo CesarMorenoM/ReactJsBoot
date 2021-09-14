@@ -14,7 +14,7 @@ const LandingInicio = () => {
 
   return (
     <div className="landing" style={{ backgroundImage: `url(${bgImage})` }}>
-      <Divider />
+      <Divider color='#f5f4f4' />
       <NavBar logged={false} />
       <div className="landing__title">
         <h1>Register your restaurant in the best search engine for your diners</h1>
