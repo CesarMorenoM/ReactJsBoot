@@ -17,6 +17,7 @@ const Register = () => {
     { value: 2, title: 'register your restaurant', form: 'restaurantRegister' },
     { value: 3, title: 'create your first dish', form:'dishRegister'}
   ])
+  const restaurant = {isMain:true}
 
   const [accountInfo, setAccountInfo] = useState({})
 
@@ -47,7 +48,7 @@ const Register = () => {
         <div className="register__content">
           <Card title={`Let's ${steps[step].title}`}>
             {step === 0 && <UserRegister nextElement={handleNext} setAccountInfo={setAccountInfo}/>}
-            {step === 1 && <RestaurantRegister nextElement={handleNext} accountInfo={accountInfo}/>}
+            {step === 1 && <RestaurantRegister nextElement={handleNext} accountInfo={accountInfo} restaurant={restaurant}/>}
             {step === 2 && <MenuRegister registerType nextElement={handleNext}/>}
           </Card>
         </div>

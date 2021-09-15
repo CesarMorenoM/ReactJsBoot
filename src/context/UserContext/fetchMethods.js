@@ -1,5 +1,6 @@
 const API_URL = process.env.REACT_APP_API
 
+
 /**
  * A function to create basic fetch petitions
  * @param {String} url The url where whe wanna do the petition
@@ -7,7 +8,7 @@ const API_URL = process.env.REACT_APP_API
  * @param {object} [config] Custom configuration to our petition
  * @returns A promise (The json of the response | custom error msj)
  */
-const fetchPetition = (url, name, config,id) => {
+ const fetchPetition = (url, name, config) => {
   const token = localStorage.getItem('session')
   const auth = { 'Authorization': `bearer ${token}` }
 
@@ -19,17 +20,12 @@ const fetchPetition = (url, name, config,id) => {
   else config = { headers: auth }
 
   return new Promise((result, rej) => {
-    fetch(`${API_URL}/user/${id}/branches`)
-      .then(async res => {
-        const branches = await res.json()
-
-        if (branches.length !== 0) {
-          //Delete the branches without dishes (Bug from mockApi)
-          let utilBranches = branches.filter(branch => branch.dishes.length > 0)
-
-          result(utilBranches)
-        } else rej('Fail to load branches')
-
+    fetch(`${API_URL}${url}`, config)
+      .then(async response => {
+        if (response.ok) {
+          const res = await response.json()
+          result(res)
+        } else rej(`Fail the petition of the ${name}`)
       })
   })
 }
@@ -57,42 +53,16 @@ const fetchPetition = (url, name, config,id) => {
     })
       .then(async response => {
         if (response.ok) {
+          console.log('Restaurant created')
           const restaurant = await response.json()
+          console.log(restaurant)
           res(restaurant)
+          
         } else rej(`Can't add this restaurant`)
       })
   })
 }
 
-// Dishes methods
-/**
- * PUT petition to change the status of an specific dish
- * @param {Number} userId Id of the user
- * @param {Number} branchId Id of the branch
- * @param {Number} dishId Id of the dish
- * @param {Boolean} currentStatus The new status of the dish
- * @returns Promise ( Updated dish | Error msj )
- */
-// export const PUTDishStatus = (userId, branchId, dishId, currentStatus) => {
-//   return new Promise((res, rej) => {
-//     fetch(`${API_URL}/user/${userId}/branches/${branchId}/dishes/${dishId}`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         status: currentStatus
-//       })
-//     })
-//     fetch(`${API_URL}${url}`, config)
-//       .then(async response => {
-//         if (response.ok) {
-//           const res = await response.json()
-//           result(res)
-//         } else rej(`Fail the petition of the ${name}`)
-//       })
-//   })
-// }
 
 // User methods
 /**

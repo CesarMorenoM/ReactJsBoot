@@ -1,20 +1,32 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import UserContext from '../../../context/UserContext/UserContext'
+//import UserContext from '../../../context/UserContext/UserContext'
 import defaultImg from '../../../static/default-img.jpg'
 import './restaurantRegister.scss'
 //Fetch methods
-import {POSTUser} from '../../../context/UserContext/fetchMethods'
+import {POSTUser,GETRestaurantCategories} from '../../../context/UserContext/fetchMethods'
+
 
 const RestaurantRegister = ({nextElement,accountInfo,restaurant}) => {
-  const { resCategories } = useContext(UserContext)
+  //const { resCategories } = useContext(UserContext)
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const [resCategories, setResCategories] = useState([])
+  if (!restaurant) restaurant = {}
 
   const addRestaurant = restaurantData => {
-    if (!restaurant) restaurant = {}
-    if (nextElement) nextElement()
+    console.log({...restaurantData,...accountInfo})
     POSTUser({...restaurantData,...accountInfo})
+    if (nextElement) nextElement()
+    
   }
+
+  useEffect(() => {
+    
+    if (resCategories !== []) {
+      GETRestaurantCategories().then((res)=>setResCategories(res)) 
+    }
+
+  }, [resCategories])
 
   return (
     <form id='restaurantRegister' onSubmit={handleSubmit(addRestaurant)} className="restaurantRegister">

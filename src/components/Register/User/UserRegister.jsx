@@ -4,7 +4,7 @@ import './userRegister.scss'
 const UserRegister = ({ user,nextElement,setAccountInfo }) => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   if (!user) user = {}
-
+  
   const createUser = data => {
     if (nextElement) {
       nextElement()
@@ -31,7 +31,7 @@ const UserRegister = ({ user,nextElement,setAccountInfo }) => {
       <span className='error' >{errors?.email?.message}</span>
 
       {
-        !user &&
+        !user?null:
         <>
           <label className='label'>Password</label>
           <input name='password' className='input' placeholder='Password' type='password'
@@ -44,9 +44,8 @@ const UserRegister = ({ user,nextElement,setAccountInfo }) => {
         </>
       }
 
-
-
     </form>
+
   )
 }
 
