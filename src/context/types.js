@@ -4,7 +4,11 @@ const TYPES = {
     LOGOUT: 'Log out',
     BRANCHES: 'Save the branches info',
     FRANCHISE: 'Is the user a franchise?',
-    UPDATE_BRANCHES: 'Update all the branches with specific information'
+    UPDATE_BRANCHES: 'Update all the branches with specific information',
+    CATEGORIES: {
+      DISH_C: 'Update the categories of the dishes',
+      RESTAURANT_C: 'Update the categories of the restaurants'
+    }
   },
   MENU: {
     CREATE: {

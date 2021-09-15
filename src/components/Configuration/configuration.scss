@@ -1,0 +1,28 @@
+@import '../../style/variables';
+@import '../../style/mixins';
+
+.configuration {
+	padding: 2em;
+	&__user {
+		form {
+			padding: 0;
+		}
+	}
+	&__restaurant {
+		.restaurant {
+			font-size: 1.2em;
+			font-weight: 600;
+			cursor: pointer;
+			box-shadow: $basicShadow;
+			padding: 1em;
+			margin-block: 1em;
+			border-radius: 0.5em;
+			form {
+				margin-top: 1.5em;
+			}
+			&:hover {
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			}
+		}
+	}
+}
