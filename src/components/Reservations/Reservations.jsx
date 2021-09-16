@@ -13,81 +13,17 @@ import './reservations.scss'
 
 const Reservations = () => {
   //Get the branches
-  const { branches: branchesInfo } = useContext(UserContext)
-  let branches = branchesInfo
-  let franch = false
+  const { branches, reservations, isFranchise } = useContext(UserContext)
 
-  if (branchesInfo.length > 1) {
-    branches = [...branchesInfo]
-    branches.shift()
-    franch = true
-  }
   const [currentBranch, setCurrentBranch] = useState(branches[0])
 
-  let events = [
-    {
-      "userName": 'Santiago',
-      "orderDate": "2021-09-05T21:25:55.380Z",
-      "numberPeople": 7,
-      "dishesList": [
-        {
-          "name": 'Tacos al pastor',
-          "dishId": 0,
-          "quantity": 7,
-          "notes": "More sauce please"
-        },
-        {
-          "name": 'Arroz con pollo',
-          "dishId": 0,
-          "quantity": 1
-        },
-        {
-          "name": 'Arroz con pollo',
-          "dishId": 0,
-          "quantity": 2,
-          "notes": "Without carrot"
-        }
-      ]
-    },
-    {
-      "userName": 'Ana María',
-      "orderDate": "2021-09-05T23:25:55.380Z",
-      "numberPeople": 2,
-    },
-    {
-      "userName": 'Juan Carlos',
-      "orderDate": "2021-09-05T19:50:55.380Z",
-      "numberPeople": 15,
-      "dishesList": [
-        {
-          "name": 'Arroz con pollo',
-          "dishId": 0,
-          "quantity": 3,
-        }
-      ]
-    },
-    {
-      "userName": 'Pedro',
-      "orderDate": "2021-09-04T23:50:55.380Z",
-      "numberPeople": 2,
-      "dishesList": [
-        {
-          "name": 'Arroz con atún',
-          "dishId": 0,
-          "quantity": 4,
-          "notes": "Without tuna"
-        }
-      ]
-    }
-  ]
-
-  //Order the events
-  if (events) {
-    events = events.sort((a, b) => new Date(a.orderDate) - new Date(b.orderDate))
-  }
+  const currentReservations = Object.keys(reservations).length !== 0
+    ? Object.values(reservations[currentBranch.id]).sort((a, b) => new Date(a.orderDate) - new Date(b.orderDate))
+    : undefined
 
   const [navigation, setNavigation] = useState(0)
-  const { displayToday, days, currentDay, setCurrentDay } = useCalendar(navigation, events)
+
+  const { displayToday, days, currentDay, setCurrentDay } = useCalendar(navigation, currentReservations)
 
   //Set the current date to display
   let currentDisplay
@@ -109,11 +45,11 @@ const Reservations = () => {
       : setNavigation(navigation - 1)
   }
 
-  if (!currentBranch || !currentDay || !currentDisplay) return <Loader />
+  if (!currentBranch || !currentDay || !currentDisplay || !currentReservations) return <Loader />
   return (
     <div className='reservations'>
       {
-        !franch
+        !isFranchise
           ? <div className='reservations__header'>
             <h1>{currentBranch.name}</h1>
           </div>

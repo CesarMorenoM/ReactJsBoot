@@ -58,7 +58,7 @@ const RestaurantRegister = ({nextElement,accountInfo,restaurant,setAccountInfo})
             placeholder='Telephone number' defaultValue={restaurant.phone || ''} />
           <select className='input' readOnly={!restaurant.isMain}
             defaultValue={restaurant.restaurantCategoryId || ''}
-            {...register("dishCategoryId")}>
+            {...register("restaurantCategoryId")}>
             {
               resCategories.map(category =>
                 <option key={category.id} value={category.id}>{category.name}</option>

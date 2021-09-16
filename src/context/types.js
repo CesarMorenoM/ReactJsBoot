@@ -23,6 +23,11 @@ const TYPES = {
     DELETE: {
       DISH: 'Delete a dish from the database'
     }
+  },
+  RESERVATIONS: {
+    GET_COPY: 'Create a copy in memory of the reservations',
+    CONFIRM: 'Confirm an specific reservation',
+    CANCEL: 'Cancel an specific reservation'
   }
 }
 
