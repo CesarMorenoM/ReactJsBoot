@@ -54,9 +54,8 @@ const API_URL = process.env.REACT_APP_API
       .then(async response => {
         if (response.ok) {
           console.log('Restaurant created')
-          const restaurant = await response.json()
-          console.log(restaurant)
-          res(restaurant)
+          const resNumber = await response.json()
+          res(resNumber)
           
         } else rej(`Can't add this restaurant`)
       })

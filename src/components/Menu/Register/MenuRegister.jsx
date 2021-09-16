@@ -20,8 +20,8 @@ const MenuRegister = ({ dish, closeModal, branch, action, registerType, nextElem
   }
 
   const addDishHandler = data => {
-    if (nextElement) nextElement()
     addDish(branch.id, data)
+    if (nextElement) nextElement()
     if (!registerType) closeModal()
   }
 

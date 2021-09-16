@@ -1,21 +1,27 @@
 import { useContext, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-//import UserContext from '../../../context/UserContext/UserContext'
+import { set, useForm } from 'react-hook-form'
+import UserContext from '../../../context/UserContext/UserContext'
 import defaultImg from '../../../static/default-img.jpg'
 import './restaurantRegister.scss'
 //Fetch methods
 import {POSTUser,GETRestaurantCategories} from '../../../context/UserContext/fetchMethods'
 
 
-const RestaurantRegister = ({nextElement,accountInfo,restaurant}) => {
+const RestaurantRegister = ({nextElement,accountInfo,restaurant,setAccountInfo}) => {
   //const { resCategories } = useContext(UserContext)
+  const { logIn } = useContext(UserContext)
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [resCategories, setResCategories] = useState([])
   if (!restaurant) restaurant = {}
 
-  const addRestaurant = restaurantData => {
+  const addRestaurant = async restaurantData => {
     console.log({...restaurantData,...accountInfo})
-    POSTUser({...restaurantData,...accountInfo})
+    const resNumber = await POSTUser({...restaurantData,...accountInfo})
+    //setAccountInfo(branch = {id:setAccountInfo})
+    console.log(resNumber)
+    setAccountInfo({branch:{id:resNumber}})
+    const verification = await logIn({email:accountInfo.email,password:accountInfo.password})
+    if (verification) console.log(verification) 
     if (nextElement) nextElement()
     
   }

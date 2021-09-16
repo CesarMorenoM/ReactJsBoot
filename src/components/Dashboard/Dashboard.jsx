@@ -16,7 +16,6 @@ const Dashboard = () => {
   const { user, branches } = useContext(UserContext)
   const [branch, setBranch] = useState()
 
-
   useEffect(() => {
     if (branches !== undefined) setBranch(branches[0])
   }, [branches])

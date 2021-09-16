@@ -1,5 +1,7 @@
 //libraries
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
 //components
 import MenuRegister from '../Menu/Register/MenuRegister'
 import RestaurantRegister from './Restaurant/RestaurantRegister'
@@ -17,6 +19,8 @@ const Register = () => {
     { value: 2, title: 'register your restaurant', form: 'restaurantRegister' },
     { value: 3, title: 'create your first dish', form:'dishRegister'}
   ])
+  const history = useHistory()
+
   const restaurant = {isMain:true}
 
   const [accountInfo, setAccountInfo] = useState({})
@@ -25,6 +29,7 @@ const Register = () => {
 
   const handleNext = () => {
     if (step !== 2) setStep(step + 1)
+    if (step ===2) history.push('/')
   }
 
   const handlePrev = () => {
@@ -48,8 +53,8 @@ const Register = () => {
         <div className="register__content">
           <Card title={`Let's ${steps[step].title}`}>
             {step === 0 && <UserRegister nextElement={handleNext} setAccountInfo={setAccountInfo}/>}
-            {step === 1 && <RestaurantRegister nextElement={handleNext} accountInfo={accountInfo} restaurant={restaurant}/>}
-            {step === 2 && <MenuRegister registerType nextElement={handleNext}/>}
+            {step === 1 && <RestaurantRegister nextElement={handleNext} accountInfo={accountInfo} restaurant={restaurant} setAccountInfo={setAccountInfo}/>}
+            {step === 2 && <MenuRegister registerType nextElement={handleNext} branch={accountInfo.branch}/>}
           </Card>
         </div>
         {/* Submit Button */}
