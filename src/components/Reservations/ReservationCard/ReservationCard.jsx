@@ -1,12 +1,14 @@
 //libraries
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 //personal
-import { calculateDateDifference, updateUntilTimeText } from '../../../helpers/helpers'
+import { calculateDateDifference, capitalize, updateUntilTimeText } from '../../../helpers/helpers'
 import './reservationCard.scss'
+import UserContext from '../../../context/UserContext/UserContext'
 
 const ReservationCard = ({ event }) => {
 
+  const { deleteReservation, confirmReservation } = useContext(UserContext)
   const [untilTime, setUntilTime] = useState()
   const eventHourText = new Date(event.orderDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 
@@ -36,7 +38,7 @@ const ReservationCard = ({ event }) => {
         <span>{untilTime}</span>
       </h3>
       <div className='reservationCard__info'>
-        <p className='reservationCard__text'> Diner <span> {event.userName} </span> </p>
+        <p className='reservationCard__text'> Diner <span> {capitalize(event.name)} </span> </p>
         <p className='reservationCard__text'> People <span> {event.numberPeople}  </span> </p>
       </div>
       {
@@ -57,8 +59,8 @@ const ReservationCard = ({ event }) => {
       {
         untilTime !== 'Expired'
         && <div className='reservationCard__buttons'>
-          <button className='delete'>Delete</button>
-          <button className='confirm'>Confirm</button>
+          <button className='delete' onClick={() => deleteReservation(event.id)}>Cancel</button>
+          <button className='confirm' onClick={() => confirmReservation(event.id)}>Confirm</button>
         </div>
       }
     </div>

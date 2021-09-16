@@ -30,11 +30,7 @@ const fetchPetition = (url, name, config) => {
 }
 
 // User methods
-/**
- * GET petition for an user
- * @param {Number} id Id of the user we're looking for
- * @returns A promise ( User | Error msj )
- */
+
 export const GETUser = (email, password) => {
   return new Promise((result, rej) => {
     fetch(`${API_URL}/users/login`, {
@@ -55,6 +51,7 @@ export const GETUser = (email, password) => {
       })
   })
 }
+
 // Categories
 export const GETCategories = () => fetchPetition('/dish-categories', 'categories', null)
 
@@ -70,7 +67,6 @@ export const GETDishes = (id) => fetchPetition(`/dishes/restaurants/${id}`, 'dis
 
 export const GETBestDishes = (id) => fetchPetition(`/dashboard/bestselling-dishes/restaurants/${id}`, 'best dishes')
 
-
 // Dishes methods
 export const PUTDishStatus = (dishId, branchId) => {
   const bodyInfo = JSON.stringify({
@@ -83,14 +79,6 @@ export const PUTDishStatus = (dishId, branchId) => {
   }
 
   return fetchPetition(`/dishes/${dishId}/change-status`, 'statuses of the dishes', config)
-}
-
-export const DELETEDish = (dishId, branchId) => {
-  const config = {
-    method: 'DELETE'
-  }
-
-  return fetchPetition('deletedishurl', 'delete of the dish', config)
 }
 
 export const PUTDishInfo = (dishId, data, branchId) => {
@@ -129,3 +117,28 @@ export const POSTDish = (data, branchId) => {
 
   return fetchPetition('/dishes', 'dish', config)
 }
+
+// Reservations
+export const GETReservations = (id) => {
+  const lastReservation = new Date().setYear(new Date().getFullYear() - 10)
+  const newReservation = new Date().setYear(new Date().getFullYear() + 10)
+
+  const filter = JSON.stringify({
+    "dateFrom": new Date(lastReservation).toISOString(),
+    "dateTo": new Date(newReservation).toISOString()
+  })
+
+  const config = {
+    method: 'POST',
+    body: filter,
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }
+
+  return fetchPetition(`/bookings/restaurants/${id}`, 'reservations', config)
+}
+
+export const CANCELReservation = (id) => fetchPetition(`/bookings/${id}/cancel-byrestaurant`, 'remove of the reservation', { method: "PATCH" })
+
+export const CONFIRMReservation = (id) => fetchPetition(`/bookings/${id}/confirm`, 'confirm of the reservation', { method: "PATCH" })

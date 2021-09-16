@@ -8,6 +8,7 @@ import useMenu from './useMenu'
 //utility
 import { notifyError } from '../../helpers/helpers'
 import { GETBestDishes, GETBranches, GETCategories, GETDishes, GETRestaurant, GETRestaurantCategories, GETUser } from './fetchMethods'
+import useReservations from './useReservations'
 
 
 const UserContext = createContext()
@@ -124,6 +125,9 @@ export const UserContextProvider = ({ children }) => {
   const { dishes, switchDishStatus, updateDishInfo, deleteDish, addDish }
     = useMenu(state.branches, updateBranchInfo, state.user)
 
+  const { reservations, confirmReservation, deleteReservation }
+    = useReservations(state.branches)
+
   return <UserContext.Provider value={{
     user: state.user,
     branches: state.branches,
@@ -133,6 +137,7 @@ export const UserContextProvider = ({ children }) => {
     logOut,
     isAuth,
     isFranchise: state.franchise,
+    reservations, confirmReservation, deleteReservation,
     dishes, switchDishStatus, updateDishInfo, deleteDish, addDish, noFranchise
   }}>
     {children}
