@@ -35,12 +35,16 @@ const Dashboard = () => {
       <Card icon="restaurant" imp>
         <div>
           <h3>Best seller</h3>
-          <p>{branch.bestDishes[0].name}</p>
+          <p>{branch.bestDishes[0]?.name || 'There is not a best dish yet'}</p>
         </div>
       </Card>
       <Card title="Best-Selling Dishes">
         <div>
-          <DishList dishes={branch.bestDishes} quantity={bestDishesQuantity} />
+          {
+            branch.bestDishes.length === 0
+              ? <h2>There is not sells yet</h2>
+              : <DishList dishes={branch.bestDishes} quantity={bestDishesQuantity} />
+          }
         </div>
       </Card>
     </div>
